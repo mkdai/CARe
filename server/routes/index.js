@@ -4,3 +4,5 @@ router.use('/home', require('./landingPage'));
 router.use('/search', require('./search'));
 router.use('/shopProfile', require('./shopProfile'));
 router.use('/userProfile', require('./userProfile'));
+
+module.exports = router;
