@@ -1,13 +1,15 @@
 const Sequelize = require('sequelize');
 const path = require('path');
 const dbURL = require(path.resolve(__dirname, '../env/config')).dbURL;
+console.log(dbURL);
 
-const db = new Sequelize(dbURL, 'username', 'password', {
-  host: 'localhost',
-  dialect: 'postgres'})
+const db = new Sequelize(dbURL, {
+  dialect: 'postgres',
+  pool: {max: 5, min: 0, idle: 10000}
+})
 
 db.authenticate()
   .then(() => console.log('successfully connected to db'))
   .catch(err => console.log('could not connect to db: ', err))
 
-exports.module = db;
+module.exports = db;
