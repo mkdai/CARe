@@ -10,7 +10,7 @@ const User = db.define('user', {
 const Shop = db.define('shop', {
   address: { type: Sequelize.STRING, allowNull: false },
   email: { type: Sequelize.TEXT, allowNull: false },
-  mobile: { type: Sequelize.INTEGER, allowNull: true },
+  mobile: { type: Sequelize.BOOLEAN, allowNull: true },
   phone: { type: Sequelize.INTEGER, allowNull: false },
   pickup: { type: Sequelize.BOOLEAN, allowNull: false },
   picture: { type: Sequelize.TEXT, allowNull: true },
@@ -28,7 +28,7 @@ const Car = db.define('car', {
 const HistoryEntry = db.define('historyentry', {
   date: { type: Sequelize.DATE, allowNull: false },
   description: { type: Sequelize.TEXT, allowNull: false },
-  mileage: { type: Sequelize.FLOAT, allowNull: false },
+  mileage: { type: Sequelize.INTEGER, allowNull: false },
   notes: { type: Sequelize.TEXT, allowNull: true }
 });
 
@@ -47,8 +47,7 @@ const Favorite = db.define('favorite', {});
 
 const Message = db.define('message', {
   from: { type: Sequelize.STRING, allowNull: false },
-  message: { type: Sequelize.TEXT, allowNull: false },
-  to: { type: Sequelize.STRING, allowNull: false }
+  message: { type: Sequelize.TEXT, allowNull: false }
 });
 
 const Service = db.define('service', {
