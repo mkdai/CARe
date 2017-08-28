@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/public/index.html'))
 });
 
-app.listen(PORT, err  => {
+app.listen(PORT, err => {
   if (err) {
     console.log(`Error connecting to server ${err}`);
   } 
