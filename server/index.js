@@ -6,8 +6,18 @@ const models = require('../db/index');
 const path = require('path');
 const routes = require('./routes/index');
 const timekit = require('timekit-sdk');
+const { timekitApp, timekitEmail, timekitPassword } = require('../env/config.js')
+
+
+
+timekit.configure({ app: timekitApp })
+
+timekit.auth({ email: timekitEmail, password: timekitPassword })
+  .then(() => console.log('successfully connected with timekit'))
+  .catch(err => console.log('could not connect with timekit', err))
 
 const PORT =  process.env.PORT || 3000;
+
 
 const app = express()
   .use(cors())
