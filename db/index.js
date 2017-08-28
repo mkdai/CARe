@@ -29,7 +29,8 @@ const HistoryEntry = db.define('historyentry', {
   date: { type: Sequelize.DATE, allowNull: false },
   description: { type: Sequelize.TEXT, allowNull: false },
   mileage: { type: Sequelize.INTEGER, allowNull: false },
-  notes: { type: Sequelize.TEXT, allowNull: true }
+  notes: { type: Sequelize.TEXT, allowNull: true },
+  service: { type: Sequelize.STRING, allowNull: false }
 });
 
 const Review = db.define('review', {
@@ -40,6 +41,7 @@ const Review = db.define('review', {
 
 const Appointment = db.define('appointment', {
   date: { type: Sequelize.DATE, allowNull: false },
+  service: { type: Sequelize.STRING, allowNull: false },
   time: { type: Sequelize.STRING, allowNull: false }
 });
 
@@ -50,44 +52,23 @@ const Message = db.define('message', {
   message: { type: Sequelize.TEXT, allowNull: false }
 });
 
-const Service = db.define('service', {
-  service: { type: Sequelize.STRING, allowNull: false }
-});
-
 User.hasMany(Car);
 Car.belongsTo(User);
 
-User.hasMany(Review);
-Review.belongsTo(User);
+Favorite.belongsTo(User, {through: Favorite, foreignKey: {name: 'userId', unique: false}});
+Favorite.belongsTo(Shop, {through: Favorite, foreignKey: {name: 'shopId', unique: false}});
 
-User.hasMany(Appointment);
-Appointment.belongsTo(User);
+Message.belongsTo(User, {through: Message, foreignKey: {name: 'userId', unique: false}});
+Message.belongsTo(Shop, {through: Message, foreignKey: {name: 'shopId', unique: false}});
 
-User.hasMany(Favorite);
-Favorite.belongsTo(User);
+Review.belongsTo(User, {through: Review, foreignKey: {name: 'userId', unique: false}});
+Review.belongsTo(Shop, {through: Review, foreignKey: {name: 'shopId', unique: false}});
 
-User.hasMany(Message);
-Message.belongsTo(User);
+Appointment.belongsTo(User, {through: Appointment, foreignKey: {name: 'userId', unique: false}});
+Appointment.belongsTo(Shop, {through: Appointment, foreignKey: {name: 'shopId', unique: false}});
 
-Shop.hasMany(HistoryEntry);
-HistoryEntry.belongsTo(Shop);
-
-Shop.hasMany(Review);
-Review.hasMany(Shop);
-
-Shop.hasMany(Appointment);
-Appointment.belongsTo(Shop);
-
-Shop.hasMany(Favorite);
-Favorite.hasMany(Shop);
-
-Shop.hasMany(Message);
-Message.belongsTo(Shop);
-
-Car.hasMany(HistoryEntry);
-HistoryEntry.belongsTo(Car);
-
-
+HistoryEntry.belongsTo(Car, {through: HistoryEntry, foreignKey: {name: 'carId', unique: false}});
+HistoryEntry.belongsTo(Shop, {through: HistoryEntry, foreignKey: {name: 'shopId', unique: false}});
 
 User.sync();
 Shop.sync();
@@ -97,7 +78,6 @@ Review.sync();
 Appointment.sync();
 Favorite.sync();
 Message.sync();
-Service.sync();
 
 module.exports = {
   User,
@@ -107,6 +87,5 @@ module.exports = {
   Review,
   Appointment,
   Favorite,
-  Message,
-  Service
+  Message
 };
