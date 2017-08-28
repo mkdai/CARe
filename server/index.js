@@ -7,14 +7,14 @@ const path = require('path');
 const routes = require('./routes/index');
 const timekitDB = require('../db/timekitDB')
 
-const PORT =  process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express()
   .use(cors())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
   .use(express.static(path.resolve(__dirname, '../client/public')))
-  .use('/api', routes)
+  .use('/api', routes);
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/public/index.html'))
