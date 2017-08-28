@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import LandingPage from './components/landingPage/LandingPage.jsx';
 
 // const reducers = combineReducers({
 
@@ -11,6 +12,6 @@ import { Provider } from 'react-redux';
 
 render(
   <Provider>
-    <div>React, is cool sometimes, sometimes</div>
+    <LandingPage />
   </Provider>, document.getElementById('app')
 )
