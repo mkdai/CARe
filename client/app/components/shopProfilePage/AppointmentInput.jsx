@@ -3,7 +3,8 @@ import {
   Form, 
   FormGroup,
   FormControl,
-  ControlLabel
+  ControlLabel,
+  Button
 } from 'react-bootstrap';
 
 class AppointmentInput extends Component {
@@ -30,13 +31,17 @@ class AppointmentInput extends Component {
           </FormControl>
         </FormGroup>
 
-        <FormGroup controlId="date">
+      <FormGroup controlId="date">
         <ControlLabel>Date</ControlLabel>
         {'  '}
         <FormControl componentClass="select" placeholder="date">
         { this.props.dates.map((date, i) => <option value={date} key={i}>{date}</option>) }
         </FormControl>
       </FormGroup>
+
+      <Button type="submit">
+        Find Appointments
+      </Button>
 
       </Form>
     );
