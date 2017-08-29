@@ -11,7 +11,6 @@ class Appointments extends Component {
       services: [],
       dates: [],
       times:[],
-      date: ''
     }
   }
 

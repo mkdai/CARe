@@ -47,7 +47,7 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/" component={ShopProfilePage} />
+                    <Route exact path="/" component={LandingPage} />
                     <Route path="/loadingpage" render={() => <LoadingPage auth={this.auth} />} />
                 </Switch>
             </BrowserRouter>

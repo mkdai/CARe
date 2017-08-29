@@ -13,6 +13,7 @@ import TimePicker from 'react-bootstrap-time-picker';
 class AppointmentInput extends Component {
   constructor(props) {
     super(props);
+    
   }
 
   render() {
@@ -33,6 +34,7 @@ class AppointmentInput extends Component {
         </FormGroup>
 
       <FormGroup controlId="date">
+        <ControlLabel>Date</ControlLabel>
         <DatePicker 
           id="datepicker" 
           value={this.props.date}
