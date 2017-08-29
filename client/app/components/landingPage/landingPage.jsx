@@ -11,7 +11,6 @@ export default class LandingPage extends React.Component{
     return (
       <div>
         <NavBar />
-        
         <header className="intro-header" >
         <div className="container">
           <div className="intro-message">

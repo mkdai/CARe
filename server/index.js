@@ -5,7 +5,9 @@ const express = require('express');
 const models = require('../db/index');
 const path = require('path');
 const routes = require('./routes/index');
-const timekitDB = require('../db/timekitDB')
+const timekitDB = require('../db/timekitDB.js');
+const $ = require('jquery');
+
 
 const PORT = process.env.PORT || 3000;
 
