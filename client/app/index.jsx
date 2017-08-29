@@ -3,15 +3,16 @@ import { render } from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import App from './components/App.jsx';
+import CurrentAuth from './reducers/authReducer.js';
 
-// const reducers = combineReducers({
+const reducers = combineReducers({
+  currentAuth: CurrentAuth
+});
 
-// });
-
-// const store = createStore(reducers);
+const store = createStore(reducers);
 
 render(
-  <Provider>
+  <Provider store={store}>
     <App />
   </Provider>, document.getElementById('app')
 )
