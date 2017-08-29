@@ -13,14 +13,22 @@ class AppointmentInput extends Component {
 
   render() {
     return (
-      <Form>
-        <FormGroup controlId="formControlsSelect">
-          <ControlLabel>Select</ControlLabel>
-          <FormControl componentClass="select" placeholder="select">
-          <option value="select">select</option>
+      <Form inline>
+        <FormGroup controlId="time">
+          <ControlLabel>Time</ControlLabel>
+          {'  '}
+          <FormControl componentClass="select" placeholder="{time}">
           { this.props.times.map((hour, i) => <option value={hour} key={i}>{hour}</option>) }
           </FormControl>
         </FormGroup>
+
+        <FormGroup controlId="date">
+        <ControlLabel>Date</ControlLabel>
+        {'  '}
+        <FormControl componentClass="select" placeholder="{time}">
+        { this.props.times.map((hour, i) => <option value={hour} key={i}>{hour}</option>) }
+        </FormControl>
+      </FormGroup>
       </Form>
     );
   }
