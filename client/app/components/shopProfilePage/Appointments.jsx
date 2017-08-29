@@ -6,13 +6,22 @@ class Appointments extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      services: [],
       dates: [],
       times:[],
     }
   }
 
   componentDidMount() {
-    this.setState({ times: ["1", '2', '3', '4'] })
+    let today = new Date(2017, 7, 28).toString();
+    let tmrw = new Date(2017, 7,29).toString();
+
+
+    this.setState({ 
+      services : ['Oil Change', 'Detailing', 'Diagnostic'],    
+      times: ["1", '2', '3', '4'],
+      dates: [today, tmrw] 
+    })
   }
 
   render() {
