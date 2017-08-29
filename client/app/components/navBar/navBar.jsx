@@ -1,8 +1,18 @@
 import React from 'react';
+import Auth from '../../../Auth/Auth.js';
+const auth = new Auth();
 
 export default class NavBar extends React.Component{
-    constructor(){
+    constructor() {
         super();
+    } 
+
+    login() {
+        auth.login();
+    }
+
+    logout() {
+        auth.logout();
     }
 
     render(){
@@ -15,15 +25,20 @@ export default class NavBar extends React.Component{
                 </button>
                 <div className="collapse navbar-collapse navbar-default" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">About</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Services</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Contact</a>
-                    </li>
+                        {
+                            !auth.isAuthenticated() && (
+                                <li className="nav-item" onClick={this.login}>
+                                    <a className="nav-link" href="#">SIGN UP | LOGIN</a>
+                                </li>
+                            )
+                        }
+                        {
+                            auth.isAuthenticated() && (
+                                <li className="nav-item" onClick={this.logout}>
+                                    <a className="nav-link" href="#">LOGOUT</a>
+                                </li>
+                            )
+                        }
                     </ul>
                 </div>
                 </div>
