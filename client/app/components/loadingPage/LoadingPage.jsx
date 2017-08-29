@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class componentName extends Component {
+function mapStateToProps(state) {
+  return {
+    currentAuth: state.currentAuth.auth
+  }
+}
+
+class LoadingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,8 +31,8 @@ export default class componentName extends Component {
   }
 
   componentDidMount() {
-    this.props.auth.handleAuthentication(() => {
-      this.setState({ LoggedIn: this.props.auth.isAuthenticated() })
+    this.props.currentAuth.handleAuthentication(() => {
+      this.setState({ LoggedIn: this.props.currentAuth.isAuthenticated() })
     });
   }
 
@@ -33,3 +40,5 @@ export default class componentName extends Component {
     return this.handleRedirect()
   }
 }
+
+export default connect(mapStateToProps)(LoadingPage);

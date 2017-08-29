@@ -1,18 +1,30 @@
 import React from 'react';
 import Auth from '../../../Auth/Auth.js';
-const auth = new Auth();
+import { connect } from 'react-redux';
 
-export default class NavBar extends React.Component{
+function mapStateToProps(state) {
+    return {
+        currentAuth: state.currentAuth.auth
+    }
+}
+
+class NavBar extends React.Component{
     constructor() {
         super();
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
+        this.state = {
+            isAuthed: true
+        }
     } 
 
     login() {
-        auth.login();
+        this.props.currentAuth.login();
     }
 
     logout() {
-        auth.logout();
+        this.props.currentAuth.logout();
+        this.setState({ isAuthed: false })
     }
 
     render(){
@@ -26,16 +38,16 @@ export default class NavBar extends React.Component{
                 <div className="collapse navbar-collapse navbar-default" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
                         {
-                            !auth.isAuthenticated() && (
+                            !this.props.currentAuth.isAuthenticated() && (
                                 <li className="nav-item" onClick={this.login}>
-                                    <a className="nav-link" href="#">SIGN UP | LOGIN</a>
+                                    <a className="nav-link" href='#'>SIGN UP | LOGIN</a>
                                 </li>
                             )
                         }
                         {
-                            auth.isAuthenticated() && (
+                            this.props.currentAuth.isAuthenticated() && (
                                 <li className="nav-item" onClick={this.logout}>
-                                    <a className="nav-link" href="#">LOGOUT</a>
+                                    <a className="nav-link" href='#'>LOGOUT</a>
                                 </li>
                             )
                         }
@@ -46,3 +58,5 @@ export default class NavBar extends React.Component{
         );
     }
 }
+
+export default connect(mapStateToProps)(NavBar);
