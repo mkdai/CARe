@@ -13,13 +13,13 @@ class Appointments extends Component {
   }
 
   componentDidMount() {
-    let today = new Date(2017, 7, 28).toString();
-    let tmrw = new Date(2017, 7,29).toString();
+    let today = new Date(2017, 7, 28).getDate();
+    let tmrw = new Date(2017, 7,29).getDate();
 
 
     this.setState({ 
       services : ['Oil Change', 'Detailing', 'Diagnostic'],    
-      times: ["1", '2', '3', '4'],
+      times: ['1:00pm', '2:00pm', '3:00pm', '4:00pm'],
       dates: [today, tmrw] 
     })
   }

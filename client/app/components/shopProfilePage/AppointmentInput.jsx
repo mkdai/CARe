@@ -6,6 +6,9 @@ import {
   ControlLabel,
   Button
 } from 'react-bootstrap';
+import DatePicker from 'react-bootstrap-date-picker';
+import TimePicker from 'react-bootstrap-time-picker';
+
 
 class AppointmentInput extends Component {
   constructor(props) {
