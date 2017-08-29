@@ -1,6 +1,5 @@
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
-import { Redirect } from 'react-router-dom';
 
 export default class Auth {
   
