@@ -35,8 +35,8 @@ class AppointmentInput extends Component {
       <FormGroup controlId="date">
         <DatePicker 
           id="datepicker" 
-          value={this.props.event}
-          onChange={this.handleDateChange}
+          value={this.props.date}
+          onChange={this.props.handleDateChange}
         /> 
       </FormGroup>
 

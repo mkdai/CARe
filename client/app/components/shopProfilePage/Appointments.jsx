@@ -11,7 +11,7 @@ class Appointments extends Component {
       services: [],
       dates: [],
       times:[],
-      event: ''
+      date: ''
     }
   }
 
@@ -22,12 +22,15 @@ class Appointments extends Component {
   componentDidMount() {
     let today = new Date(2017, 7, 28).getDate();
     let tmrw = new Date(2017, 7,29).getDate();
+    let date = new Date;
+    date = date.toISOString();
 
 
     this.setState({ 
       services : ['Oil Change', 'Detailing', 'Diagnostic'],    
       times: ['1:00pm', '2:00pm', '3:00pm', '4:00pm'],
-      dates: [today, tmrw] 
+      dates: [today, tmrw], 
+      date: date
     })
   }
 
