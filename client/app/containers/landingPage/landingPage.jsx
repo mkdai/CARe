@@ -1,8 +1,6 @@
 import React from 'react';
 import NavBar from '../navBar/NavBar.jsx';
 import Footer from '../footer/Footer.jsx';
-import $ from 'jquery';
-import TimekitBooking from 'timekit-booking';
 
 export default class LandingPage extends React.Component{
   constructor(props){
