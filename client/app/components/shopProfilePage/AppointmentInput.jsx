@@ -16,16 +16,22 @@ class AppointmentInput extends Component {
   }
 
   componentDidMount() {
-    
+    this.setState({times: ['1:00', '2:00', '3:00', '4:00', '5:00']})
   }
 
   render() {
+    console.log(this.state.times)
     return (
       <Form>
       <FormGroup controlId="formControlsSelect">
         <ControlLabel>Select</ControlLabel>
         <FormControl componentClass="select" placeholder="select">
-          <option value="select">select</option>
+        <option value="select">select</option>
+        {
+           this.state.times.map(hour => 
+             <option value={hour}>{hour}</option>
+          )
+        }
           <option value="other">...</option>
         </FormControl>
       </FormGroup>
