@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import AppointmentInput from './AppointmentInput';
 import AppointmentsList from './AppointmentsList';
 
+
+
 class Appointments extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,12 @@ class Appointments extends Component {
       services: [],
       dates: [],
       times:[],
+      event: ''
     }
+  }
+
+  handleDateChange() {
+    console.log('this is working')
   }
 
   componentDidMount() {

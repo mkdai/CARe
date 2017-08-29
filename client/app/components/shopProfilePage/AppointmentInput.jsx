@@ -19,7 +19,6 @@ class AppointmentInput extends Component {
     return (
       <Form inline>
         <FormGroup controlId="service">
-          <ControlLabel>Service</ControlLabel>
           {'  '}
           <FormControl componentClass="select" placeholder="date">
           { this.props.services.map((service, i) => <option value={service} key={i}>{service}</option>) }
@@ -27,7 +26,6 @@ class AppointmentInput extends Component {
         </FormGroup>
 
         <FormGroup controlId="time">
-          <ControlLabel>Time</ControlLabel>
           {'  '}
           <FormControl componentClass="select" placeholder="time">
           { this.props.times.map((hour, i) => <option value={hour} key={i}>{hour}</option>) }
@@ -35,11 +33,11 @@ class AppointmentInput extends Component {
         </FormGroup>
 
       <FormGroup controlId="date">
-        <ControlLabel>Date</ControlLabel>
-        {'  '}
-        <FormControl componentClass="select" placeholder="date">
-        { this.props.dates.map((date, i) => <option value={date} key={i}>{date}</option>) }
-        </FormControl>
+        <DatePicker 
+          id="datepicker" 
+          value={this.props.event}
+          onChange={this.handleDateChange}
+        /> 
       </FormGroup>
 
       <Button type="submit">
