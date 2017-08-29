@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../../components/navBar/NavBar.jsx';
+import NavBar from '../../containers/navBar/NavBar.jsx';
 import Footer from '../../components/footer/Footer.jsx';
 
 export default class LandingPage extends React.Component {

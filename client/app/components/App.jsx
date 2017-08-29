@@ -16,10 +16,9 @@ class App extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={LandingPage} />
-                  {/*
-                      <Route path="/loadingpage" render={() => <LoadingPage auth={this.auth} />} />
+                    <Route path="/loadingpage" render={() => <LoadingPage auth={this.auth} />} />
 
-                  */}  
+
                 </Switch>
             </BrowserRouter>
         );
