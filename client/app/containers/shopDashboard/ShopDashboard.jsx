@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class ShopDashboard extends Component {
   render() {
-    return <div />;
+    return <div>I am the shop dashboard</div>;
   }
 }
 
