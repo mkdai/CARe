@@ -25,8 +25,7 @@ class NavBar extends React.Component {
 
   logout() {
     this.props.currentAuth.logout();
-    // this.setState({ isAuthed: false })
-    return <Redirect to="/" />;
+    this.setState({ isAuthed: false });
   }
 
   render() {

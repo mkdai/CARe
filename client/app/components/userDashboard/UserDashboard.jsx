@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../../containers/navBar/navBar.jsx";
+import NavBar from "../../containers/navBar/NavBar.jsx";
 import Footer from "../footer/Footer.jsx";
 import ProfileHead from "./ProfileHead.jsx";
 import CarHead from "./CarHead.jsx";
