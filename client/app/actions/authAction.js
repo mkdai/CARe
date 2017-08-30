@@ -1,6 +1,6 @@
-export const addAuth = (auth => {
+export const addAuth = auth => {
   return {
-    type: 'ADD_AUTH',
+    type: "ADD_AUTH",
     payload: auth
-  }
-})
+  };
+};
