@@ -4,7 +4,27 @@
   padding: 5%;
 }
 .search-result-entry {
-  height: 200px;
-  background-color: grey;
-  margin-top: 15px;
+  /* height: 200px; */
+  /* background-color: grey; */
+  /* margin-top: 15px; */
+  /* border: 1px solid black; */
+  margin-top: 10px;
+}
+.test {
+  border: 1px solid black;
+  position: relative;
+}
+.distance-info {
+  /* border: 1px solid blue; */
+  padding: 5px;
+  position: absolute;
+  right: 10px;
+  top: 25px;
+}
+.shop-info {
+  /* border: 1px solid red; */
+  padding: 5px;
+}
+.search-grid {
+  margin-top: 100px;
 }

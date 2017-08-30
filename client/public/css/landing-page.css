@@ -4,12 +4,19 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-landing-page/blob/master/LICENSE)
  */
 
-body, html {
+body,
+html {
   width: 100%;
   height: 100%;
 }
 
-body, h1, h2, h3, h4, h5, h6 {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
 }
@@ -18,7 +25,7 @@ a {
   color: red;
 }
 
-a:hover{
+a:hover {
   color: red;
 }
 
@@ -37,7 +44,7 @@ a:hover{
   padding-bottom: 20%;
 }
 
-.intro-message>h1 {
+.intro-message > h1 {
   margin: 0;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
   font-size: 5em;
@@ -49,7 +56,7 @@ a:hover{
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.intro-message>h3 {
+.intro-message > h3 {
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
@@ -57,19 +64,19 @@ a:hover{
   font-size: 80%;
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
   .intro-message {
     padding-bottom: 15%;
   }
-  .intro-message>h1 {
+  .intro-message > h1 {
     font-size: 3em;
   }
-  ul.intro-social-buttons>li {
+  ul.intro-social-buttons > li {
     display: block;
     margin-bottom: 20px;
     padding: 0;
   }
-  ul.intro-social-buttons>li:last-child {
+  ul.intro-social-buttons > li:last-child {
     margin-bottom: 0;
   }
   .intro-divider {
@@ -127,25 +134,25 @@ a:hover{
   margin-top: 0;
 }
 
-@media(max-width:1199px) {
+@media (max-width: 1199px) {
   ul.banner-social-buttons {
     float: left;
     margin-top: 15px;
   }
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
   .banner h2 {
     margin: 0;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     font-size: 3em;
   }
-  ul.banner-social-buttons>li {
+  ul.banner-social-buttons > li {
     display: block;
     margin-bottom: 20px;
     padding: 0;
   }
-  ul.banner-social-buttons>li:last-child {
+  ul.banner-social-buttons > li:last-child {
     margin-bottom: 0;
   }
 }
@@ -172,7 +179,7 @@ p.copyright {
   font-size: 28px;
 }
 
-.my-footer{
+.my-footer {
   padding: 50px 0;
   background-color: black;
 }
@@ -185,7 +192,8 @@ p.copyright {
   color: white;
 }
 
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
   color: red;
 }
 
@@ -193,7 +201,7 @@ p.copyright {
   color: red;
 }
 
-#custom-section-spacer{
+#custom-section-spacer {
   float: left;
   width: 100%;
   border-top: 3px solid #e7e7e7;
@@ -222,17 +230,17 @@ p.copyright {
   padding-top: 10px;
 }
 
-.car-info{
+.car-info {
   text-align: center;
 }
 
-.profile-info{
+.profile-info {
   padding-top: 10px;
   padding-left: 10px;
   font-size: 20px;
 }
 
-#edit-profile-button{
+#edit-profile-button {
   border-radius: 5%;
   background-color: black;
   border: 1px solid black;
@@ -240,122 +248,119 @@ p.copyright {
   width: 40%;
 }
 
-#edit-profile-button:hover{
+#edit-profile-button:hover {
   background-color: red;
 }
 
-.reviews-link{
+.reviews-link {
   font-size: 20px;
 }
 
-.favorites-link{
+.favorites-link {
   font-size: 20px;
 }
 
-#history-tab{
+#history-tab {
   width: 100%;
   font-size: 18px;
 }
 
-#reminders-tab{
+#reminders-tab {
   width: 100%;
   font-size: 18px;
 }
 
-#appointments-tab{
+#appointments-tab {
   width: 100%;
   font-size: 18px;
 }
 
-#summary-tab{
+#summary-tab {
   width: 100%;
   font-size: 18px;
 }
 
-#dashboard-tabs{
+#dashboard-tabs {
   padding-top: 40px;
 }
 
-.tab-content{
+.tab-content {
   padding-top: 20px;
 }
 
-/* Phones */ 
-@media only screen and (max-width : 480px) {
-    #user-pic{
-      display: flex;
-      margin: auto;
-    }
-    #car-pic{
-      display: flex;
-      margin: auto;
-    }
-    .profile-info{
-      text-align: center;
-      padding-top: 10px;
-      padding-left: 0px;
-    }
-    .car-info{
-      text-align: center;
-      padding-left: 0px;
-      padding-bottom: 40px;
-    }
-    #dashboard-tabs{
-      padding-top: 0px;
-    }
-}
-    
-/* Tablets */ 
-@media only screen and (max-width : 768px) {
-  #user-pic{
+/* Phones */
+@media only screen and (max-width: 480px) {
+  #user-pic {
     display: flex;
     margin: auto;
   }
-  .profile-info{
+  #car-pic {
+    display: flex;
+    margin: auto;
+  }
+  .profile-info {
     text-align: center;
     padding-top: 10px;
     padding-left: 0px;
   }
-  .car-info{
+  .car-info {
+    text-align: center;
+    padding-left: 0px;
+    padding-bottom: 40px;
+  }
+  #dashboard-tabs {
+    padding-top: 0px;
+  }
+}
+
+/* Tablets */
+@media only screen and (max-width: 768px) {
+  #user-pic {
+    display: flex;
+    margin: auto;
+  }
+  .profile-info {
+    text-align: center;
+    padding-top: 10px;
+    padding-left: 0px;
+  }
+  .car-info {
     text-align: center;
     padding-left: 0px;
     padding-bottom: 60px;
   }
-  #dashboard-tabs{
+  #dashboard-tabs {
     padding-top: 0px;
   }
 }
-    
+
 /* Desktops */
-@media only screen and (min-width : 768px) {
-  #history-tab{
+@media only screen and (min-width: 768px) {
+  #history-tab {
     width: 25%;
     font-size: 18px;
   }
-  
-  #reminders-tab{
+
+  #reminders-tab {
     width: 25%;
     font-size: 18px;
   }
-  
-  #appointments-tab{
+
+  #appointments-tab {
     width: 25%;
     font-size: 18px;
   }
-  
-  #summary-tab{
+
+  #summary-tab {
     width: 25%;
     font-size: 18px;
   }
-  
 }
-    
+
 /* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {
-    
+@media only screen and (min-width: 992px) {
 }
-    
+
 /* Large Devices, Wide Screens */
-@media only screen and (min-width : 1200px) {
-    
+@media only screen and (min-width: 1200px) {
 }
