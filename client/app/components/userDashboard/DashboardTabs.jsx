@@ -12,7 +12,7 @@ export default class DashboardTabs extends React.Component {
         <ul className="nav nav-tabs nav-justified" role="tablist">
           <li id="history-tab" role="presentation" className="active">
             <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-              <UserHistory />
+              History
             </a>
           </li>
           <li id="reminders-tab" role="presentation">

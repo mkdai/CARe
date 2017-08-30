@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import NavBar from "../../containers/navBar/NavBar.jsx";
 import querystring from "querystring";
+import { Grid, Row, Col, Image } from "react-bootstrap";
 
 class SearchResults extends Component {
   constructor(props) {
@@ -42,25 +43,28 @@ class SearchResults extends Component {
     return (
       <div>
         <NavBar />
-        <Grid>
+        <Grid className="search-grid">
           {this.state.shops.map(shop => {
             return (
-              <div className="row search-result-entry">
-                <div className="col-lg-3 col-xs-3 col-sm-3 col-md-3">
-                  <img
-                    className="shop-profile-pic img-rounded"
+              <Row className="search-result-entry">
+                <Col xs={12} sm={12} md={3} lg={3} className="test">
+                  <Image
                     src={shop.image_url}
+                    responsive
+                    className="shop-profile-pic"
                   />
-                </div>
-                <div className="col-lg-7 col-xs-7 col-sm-7 col-md-7">
-                  <div>{shop.name}</div>
-                  <div>{shop.location.display_address[0]}</div>
-                  <div>{shop.location.display_address[1]}</div>
-                </div>
-                <div className="col-lg-2 col-xs-2 col-sm-2 col-md-2">
-                  {Math.floor(shop.distance * 0.00621371) / 10 + "mi"}
-                </div>
-              </div>
+                </Col>
+                <Col xs={12} sm={12} md={7} lg={7} className="test">
+                  <div className="shop-info">
+                    <div>{shop.name}</div>
+                    <div>{shop.location.display_address[0]}</div>
+                    <div>{shop.location.display_address[1]}</div>
+                  </div>
+                  <div className="distance-info">
+                    {Math.floor(shop.distance * 0.00621371) / 10 + "mi"}
+                  </div>
+                </Col>
+              </Row>
             );
           })}
         </Grid>
