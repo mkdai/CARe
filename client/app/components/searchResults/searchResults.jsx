@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import NavBar from "../../containers/navBar/navBar.jsx";
+import NavBar from "../../containers/navBar/NavBar.jsx";
 import querystring from "querystring";
-import { Grid } from "react-bootstrap";
 
 class SearchResults extends Component {
   constructor(props) {

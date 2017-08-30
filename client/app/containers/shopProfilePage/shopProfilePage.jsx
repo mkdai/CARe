@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Appointments from '../../components/shopProfilePage/Appointments.jsx'
+import React, { Component } from "react";
+import Appointments from "../../components/shopProfilePage/Appointments.jsx";
 
 class SearchProfilePage extends Component {
   render() {
