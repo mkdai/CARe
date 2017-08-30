@@ -15,7 +15,7 @@ export default class LandingPage extends React.Component {
         <div className="container">
           <div className="intro-message">
             <h1>CARe</h1>
-            <h3>A Template by Start Bootstrap</h3>
+            <h3>Car Service Made Easy</h3>
             <hr className="intro-divider" />
             <ul className="list-inline intro-social-buttons">
               <li className="list-inline-item">

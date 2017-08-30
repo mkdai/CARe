@@ -14,6 +14,14 @@ body, h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
+a {
+  color: red;
+}
+
+a:hover{
+  color: red;
+}
+
 .intro-header {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -185,3 +193,169 @@ p.copyright {
   color: red;
 }
 
+#custom-section-spacer{
+  float: left;
+  width: 100%;
+  border-top: 3px solid #e7e7e7;
+}
+
+#user-pic {
+  width: 50%;
+  height: auto;
+  border-radius: 5%;
+}
+
+#car-pic {
+  width: 50%;
+  height: auto;
+  border-radius: 50%;
+  display: flex;
+  margin: auto;
+}
+
+#add-car-pic {
+  width: 15%;
+  height: auto;
+  display: flex;
+  margin: auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.car-info{
+  text-align: center;
+}
+
+.profile-info{
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+#edit-profile-button{
+  border-radius: 5%;
+  background-color: black;
+  border: 1px solid black;
+  font-size: 16px;
+  width: 40%;
+}
+
+#edit-profile-button:hover{
+  background-color: red;
+}
+
+.reviews-link{
+  font-size: 20px;
+}
+
+.favorites-link{
+  font-size: 20px;
+}
+
+#history-tab{
+  width: 100%;
+  font-size: 18px;
+}
+
+#reminders-tab{
+  width: 100%;
+  font-size: 18px;
+}
+
+#appointments-tab{
+  width: 100%;
+  font-size: 18px;
+}
+
+#summary-tab{
+  width: 100%;
+  font-size: 18px;
+}
+
+#dashboard-tabs{
+  padding-top: 40px;
+}
+
+.tab-content{
+  padding-top: 20px;
+}
+
+/* Phones */ 
+@media only screen and (max-width : 480px) {
+    #user-pic{
+      display: flex;
+      margin: auto;
+    }
+    #car-pic{
+      display: flex;
+      margin: auto;
+    }
+    .profile-info{
+      text-align: center;
+      padding-top: 10px;
+      padding-left: 0px;
+    }
+    .car-info{
+      text-align: center;
+      padding-left: 0px;
+      padding-bottom: 40px;
+    }
+    #dashboard-tabs{
+      padding-top: 0px;
+    }
+}
+    
+/* Tablets */ 
+@media only screen and (max-width : 768px) {
+  #user-pic{
+    display: flex;
+    margin: auto;
+  }
+  .profile-info{
+    text-align: center;
+    padding-top: 10px;
+    padding-left: 0px;
+  }
+  .car-info{
+    text-align: center;
+    padding-left: 0px;
+    padding-bottom: 60px;
+  }
+  #dashboard-tabs{
+    padding-top: 0px;
+  }
+}
+    
+/* Desktops */
+@media only screen and (min-width : 768px) {
+  #history-tab{
+    width: 25%;
+    font-size: 18px;
+  }
+  
+  #reminders-tab{
+    width: 25%;
+    font-size: 18px;
+  }
+  
+  #appointments-tab{
+    width: 25%;
+    font-size: 18px;
+  }
+  
+  #summary-tab{
+    width: 25%;
+    font-size: 18px;
+  }
+  
+}
+    
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+    
+}
+    
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+    
+}
