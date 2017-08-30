@@ -1,0 +1,10 @@
+.shop-profile-pic {
+  width: 90%;
+  height: 90%;
+  padding: 5%;
+}
+.search-result-entry {
+  height: 200px;
+  background-color: grey;
+  margin-top: 15px;
+}
