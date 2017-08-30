@@ -7,6 +7,7 @@ import ShopProfilePage from '../containers/shopProfilePage/ShopProfilePage.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addAuth } from '../actions/authAction.js';
+import SearchResults from './searchResults/searchResults.jsx';
 
 function mapStateToProps(state) {
   return {
@@ -30,13 +31,12 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/loadingpage" render={() => <LoadingPage auth={this.props.currentAuth} />} />
-
+          <Route path="/search" component={SearchResults}/>
 
         </Switch>
       </BrowserRouter>
     );
   }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
