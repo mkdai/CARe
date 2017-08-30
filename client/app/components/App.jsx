@@ -16,7 +16,6 @@ function mapStateToProps(state) {
   };
 }
 
-<<<<<<< HEAD
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addAuth }, dispatch);
 }
@@ -42,18 +41,6 @@ class App extends Component {
       </BrowserRouter>
     );
   }
-=======
-    render() {
-        return (
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/" component={LandingPage} />
-                    <Route path="/loadingpage" render={() => <LoadingPage auth={this.auth} />} />
-                </Switch>
-            </BrowserRouter>
-        );
-    }
->>>>>>> Add beta FormGroup for AppointmentInput Component
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
