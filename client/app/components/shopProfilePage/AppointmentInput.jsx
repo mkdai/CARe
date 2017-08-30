@@ -4,7 +4,8 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  Button
+  Button,
+  HelpBlock
 } from "react-bootstrap";
 import DatePicker from "react-bootstrap-date-picker";
 import TimePicker from "react-bootstrap-time-picker";
@@ -13,15 +14,24 @@ class AppointmentInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
-      formattedValue: ""
+      date: new Date().toISOString()
     };
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
+  componentDidMount() {
+    console.log("this is the current state", this.state);
+  }
+
+  componentDidUpdate() {
+    console.log(
+      document.getElementById("datepicker").getAttribute("data-formattedvalue")
+    );
+  }
+
   handleDateChange(date, formattedDate) {
     this.setState({
-      value: date,
+      date: date,
       formattedDate: formattedDate
     });
   }
@@ -51,13 +61,14 @@ class AppointmentInput extends Component {
           </FormControl>
         </FormGroup>
 
-        <FormGroup controlId="date">
+        <FormGroup>
           <ControlLabel>Date</ControlLabel>
           <DatePicker
             id="datepicker"
-            value={this.state.value}
+            value={this.state.date}
             onChange={this.handleDateChange}
           />
+          <HelpBlock>Help</HelpBlock>
         </FormGroup>
 
         <Button type="submit">Find Appointments</Button>
