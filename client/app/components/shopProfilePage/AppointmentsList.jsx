@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TimekitBooking from "timekit-booking";
+import timekit from "timekit-sdk";
 
 class AppointmentsList extends Component {
   constructor(props) {
@@ -7,6 +8,9 @@ class AppointmentsList extends Component {
   }
 
   componentDidMount() {
+    timekit.configure({
+      app: "hack-reactor-124"
+    });
     let widget = new TimekitBooking();
     widget.init({
       app: "hack-reactor-124",
@@ -19,6 +23,8 @@ class AppointmentsList extends Component {
         length: "1 hour"
       }
     });
+
+    console.log("this is the config", timekit.getConfig());
   }
 
   render() {
