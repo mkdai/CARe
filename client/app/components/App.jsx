@@ -4,6 +4,7 @@ import LandingPage from "../containers/landingPage/LandingPage.jsx";
 import LoadingPage from "./loadingPage/LoadingPage.jsx";
 import Auth from "../../Auth/Auth.js";
 import ShopProfilePage from "../containers/shopProfilePage/ShopProfilePage.jsx";
+import ShopDashboard from "../containers/shopDashboard/ShopDashboard.jsx";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { addAuth } from "../actions/authAction.js";
@@ -31,6 +32,8 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route path="/shopprofile" component={ShopProfilePage} />
+          <Route path="/shopdashboard" component={ShopDashboard} />
           <Route
             path="/loadingpage"
             render={() => <LoadingPage auth={this.props.currentAuth} />}
