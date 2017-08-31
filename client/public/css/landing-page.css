@@ -300,6 +300,10 @@ p.copyright {
   padding-top: 20px;
 }
 
+.modal {
+  display: block;
+}
+
 /* Phones */
 @media only screen and (max-width: 480px) {
   #user-pic {
@@ -309,6 +313,7 @@ p.copyright {
   #car-pic {
     display: flex;
     margin: auto;
+    padding-top: 30px;
   }
   .profile-info {
     text-align: center;
