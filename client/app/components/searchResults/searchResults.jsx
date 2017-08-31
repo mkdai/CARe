@@ -8,15 +8,20 @@ class SearchResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      location: "",
+      term: "all",
       shops: []
     };
   }
   componentDidMount() {
     let searchQueryString = this.props.location.search;
-    console.log(searchQueryString);
     let parsed = querystring.parse(searchQueryString.substring(1));
+    if (parsed.term !== "") {
+      this.setState({ term: parsed.term, location: parsed.location });
+    }
     if (!parsed.location) {
-      console.log("no location found");
+      console.log("no location given, getting current location");
+      this.setState({ location: "Current Position" });
       navigator.geolocation.getCurrentPosition(
         position => {
           searchQueryString += `&latitude=${position.coords.latitude}`;
@@ -28,7 +33,19 @@ class SearchResults extends Component {
               console.log(data);
             });
         },
-        err => console.log(err)
+        err => {
+          console.log(
+            "location cannot be found: ",
+            err,
+            "using default location -33.976,-118.387"
+          );
+          axios
+            .get(`/api/search/allshops?latitude=-33.976&longitude=-118.387`)
+            .then(({ data }) => {
+              this.setState({ shops: data.businesses });
+              console.log(data);
+            });
+        }
       );
     } else {
       axios.get(`/api/search/allshops${searchQueryString}`).then(({ data }) => {
