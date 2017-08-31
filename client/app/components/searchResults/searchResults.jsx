@@ -64,7 +64,7 @@ class SearchResults extends Component {
         <Grid className="search-grid">
           {this.state.shops.map(shop => {
             return (
-              <Link to={`/shops/${shop.id}`}>
+              <Link to={`/shops?idstring=${shop.id}`}>
                 <Row className="search-result-entry" className="test">
                   <Col xs={12} sm={12} md={3} lg={3}>
                     <Image

@@ -37,7 +37,7 @@ class App extends Component {
             render={() => <LoadingPage auth={this.props.currentAuth} />}
           />
           <Route path="/search" component={SearchResults} />
-          <Route path="/shops/:yelpid" component={ShopProfilePage} />
+          <Route path="/shops" component={ShopProfilePage} />
           <Route path="/userdash" component={UserDashBoard} />
           <Route path="/shopdashboard" component={ShopDashboard} />
         </Switch>
