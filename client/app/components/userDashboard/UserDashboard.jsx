@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../../containers/navBar/NavBar.jsx";
+import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import Footer from "../footer/Footer.jsx";
 import ProfileHead from "./ProfileHead.jsx";
 import CarHead from "./CarHead.jsx";
@@ -14,7 +14,7 @@ export default class UserDashboard extends React.Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavigationBar />
         <section className="content-section-a">
           <div className="container">
             <div className="row">
