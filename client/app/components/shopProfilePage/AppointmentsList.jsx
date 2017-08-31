@@ -5,7 +5,9 @@ import timekit from "timekit-sdk";
 class AppointmentsList extends Component {
   constructor(props) {
     super(props);
+  }
 
+  componentDidMount() {
     let widget = new TimekitBooking();
     widget.init({
       app: "hack-reactor-124",

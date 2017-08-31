@@ -10,6 +10,7 @@ class Appointments extends Component {
     this.state = {
       services: [],
       dates: [],
+      date: new Date(),
       times: []
     };
   }
@@ -37,15 +38,18 @@ class Appointments extends Component {
         });
 
         console.log("these are the times", times);
+        let { dates, date, services } = this.state;
 
-        this.setState({ times }, () => console.log(this.state));
+        this.setState(
+          {
+            times,
+            dates: [],
+            date: new Date(),
+            services: ["Oil Change", "Detailing", "Diagnostic"]
+          },
+          () => console.log(this.state)
+        );
       });
-
-    this.setState({
-      services: ["Oil Change", "Detailing", "Diagnostic"],
-      times: ["1:00pm", "2:00pm", "3:00pm", "4:00pm"],
-      dates: []
-    });
   }
 
   render() {
