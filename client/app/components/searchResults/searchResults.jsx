@@ -3,6 +3,7 @@ import axios from "axios";
 import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import { Grid, Row, Col, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class SearchResults extends Component {
   constructor(props) {
@@ -63,25 +64,27 @@ class SearchResults extends Component {
         <Grid className="search-grid">
           {this.state.shops.map(shop => {
             return (
-              <Row className="search-result-entry">
-                <Col xs={12} sm={12} md={3} lg={3} className="test">
-                  <Image
-                    src={shop.image_url}
-                    responsive
-                    className="shop-profile-pic"
-                  />
-                </Col>
-                <Col xs={12} sm={12} md={7} lg={7} className="test">
-                  <div className="shop-info">
-                    <div>{shop.name}</div>
-                    <div>{shop.location.display_address[0]}</div>
-                    <div>{shop.location.display_address[1]}</div>
-                  </div>
-                  <div className="distance-info">
-                    {Math.floor(shop.distance * 0.00621371) / 10 + "mi"}
-                  </div>
-                </Col>
-              </Row>
+              <Link to={`/shops/${shop.id}`}>
+                <Row className="search-result-entry" className="test">
+                  <Col xs={12} sm={12} md={3} lg={3}>
+                    <Image
+                      src={shop.image_url}
+                      responsive
+                      className="shop-profile-pic"
+                    />
+                  </Col>
+                  <Col xs={12} sm={12} md={7} lg={7}>
+                    <div className="shop-info">
+                      <div>{shop.name}</div>
+                      <div>{shop.location.display_address[0]}</div>
+                      <div>{shop.location.display_address[1]}</div>
+                    </div>
+                    <div className="distance-info">
+                      {Math.floor(shop.distance * 0.00621371) / 10 + "mi"}
+                    </div>
+                  </Col>
+                </Row>
+              </Link>
             );
           })}
         </Grid>

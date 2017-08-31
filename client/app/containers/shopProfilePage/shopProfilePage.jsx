@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import Appointments from "../../components/shopProfilePage/Appointments.jsx";
+import NavigationBar from "../navBar/NavigationBar.jsx";
 
-class SearchProfilePage extends Component {
+class ShopProfilePage extends Component {
   render() {
+    console.log(this.props.params);
     return (
       <div>
+        <NavigationBar />
         <Appointments />
       </div>
     );
   }
 }
 
-export default SearchProfilePage;
+export default ShopProfilePage;

@@ -32,14 +32,14 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route path="/shopprofile" component={ShopProfilePage} />
-          <Route path="/shopdashboard" component={ShopDashboard} />
           <Route
             path="/loadingpage"
             render={() => <LoadingPage auth={this.props.currentAuth} />}
           />
           <Route path="/search" component={SearchResults} />
+          <Route path="/shops/:yelpid" component={ShopProfilePage} />
           <Route path="/userdash" component={UserDashBoard} />
+          <Route path="/shopdashboard" component={ShopDashboard} />
         </Switch>
       </BrowserRouter>
     );
