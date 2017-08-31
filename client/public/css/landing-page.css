@@ -29,6 +29,10 @@ a:hover {
   color: red;
 }
 
+.navbar-brand {
+  color: red !important;
+}
+
 .intro-header {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -112,6 +116,10 @@ a:hover {
   border-top: 3px solid #e7e7e7;
 }
 
+.section-heading-dashboard {
+  padding-top: 60px;
+}
+
 .banner {
   padding: 100px 0;
   color: #f8f8f8;
@@ -177,6 +185,10 @@ p.copyright {
 .navbar-brand {
   color: red;
   font-size: 28px;
+}
+
+#e-span {
+  color: white;
 }
 
 .my-footer {
@@ -288,6 +300,10 @@ p.copyright {
   padding-top: 20px;
 }
 
+.modal {
+  display: block;
+}
+
 /* Phones */
 @media only screen and (max-width: 480px) {
   #user-pic {
@@ -297,6 +313,7 @@ p.copyright {
   #car-pic {
     display: flex;
     margin: auto;
+    padding-top: 30px;
   }
   .profile-info {
     text-align: center;
@@ -332,6 +349,9 @@ p.copyright {
   #dashboard-tabs {
     padding-top: 0px;
   }
+  #car-pic {
+    padding-top: 30px;
+  }
 }
 
 /* Desktops */
@@ -359,6 +379,41 @@ p.copyright {
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width: 992px) {
+  #history-tab {
+    width: 25%;
+    font-size: 18px;
+  }
+
+  #reminders-tab {
+    width: 25%;
+    font-size: 18px;
+  }
+
+  #appointments-tab {
+    width: 25%;
+    font-size: 18px;
+  }
+
+  #summary-tab {
+    width: 25%;
+    font-size: 18px;
+  }
+
+  .profile-info {
+    text-align: center;
+  }
+
+  #user-pic {
+    display: flex;
+    margin: auto;
+  }
+  #car-pic {
+    padding-top: 30px;
+  }
+
+  #add-car-pic {
+    padding-top: 100px;
+  }
 }
 
 /* Large Devices, Wide Screens */
