@@ -17,14 +17,7 @@ class AppointmentInput extends Component {
 
   // componentDidMount() {}
 
-  componentWillReceiveProps() {
-    console.log(
-      document.getElementById("datepicker").getAttribute("data-formattedvalue")
-    );
-  }
-
   render() {
-    console.log("ApptInput: these are the props of appt input", this.props);
     return (
       <Form inline>
         <FormGroup controlId="service">
