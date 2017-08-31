@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../../containers/navBar/NavBar.jsx";
 import Footer from "../../components/footer/Footer.jsx";
+import NavigationBar from "../../containers/navBar/NavigationBar";
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class LandingPage extends React.Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavigationBar />
         <header className="intro-header">
           <div className="container">
             <div className="intro-message">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import NavBar from "../../containers/navBar/NavBar.jsx";
+import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import { Grid, Row, Col, Image } from "react-bootstrap";
 
@@ -42,7 +42,7 @@ class SearchResults extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavigationBar />
         <Grid className="search-grid">
           {this.state.shops.map(shop => {
             return (
