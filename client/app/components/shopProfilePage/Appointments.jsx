@@ -13,6 +13,7 @@ class Appointments extends Component {
       date: new Date(),
       times: []
     };
+    this.handleFindApptClick = this.handleFindApptClick.bind(this);
   }
 
   componentDidMount() {
@@ -37,25 +38,30 @@ class Appointments extends Component {
           return time.start.split("T")[1].split("-")[0];
         });
 
-        console.log("these are the times", times);
         let { dates, date, services } = this.state;
 
-        this.setState(
-          {
-            times,
-            dates: [],
-            date: new Date(),
-            services: ["Oil Change", "Detailing", "Diagnostic"]
-          },
-          () => console.log(this.state)
-        );
+        this.setState({
+          times: times,
+          dates: [],
+          date: new Date(),
+          services: ["Oil Change", "Detailing", "Diagnostic"]
+        });
       });
+  }
+
+  handleFindApptClick(e) {
+    e.preventDefault();
+    console.log("i hear you");
   }
 
   render() {
     return (
       <div>
-        <AppointmentInput {...this.state} />
+        <AppointmentInput
+          {...this.state}
+          {...this.props}
+          handleFindApptClick={this.handleFindApptClick}
+        />
         <AppointmentsList />
       </div>
     );

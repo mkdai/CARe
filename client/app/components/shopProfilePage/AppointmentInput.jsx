@@ -14,14 +14,14 @@ class AppointmentInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: new Date().toISOString()
+      service: "",
+      date: "",
+      time: ""
     };
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentDidMount() {
-    console.log("this is the current state", this.state);
-  }
+  componentDidMount() {}
 
   componentDidUpdate() {
     console.log(
@@ -30,13 +30,18 @@ class AppointmentInput extends Component {
   }
 
   handleDateChange(date, formattedDate) {
+    console.log("this is the date", date, "and it is a", typeof date);
+    let { service, time } = this.state;
     this.setState({
-      date: date,
-      formattedDate: formattedDate
+      time,
+      service,
+      date,
+      formattedDate
     });
   }
 
   render() {
+    console.log("these are the props of appt input", this.props);
     return (
       <Form inline>
         <FormGroup controlId="service">
@@ -71,7 +76,9 @@ class AppointmentInput extends Component {
           <HelpBlock>Help</HelpBlock>
         </FormGroup>
 
-        <Button type="submit">Find Appointments</Button>
+        <Button type="submit" onClick={this.props.handleFindApptClick}>
+          Find Appointments
+        </Button>
       </Form>
     );
   }
