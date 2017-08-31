@@ -9,12 +9,15 @@ class Appointments extends Component {
     super(props);
     this.state = {
       services: [],
-      dates: [],
-      date: new Date(),
-      times: []
+      service: "",
+      date: new Date().toISOString(),
+      times: [],
+      time: ""
     };
-    this.handleFindApptClick = this.handleFindApptClick.bind(this);
+    this.handleServiceChange = this.handleServiceChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleFindApptClick = this.handleFindApptClick.bind(this);
   }
 
   componentDidMount() {
@@ -28,9 +31,9 @@ class Appointments extends Component {
         timekit.findTime({
           calendar_ids: ["9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8"],
           future: "12 hours",
-          filters: {
-            and: [{ specific_time: { start: 9, end: 24 } }]
-          },
+          // filters: {
+          //   and: [{ specific_time: { start: 9, end: 24 } }]
+          // },
           length: "1 Hour"
         })
       )
@@ -39,26 +42,43 @@ class Appointments extends Component {
           return time.start.split("T")[1].split("-")[0];
         });
 
-        let { dates, date, services } = this.state;
+        let { time, dates, date, services, service } = this.state;
 
         this.setState({
-          times: times,
-          dates: [],
-          date: new Date(),
-          services: ["Oil Change", "Detailing", "Diagnostic"]
+          time,
+          times,
+          dates,
+          date,
+          services: ["Oil Change", "Detailing"],
+          service
         });
       });
   }
 
+  handleServiceChange(e) {
+    console.log("i change");
+    e.preventDefault();
+
+    let service = e.target.value;
+    let { services, dates, date, times, time } = this.state;
+
+    this.setState({ services, service, dates, date, times, time });
+  }
+
+  handleTimeChange(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+    let time = e.target.value;
+    let { services, service, dates, date, times } = this.state;
+
+    this.setState({ services, service, dates, date, times, time });
+  }
+
   handleDateChange(date, formattedDate) {
     console.log("Appt: this is the date", date, "and it is a", typeof date);
-    let { service, time } = this.state;
-    this.setState({
-      time,
-      service,
-      date,
-      formattedDate
-    });
+    let { services, service, dates, times, time } = this.state;
+
+    this.setState({ services, service, dates, date, times, time });
   }
 
   handleFindApptClick(e) {
@@ -71,8 +91,10 @@ class Appointments extends Component {
       <div>
         <AppointmentInput
           {...this.state}
-          handleFindApptClick={this.handleFindApptClick}
+          handleServiceChange={this.handleServiceChange}
           handleDateChange={this.handleDateChange}
+          handleTimeChange={this.handleTimeChange}
+          handleFindApptClick={this.handleFindApptClick}
         />
         <AppointmentsList />
       </div>

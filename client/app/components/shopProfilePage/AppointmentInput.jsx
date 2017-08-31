@@ -13,36 +13,14 @@ import TimePicker from "react-bootstrap-time-picker";
 class AppointmentInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      service: "",
-      date: "",
-      time: ""
-    };
-    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  componentDidMount() {}
+  // componentDidMount() {}
 
-  componentDidUpdate() {
+  componentWillReceiveProps() {
     console.log(
       document.getElementById("datepicker").getAttribute("data-formattedvalue")
     );
-  }
-
-  handleDateChange(date, formattedDate) {
-    console.log(
-      "ApptInput: this is the date",
-      date,
-      "and it is a",
-      typeof date
-    );
-    let { service, time } = this.state;
-    this.setState({
-      time,
-      service,
-      date,
-      formattedDate
-    });
   }
 
   render() {
@@ -51,7 +29,10 @@ class AppointmentInput extends Component {
       <Form inline>
         <FormGroup controlId="service">
           {"  "}
-          <FormControl componentClass="select" placeholder="date">
+          <FormControl
+            componentClass="select"
+            onChange={this.props.handleServiceChange}
+          >
             {this.props.services.map((service, i) => (
               <option value={service} key={i}>
                 {service}
@@ -62,7 +43,10 @@ class AppointmentInput extends Component {
 
         <FormGroup controlId="time">
           {"  "}
-          <FormControl componentClass="select" placeholder="time">
+          <FormControl
+            componentClass="select"
+            onChange={this.props.handleTimeChange}
+          >
             {this.props.times.map((hour, i) => (
               <option value={hour} key={i}>
                 {hour}
@@ -75,7 +59,7 @@ class AppointmentInput extends Component {
           <ControlLabel>Date</ControlLabel>
           <DatePicker
             id="datepicker"
-            value={this.state.date}
+            value={this.props.date}
             onChange={this.props.handleDateChange}
           />
           <HelpBlock>Help</HelpBlock>
