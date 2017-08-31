@@ -14,6 +14,7 @@ class Appointments extends Component {
       times: []
     };
     this.handleFindApptClick = this.handleFindApptClick.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +50,17 @@ class Appointments extends Component {
       });
   }
 
+  handleDateChange(date, formattedDate) {
+    console.log("Appt: this is the date", date, "and it is a", typeof date);
+    let { service, time } = this.state;
+    this.setState({
+      time,
+      service,
+      date,
+      formattedDate
+    });
+  }
+
   handleFindApptClick(e) {
     e.preventDefault();
     console.log("i hear you");
@@ -59,8 +71,8 @@ class Appointments extends Component {
       <div>
         <AppointmentInput
           {...this.state}
-          {...this.props}
           handleFindApptClick={this.handleFindApptClick}
+          handleDateChange={this.handleDateChange}
         />
         <AppointmentsList />
       </div>

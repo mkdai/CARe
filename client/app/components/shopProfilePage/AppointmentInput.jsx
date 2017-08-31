@@ -30,7 +30,12 @@ class AppointmentInput extends Component {
   }
 
   handleDateChange(date, formattedDate) {
-    console.log("this is the date", date, "and it is a", typeof date);
+    console.log(
+      "ApptInput: this is the date",
+      date,
+      "and it is a",
+      typeof date
+    );
     let { service, time } = this.state;
     this.setState({
       time,
@@ -41,7 +46,7 @@ class AppointmentInput extends Component {
   }
 
   render() {
-    console.log("these are the props of appt input", this.props);
+    console.log("ApptInput: these are the props of appt input", this.props);
     return (
       <Form inline>
         <FormGroup controlId="service">
@@ -71,7 +76,7 @@ class AppointmentInput extends Component {
           <DatePicker
             id="datepicker"
             value={this.state.date}
-            onChange={this.handleDateChange}
+            onChange={this.props.handleDateChange}
           />
           <HelpBlock>Help</HelpBlock>
         </FormGroup>
