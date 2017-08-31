@@ -41,19 +41,30 @@ class AppointmentCalendar extends Component {
         let bookings = [];
         res.data.forEach(booking => {
           if (!booking.completed && booking.state === "confirmed") {
-            console.log(booking.attributes);
-            bookings.push(booking.attributes);
+            console.log(
+              "these are the attributes of each booking",
+              booking.attributes
+            );
+            let { start, end, what } = booking.attributes.event;
+            let title = what;
+            bookings.push({ start, end, title });
           }
         });
         this.setState({ bookings }, () =>
           console.log("this is the state after getting bookings", this.state)
         );
       })
+      .then(() => {
+        console.log(
+          "this is the state before setting events on calendar",
+          this.state
+        );
+        $("#calendar").fullCalendar({
+          events: this.state.bookings,
+          defaultView: "listWeek"
+        });
+      })
       .catch(err => console.log("could not get calendars", err));
-
-    $("#calendar").fullCalendar({
-      defaultView: "listWeek"
-    });
   }
   render() {
     return (
