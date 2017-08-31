@@ -56,7 +56,6 @@ class Appointments extends Component {
   }
 
   handleServiceChange(e) {
-    console.log("i change");
     e.preventDefault();
 
     let service = e.target.value;
@@ -67,7 +66,7 @@ class Appointments extends Component {
 
   handleTimeChange(e) {
     e.preventDefault();
-    console.log(e.target.value);
+
     let time = e.target.value;
     let { services, service, dates, date, times } = this.state;
 
@@ -75,10 +74,11 @@ class Appointments extends Component {
   }
 
   handleDateChange(date, formattedDate) {
-    console.log("Appt: this is the date", date, "and it is a", typeof date);
     let { services, service, dates, times, time } = this.state;
 
-    this.setState({ services, service, dates, date, times, time });
+    this.setState({ services, service, dates, date, times, time }, () =>
+      console.log(this.state, "this is the state of appointments")
+    );
   }
 
   handleFindApptClick(e) {
