@@ -4,6 +4,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import App from "./components/App.jsx";
 import CurrentAuth from "./reducers/authReducer.js";
+import UserDashboard from "./components/userDashboard/UserDashboard.jsx";
 
 const reducers = combineReducers({
   currentAuth: CurrentAuth
