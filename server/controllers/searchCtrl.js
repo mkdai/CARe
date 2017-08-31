@@ -78,5 +78,49 @@ module.exports = {
         })
         .catch(err => console.log(err));
     }
+  },
+  getShop: (req, res) => {
+    if (!yelpExpiration || yelpExpiration < Date.now()) {
+      console.log("need auth token ", yelpId, yelpSecret);
+      axios
+        .post(
+          "https://api.yelp.com/oauth2/token",
+          qs.stringify({
+            client_id: yelpId,
+            client_secret: yelpSecret
+          })
+        )
+        .then(({ data }) => {
+          yelpToken = data.access_token;
+          yelpExpiration = Date.now() + data.expires_in;
+          let yelpSearchURL = `https://api.yelp.com/v3/businesses/${req.query
+            .id}`;
+          axios
+            .get(yelpSearchURL, {
+              headers: { Authorization: `Bearer ${yelpToken}` }
+            })
+            .then(searchResult => {
+              res.send(searchResult.data);
+            })
+            .catch(err => {
+              res.statusCode = 404;
+              res.send();
+            });
+        })
+        .catch(err => console.log(err.data));
+    } else {
+      let yelpSearchURL = `https://api.yelp.com/v3/businesses/${req.query.id}`;
+      axios
+        .get(yelpSearchURL, {
+          headers: { Authorization: `Bearer ${yelpToken}` }
+        })
+        .then(searchResult => {
+          res.send(searchResult.data);
+        })
+        .catch(err => {
+          res.statusCode = 404;
+          res.send();
+        });
+    }
   }
 };

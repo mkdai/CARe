@@ -2,9 +2,10 @@
   width: 90%;
   height: 90%;
   padding: 5%;
+  object-fit: contain;
 }
 .search-result-entry {
-  /* height: 200px; */
+  height: 200px;
   /* background-color: grey; */
   /* margin-top: 15px; */
   /* border: 1px solid black; */
@@ -26,5 +27,8 @@
   padding: 5px;
 }
 .search-grid {
+  margin-top: 100px;
+}
+.bump {
   margin-top: 100px;
 }
