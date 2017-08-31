@@ -24,12 +24,19 @@ class Appointments extends Component {
       .then(() =>
         timekit.findTime({
           calendar_ids: ["9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8"],
-          future: "12 hours"
+          future: "12 hours",
+          filters: {
+            and: [{ specific_time: { start: 9, end: 24 } }]
+          },
+          length: "1 Hour"
         })
       )
       .then(res => {
-        console.log("these are the times", res.data.map(time => time.start));
-        let times = res.data.map(time => time.start);
+        let times = res.data.map(time => {
+          return time.start.split("T")[1].split("-")[0];
+        });
+
+        console.log("these are the times", times);
 
         this.setState({ times }, () => console.log(this.state));
       });

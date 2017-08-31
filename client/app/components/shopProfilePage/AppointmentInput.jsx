@@ -61,7 +61,7 @@ class AppointmentInput extends Component {
           </FormControl>
         </FormGroup>
 
-        <FormGroup>
+        <FormGroup controlId="date">
           <ControlLabel>Date</ControlLabel>
           <DatePicker
             id="datepicker"

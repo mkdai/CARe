@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TimekitBooking from "timekit-booking";
 import timekit from "timekit-sdk";
-import { timekitEmail, timekitPassword } from "../../../../env/config";
 
 class AppointmentsList extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class AppointmentsList extends Component {
       availabilityView: "listing",
       timekitFindTime: {
         future: "5 hours",
-        length: "1 hour"
+        length: "1 Hour"
       }
     });
   }
