@@ -18,6 +18,7 @@ class AppointmentCalendar extends Component {
       inputTimestampFormat: "U",
       outputTimestampFormat: "U"
     });
+    // Timestamps coming and going to timekit sdk must be unicod
 
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
