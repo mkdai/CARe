@@ -1,16 +1,24 @@
 import React from "react";
 import { render } from "react-dom";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import App from "./components/App.jsx";
-import CurrentAuth from "./reducers/authReducer.js";
+import authReducer from "./reducers/authReducer.js";
 import UserDashboard from "./components/userDashboard/UserDashboard.jsx";
+import currentUserReducer from "./reducers/currentUserReducer.js";
+// import { persistStore, autoRehydrate } from "redux-persist";
 
 const reducers = combineReducers({
-  currentAuth: CurrentAuth
+  currentAuth: authReducer,
+  currentUser: currentUserReducer
 });
 
 const store = createStore(reducers);
+
+// const store = createStore(reducers, undefined, compose(autoRehydrate()));
+
+// persistStore(store);
+// persistStore(store).purge();
 
 render(
   <Provider store={store}>

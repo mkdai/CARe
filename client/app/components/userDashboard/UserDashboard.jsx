@@ -5,8 +5,15 @@ import ProfileHead from "./ProfileHead.jsx";
 import CarHead from "./CarHead.jsx";
 import AddCar from "./AddCar.jsx";
 import DashboardTabs from "./DashboardTabs.jsx";
+import { connect } from "react-redux";
 
-export default class UserDashboard extends React.Component {
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser.currentUser
+  };
+}
+
+class UserDashboard extends React.Component {
   constructor() {
     super();
   }
@@ -26,6 +33,9 @@ export default class UserDashboard extends React.Component {
             </div>
             <div className="col-lg-4 col-xs-12 col-sm-12">
               <ProfileHead />
+              <button onClick={() => console.log(this.props.currentUser)}>
+                Test current user
+              </button>
             </div>
             <div className="col-lg-4 col-xs-12 col-sm-12">
               <CarHead />
@@ -49,3 +59,5 @@ export default class UserDashboard extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(UserDashboard);
