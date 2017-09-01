@@ -49,7 +49,7 @@ export default class DashboardTabs extends React.Component {
 
         <div className="tab-content">
           <div role="tabpanel" className="tab-pane active" id="home">
-            This is the history content.
+            <UserHistory />
           </div>
           <div role="tabpanel" className="tab-pane" id="profile">
             This is the reminders content.

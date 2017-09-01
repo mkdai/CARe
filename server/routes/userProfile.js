@@ -1,4 +1,0 @@
-const router = require('express').Router();
-const controller = require('../controllers/userProfilePageCtrl');
-
-module.exports = router;

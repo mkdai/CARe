@@ -9,7 +9,7 @@ export default class Auth {
       redirectUri: AUTH_CONFIG.callbackUrl,
       audience: `https://${AUTH_CONFIG.domain}/userinfo`,
       responseType: "token id_token",
-      scope: "openid"
+      scope: "openid profile"
     });
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -23,13 +23,12 @@ export default class Auth {
 
   handleAuthentication(cb) {
     this.auth0.parseHash((err, authResult) => {
-      console.log(authResult);
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
         console.log(err);
       }
-      cb();
+      cb(authResult);
     });
   }
 
