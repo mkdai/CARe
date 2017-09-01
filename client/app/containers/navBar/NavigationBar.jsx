@@ -33,7 +33,9 @@ class NavigationBar extends React.Component {
       <Navbar fixedTop inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">CARe</Link>
+            <Link to="/">
+              CAR<span id="e-span">e</span>
+            </Link>
           </Navbar.Brand>
         </Navbar.Header>
         {!this.props.currentAuth.isAuthenticated() && (

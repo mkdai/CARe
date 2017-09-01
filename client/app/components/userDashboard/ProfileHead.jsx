@@ -1,30 +1,86 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import Dropzone from "react-dropzone";
+import request from "superagent";
+import axios from "axios";
+
+const CLOUDINARY_UPLOAD_PRESET = "griffPreset";
+const CLOUDINARY_UPLOAD_URL =
+  "https://api.cloudinary.com/v1_1/mikegriff3/image/upload";
 
 export default class ProfileHead extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      showModal: false
+      showModal: false,
+      uploadedFileCloudinaryUrl: "",
+      name: "",
+      email: "",
+      phone: "",
+      profilePic: ""
     };
 
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   open() {
-    this.setState({ showModal: true }, () => {
-      console.log("2: THIS IS STATE of the modal", this.state.showModal);
-    });
+    this.setState({ showModal: true });
   }
 
   close() {
-    this.setState({ showModal: false }, console.log("close is being run"));
+    this.setState({ showModal: false });
+  }
+
+  onImageDrop(files) {
+    this.setState({
+      uploadedFile: files[0]
+    });
+    this.handleImageUpload(files[0]);
+  }
+
+  handleImageUpload(file) {
+    let upload = request
+      .post(CLOUDINARY_UPLOAD_URL)
+      .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+      .field("file", file);
+
+    upload.end((err, response) => {
+      if (err) {
+        console.error(err);
+      }
+
+      if (response.body.secure_url !== "") {
+        this.setState({
+          uploadedFileCloudinaryUrl: response.body.secure_url,
+          profilePic: response.body.secure_url
+        });
+      }
+    });
+  }
+
+  handleOnChange(event) {
+    let temp = event.target.name;
+    this.setState(
+      {
+        [temp]: event.target.value
+      },
+      () => {
+        console.log("STATE IS", this.state);
+      }
+    );
+  }
+
+  handleSubmit() {
+    console.log("Handle Submit is hitting");
+    //axios.put(`/api/updateProfile/$`);
   }
 
   render() {
-    console.log("1: STATE show modal", this.state.showModal);
     return (
       <div>
         <div className="UserPic">
@@ -55,18 +111,62 @@ export default class ProfileHead extends React.Component {
           </div>
           <Modal style={{}} show={this.state.showModal} onHide={this.close}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>Edit Profile</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h4>Text in a modal</h4>
-              <p>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </p>
-
+              <label>Name</label>
+              <form>
+                <input
+                  name="name"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="Enter your name"
+                />
+              </form>
+              <label>Email</label>
+              <form>
+                <input
+                  name="email"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="Enter your email"
+                />
+              </form>
+              <label>Phone</label>
+              <form>
+                <input
+                  name="phone"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="E.g. 5553214578"
+                />
+              </form>
               <hr />
+              <label>Profile Picture</label>
+              <Dropzone
+                multiple={false}
+                accept="image/*"
+                onDrop={this.onImageDrop.bind(this)}
+              >
+                <p>Drop an image or click to select a file to upload.</p>
+              </Dropzone>
+              <div className="FileUpload">...</div>
+
+              <div>
+                {this.state.uploadedFileCloudinaryUrl === "" ? null : (
+                  <div>
+                    <p>{this.state.uploadedFile.name}</p>
+                    <img src={this.state.uploadedFileCloudinaryUrl} />
+                  </div>
+                )}
+              </div>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.close}>Close</Button>
+              <Button onClick={this.close}>Cancel</Button>
+              <Button onClick={this.handleSubmit}>Submit</Button>
             </Modal.Footer>
           </Modal>
         </div>
