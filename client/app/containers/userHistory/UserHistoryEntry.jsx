@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Collapse, Well } from "react-bootstrap";
+import { Collapse, Well, ListGroupItem } from "react-bootstrap";
+import MaintenanceEntry from "./MaintenanceEntry";
 
 export default class UserHistoryEntry extends Component {
   constructor(props) {
@@ -9,21 +10,18 @@ export default class UserHistoryEntry extends Component {
 
   render() {
     return (
-      <Row>
-        <Button onClick={() => this.setState({ open: !this.state.open })}>
-          {" "}
-          Here{" "}
-        </Button>
+      <ListGroupItem>
+        <h3 onClick={() => this.setState({ open: !this.state.open })}>
+          Maintenance on xx/xx/xx for XYZ
+        </h3>
         <Collapse in={this.state.open}>
           <div>
             <Well>
-              <Col lg={4}>HERE</Col>
-              <Col lg={4}>WE</Col>
-              <Col lg={4}>Go</Col>
+              <MaintenanceEntry />
             </Well>
           </div>
         </Collapse>
-      </Row>
+      </ListGroupItem>
     );
   }
 }

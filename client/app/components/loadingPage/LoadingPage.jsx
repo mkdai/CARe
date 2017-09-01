@@ -34,7 +34,7 @@ class LoadingPage extends Component {
           email: authResult.idTokenPayload.name
         })
         .then(({ data }) => {
-          this.props.addUser(data[0]);
+          this.props.addUser(data);
         })
         .catch(err => console.log(err));
 

@@ -8,11 +8,14 @@ module.exports = {
       },
       defaults: { name: "Your name here" }
     })
-      .then(user => {
+      .spread((user, created) => {
+        if (created) {
+          console.log("User created!");
+        }
         res.status(201).send(user);
       })
-      .catch(err =>
-        res.status(500).send(`Error creating/finding user! ${err}`)
-      );
+      .catch(err => {
+        res.status(500).send(`Error creating/finding user! ${err}`);
+      });
   }
 };
