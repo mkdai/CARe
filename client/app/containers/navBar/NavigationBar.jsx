@@ -1,7 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
+import {
+  Nav,
+  Navbar,
+  NavItem,
+  Button,
+  FormGroup,
+  FormControl
+} from "react-bootstrap";
 
 function mapStateToProps(state) {
   return {
@@ -14,11 +21,15 @@ class NavigationBar extends React.Component {
     super();
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.search = this.search.bind(this);
     this.state = {
-      isAuthed: true
+      isAuthed: true,
+      searchUrl: "/search?term="
     };
   }
-
+  search() {
+    this.context.router.history.push("search");
+  }
   login() {
     this.props.currentAuth.login();
   }
@@ -46,7 +57,13 @@ class NavigationBar extends React.Component {
         {this.props.currentAuth.isAuthenticated() && (
           <Nav pullRight>
             <NavItem>
-              <Link to="search">SEARCH</Link>
+              <Navbar.Form>
+                <FormGroup bsSize="sm">
+                  <FormControl bsSize="sm" />
+                  <FormControl bsSize="sm" />
+                  <Link to={this.state.searchUrl}>SEARCH</Link>
+                </FormGroup>
+              </Navbar.Form>
             </NavItem>
             <NavItem>
               <Link to="userdash">USER DASHBOARD</Link>
@@ -61,4 +78,7 @@ class NavigationBar extends React.Component {
   }
 }
 
+NavigationBar.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 export default connect(mapStateToProps)(NavigationBar);

@@ -69,10 +69,20 @@ class ShopProfilePage extends Component {
                 longitude={this.state.longitude}
                 containerElement={<div style={{ height: `200px` }} />}
                 mapElement={<div style={{ height: `200px` }} />}
+                markers={[
+                  {
+                    position: {
+                      lat: this.state.latitude,
+                      lng: this.state.longitude
+                    }
+                  }
+                ]}
               />
             </Col>
           </Row>
-          <Appointments />
+          <Row>
+            <Appointments />
+          </Row>
         </Grid>
       </div>
     );
