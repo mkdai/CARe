@@ -10,10 +10,13 @@ export default class UserHistoryEntry extends Component {
   render() {
     return (
       <Row>
-        <Button onClick={() => this.setState({ open: !this.state.open })}>
+        {/* <Button onClick={() => this.setState({ open: !this.state.open })}>
           {" "}
           Here{" "}
-        </Button>
+        </Button> */}
+        <h3 onClick={() => this.setState({ open: !this.state.open })}>
+          Maintenance on xx/xx/xx
+        </h3>
         <Collapse in={this.state.open}>
           <div>
             <Well>
