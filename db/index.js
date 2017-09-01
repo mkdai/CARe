@@ -3,8 +3,9 @@ const Sequelize = require("sequelize");
 
 const User = db.define("user", {
   email: { type: Sequelize.TEXT, allowNull: false },
-  name: { type: Sequelize.STRING, allowNull: true },
-  phone: { type: Sequelize.INTEGER, allowNull: true }
+  name: { type: Sequelize.STRING, allowNull: false },
+  phone: { type: Sequelize.STRING, allowNull: false },
+  profilePic: { type: Sequelize.STRING, allowNull: true }
 });
 
 const Shop = db.define("shop", {
@@ -100,7 +101,20 @@ HistoryEntry.belongsTo(Shop, {
   foreignKey: { name: "shopId", unique: false }
 });
 
-User.sync();
+//User.sync();
+User.sync({ force: true }).then(() => {
+  console.log("User Table Created");
+  return User.bulkCreate([
+    {
+      id: 1,
+      email: "mikegriff951@gmail.com",
+      name: "Michael Griffin",
+      phone: "9513260152",
+      profilePic:
+        "https://pbs.twimg.com/profile_images/809457271365320704/or_PlfyP.jpg"
+    }
+  ]);
+});
 Shop.sync();
 Car.sync();
 HistoryEntry.sync();
