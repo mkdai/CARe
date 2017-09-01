@@ -6,8 +6,9 @@ import {
   Navbar,
   NavItem,
   Button,
-  FormGroup,
-  FormControl
+  FormControl,
+  Form,
+  FormGroup
 } from "react-bootstrap";
 
 function mapStateToProps(state) {
@@ -21,14 +22,35 @@ class NavigationBar extends React.Component {
     super();
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.search = this.search.bind(this);
+    // this.search = this.search.bind(this);
+    this.handleTermChange = this.handleTermChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
     this.state = {
       isAuthed: true,
-      searchUrl: "/search?term="
+      searchUrl: "/search?term=",
+      location: "",
+      term: ""
     };
   }
-  search() {
-    this.context.router.history.push("search");
+  handleTermChange(e) {
+    let searchRoute = "/search?";
+    if (this.state.location !== "") {
+      searchRoute += `location=${this.state.location}`;
+      searchRoute += `&term=${e.target.value}`;
+    } else {
+      searchRoute += `&term=${e.target.value}`;
+    }
+    this.setState({ term: e.target.value, searchUrl: searchRoute });
+  }
+  handleLocationChange(e) {
+    let searchRoute = "/search?";
+    if (e.target.value !== "") {
+      searchRoute += `location=${e.target.value}`;
+      searchRoute += `&term=${this.state.term}`;
+    } else {
+      searchRoute += `term=${this.state.term}`;
+    }
+    this.setState({ location: e.target.value, searchUrl: searchRoute });
   }
   login() {
     this.props.currentAuth.login();
@@ -45,7 +67,7 @@ class NavigationBar extends React.Component {
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">
-              CAR<span id="e-span">e</span>
+              CAR<span id="e-span">E</span>
             </Link>
           </Navbar.Brand>
         </Navbar.Header>
@@ -57,13 +79,23 @@ class NavigationBar extends React.Component {
         {this.props.currentAuth.isAuthenticated() && (
           <Nav pullRight>
             <NavItem>
-              <Navbar.Form>
-                <FormGroup bsSize="sm">
-                  <FormControl bsSize="sm" />
-                  <FormControl bsSize="sm" />
-                  <Link to={this.state.searchUrl}>SEARCH</Link>
+              <Form onSubmit={this.search} inline>
+                <FormGroup>
+                  <FormControl
+                    type="text"
+                    value={this.state.term}
+                    placeholder="Search"
+                    onChange={this.handleTermChange}
+                  />
+                  <FormControl
+                    type="text"
+                    value={this.state.location}
+                    placeholder="Current Location"
+                    onChange={this.handleLocationChange}
+                  />
                 </FormGroup>
-              </Navbar.Form>
+                <Link to={this.state.searchUrl}> SEARCH </Link>
+              </Form>
             </NavItem>
             <NavItem>
               <Link to="userdash">USER DASHBOARD</Link>
