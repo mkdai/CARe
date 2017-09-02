@@ -31,7 +31,17 @@ class ShopDashboardCalendarForm extends Component {
         email: timekitEmail,
         password: timekitPassword
       })
-      .then(() => console.log("authenticated"));
+      .then(() => console.log("authenticated"))
+      .then(() =>
+        timekit.createCalendar({
+          name: "Test-Calendar-2",
+          description: "testing this calendar"
+        })
+      )
+      //You can create a new calendar for the current user by calling this endpoint.
+      // If the user/resource has a connected Google account, then we will save the new calendar to Google.
+      // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
+      .then(res => console.log("created calendar: ", res.data));
   }
 
   render() {
