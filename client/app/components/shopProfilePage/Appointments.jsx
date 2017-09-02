@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Button, Collapse } from "react-bootstrap";
 import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
 import timekit from "timekit-sdk";
 import { timekitEmail, timekitPassword } from "../../../../env/config";
+import TimekitBooking from "timekit-booking";
 
 class Appointments extends Component {
   constructor(props) {
@@ -12,7 +14,9 @@ class Appointments extends Component {
       service: "",
       date: new Date().toISOString(),
       times: [],
-      time: ""
+      time: 0,
+      shopCalendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
+      openList: false
     };
     this.handleServiceChange = this.handleServiceChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -29,12 +33,12 @@ class Appointments extends Component {
       .auth({ email: timekitEmail, password: timekitPassword })
       .then(() =>
         timekit.findTime({
-          calendar_ids: ["9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8"],
+          calendar_ids: [this.state.shopCalendar],
           future: "12 hours",
           // filters: {
           //   and: [{ specific_time: { start: 9, end: 24 } }]
           // },
-          length: "1 Hour"
+          length: "30 minutes"
         })
       )
       .then(res => {
@@ -65,25 +69,46 @@ class Appointments extends Component {
   }
 
   handleTimeChange(e) {
-    e.preventDefault();
-
-    let time = e.target.value;
-    let { services, service, dates, date, times } = this.state;
-
-    this.setState({ services, service, dates, date, times, time });
+    this.setState({ time: e });
   }
 
   handleDateChange(date, formattedDate) {
-    let { services, service, dates, times, time } = this.state;
-
-    this.setState({ services, service, dates, date, times, time }, () =>
-      console.log(this.state, "this is the state of appointments")
-    );
+    this.setState({ date });
   }
 
   handleFindApptClick(e) {
     e.preventDefault();
-    console.log("i hear you");
+    let { time, date } = this.state;
+
+    const ReqDate = new Date(date);
+
+    const ReqBooking = new Date(
+      ReqDate.getFullYear(),
+      ReqDate.getMonth(),
+      ReqDate.getDate(),
+      0,
+      0,
+      time
+    );
+
+    let widget = new TimekitBooking();
+    widget.init({
+      app: "hack-reactor-124",
+      email: "EthanEFung@gmail.com",
+      apiToken: "1NFvUV1RLMYfFIKTmwOUeNBaRWMfoj01",
+      calendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
+      availabilityView: "listing",
+      timekitFindTime: {
+        start: ReqBooking,
+        future: "2 hours",
+        length: "30 minutes"
+      }
+    });
+
+    //send a request to timekit to find time within 3 hours of time,
+    //render 5 within 30 minutes of each other
+
+    this.setState({ openList: true });
   }
 
   render() {
@@ -96,7 +121,10 @@ class Appointments extends Component {
           handleTimeChange={this.handleTimeChange}
           handleFindApptClick={this.handleFindApptClick}
         />
-        <AppointmentsList />
+        <Collapse in={this.state.openList}>
+          {/* <Button onClick={() => this.setState({ openList: false })}>x</Button> */}
+          <AppointmentsList findingAppt={this.state.openList} />
+        </Collapse>
       </div>
     );
   }

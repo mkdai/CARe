@@ -13,6 +13,7 @@ import TimePicker from "react-bootstrap-time-picker";
 class AppointmentInput extends Component {
   constructor(props) {
     super(props);
+    this.state = { time: 0 };
   }
 
   // componentDidMount() {}
@@ -36,16 +37,10 @@ class AppointmentInput extends Component {
 
         <FormGroup controlId="time">
           {"  "}
-          <FormControl
-            componentClass="select"
+          <TimePicker
             onChange={this.props.handleTimeChange}
-          >
-            {this.props.times.map((hour, i) => (
-              <option value={hour} key={i}>
-                {hour}
-              </option>
-            ))}
-          </FormControl>
+            value={this.props.time}
+          />
         </FormGroup>
 
         <FormGroup controlId="date">
@@ -55,7 +50,6 @@ class AppointmentInput extends Component {
             value={this.props.date}
             onChange={this.props.handleDateChange}
           />
-          <HelpBlock>Help</HelpBlock>
         </FormGroup>
 
         <Button type="submit" onClick={this.props.handleFindApptClick}>
