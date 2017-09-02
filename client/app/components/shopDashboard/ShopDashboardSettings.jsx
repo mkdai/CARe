@@ -87,9 +87,7 @@ class ShopDashboardSettings extends Component {
           />
           <Button onClick={this.handleClick}>Click</Button>
 
-          <Link to="/shopdashcalform" {...this.props}>
-            Create Calendar
-          </Link>
+          <Link to="/shopdashcalform">Create Calendar</Link>
 
           <p>These are the settings</p>
         </Form>
