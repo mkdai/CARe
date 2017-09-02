@@ -69,13 +69,7 @@ class Appointments extends Component {
   }
 
   handleTimeChange(e) {
-    console.log("this is what is being passed into handleTimeChange", e);
-
-    // let time = e.target.value;
-
-    this.setState({ time: e }, () =>
-      console.log("this is the state after time is set", this.state.time)
-    );
+    this.setState({ time: e });
   }
 
   handleDateChange(date, formattedDate) {
@@ -114,12 +108,7 @@ class Appointments extends Component {
     //send a request to timekit to find time within 3 hours of time,
     //render 5 within 30 minutes of each other
 
-    this.setState({ openList: true }, () =>
-      console.log(
-        "this is the state once the handleFindAppt is clicked",
-        this.state
-      )
-    );
+    this.setState({ openList: true });
   }
 
   render() {
