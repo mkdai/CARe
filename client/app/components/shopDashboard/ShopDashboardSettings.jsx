@@ -1,40 +1,57 @@
 import React, { Component } from "react";
-import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-
-const FieldGroup = ({ id, label, help, ...props }) => {
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-    </FormGroup>
-  );
-};
+import {
+  Button,
+  ControlLabel,
+  Form,
+  FormGroup,
+  FormControl,
+  Well
+} from "react-bootstrap";
+import { Redirect, Link } from "react-router-dom";
+import FieldGroup from "./FieldGroup.jsx";
 
 class ShopDashboardSettings extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      createCal: false
+    };
+    this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
+  }
+  handleOpen;
+
+  handleBuildCalendar() {
+    console.log("building calendar");
+  }
   render() {
     return (
-      <Form>
-        <FieldGroup
-          id="formControlsText"
-          type="text"
-          label="First Name"
-          placeholder="First Name"
-        />
-        <FieldGroup
-          id="formControlsText"
-          type="text"
-          label="Last Name"
-          placeholder="Last Name"
-        />
-        <FieldGroup
-          id="formControlsText"
-          type="text"
-          label="Shop Name"
-          placeholder="Shop Name"
-        />
-        //make a calendar
-        <p>These are the settings</p>
-      </Form>
+      <Well>
+        <Form>
+          <FieldGroup
+            id="formControlsText"
+            type="text"
+            label="First Name"
+            placeholder="First Name"
+            help="enter your name here"
+          />
+          <FieldGroup
+            id="formControlsText"
+            type="text"
+            label="Last Name"
+            placeholder="Last Name"
+          />
+          <FieldGroup
+            id="formControlsText"
+            type="text"
+            label="Shop Name"
+            placeholder="Shop Name"
+          />
+
+          <Link to="/shopdashcalform">Create Calendar</Link>
+
+          <p>These are the settings</p>
+        </Form>
+      </Well>
     );
   }
 }
