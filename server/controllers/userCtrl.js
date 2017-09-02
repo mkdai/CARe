@@ -11,6 +11,8 @@ module.exports = {
       .spread((user, created) => {
         if (created) {
           console.log("User created!");
+        } else {
+          console.log("User found!");
         }
         res.status(201).send(user);
       })
