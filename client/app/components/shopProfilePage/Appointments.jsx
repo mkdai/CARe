@@ -86,16 +86,35 @@ class Appointments extends Component {
     e.preventDefault();
     let { time, date } = this.state;
 
+<<<<<<< HEAD
     const ReqDate = new Date(date);
 
     const ReqBooking = new Date(
       ReqDate.getFullYear(),
       ReqDate.getMonth(),
       ReqDate.getDate(),
+=======
+    const TheDate = new Date(date);
+    console.log(
+      "this is the time before setting formatted date",
+      time.valueOf()
+    );
+
+    const FormattedTime = new Date(
+      TheDate.getYear(),
+      TheDate.getMonth(),
+      TheDate.getDate(),
+>>>>>>> 6afdeb5811e0ea2a4131dfc6f0b9ebed19614dbb
       0,
       0,
       time
     );
+<<<<<<< HEAD
+=======
+    console.log("this is the date you are setting", FormattedTime);
+
+    console.log();
+>>>>>>> 6afdeb5811e0ea2a4131dfc6f0b9ebed19614dbb
 
     let widget = new TimekitBooking();
     widget.init({
@@ -105,14 +124,31 @@ class Appointments extends Component {
       calendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
       availabilityView: "listing",
       timekitFindTime: {
+<<<<<<< HEAD
         start: ReqBooking,
+=======
+        start: FormattedTime,
+>>>>>>> 6afdeb5811e0ea2a4131dfc6f0b9ebed19614dbb
         future: "2 hours",
         length: "30 minutes"
       }
     });
+<<<<<<< HEAD
 
     //send a request to timekit to find time within 3 hours of time,
     //render 5 within 30 minutes of each other
+=======
+    //find the calendar id of the shop
+    //find the date that the customer wants
+    //find the time approx that the customer wants
+    // console.log(
+    //   "APPTS: this is the date that is being processed for appt click",
+    //   // date,
+    //   time
+    // );
+
+    //send a request to timekit to find time within 3 hours of time, render 5 within 30 minutes of each other
+>>>>>>> 6afdeb5811e0ea2a4131dfc6f0b9ebed19614dbb
 
     this.setState({ openList: true }, () =>
       console.log(
