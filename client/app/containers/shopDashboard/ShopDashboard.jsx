@@ -10,12 +10,14 @@ class ShopDashboard extends Component {
     this.state = {
       show: false
     };
-    this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
   handleOpenModal() {
-    console.log("click is heard for modal");
     this.setState({ show: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ show: false });
   }
   render() {
     return (
@@ -37,14 +39,16 @@ class ShopDashboard extends Component {
             </Col>
           </Row>
           <Row>
-            <Button onClick={this.handleOpenModal}>Click</Button>
+            <Button onClick={() => this.setState({ show: true })}>Click</Button>
           </Row>
           <Row>
             <Modal
               show={this.state.show}
               onHide={() => this.setState({ show: false })}
             >
-              <Modal.Header closeButton />
+              <Modal.Header closeButton>
+                <h2>Settings</h2>
+              </Modal.Header>
               <Modal.Body>
                 <ShopDashboardSettings />
               </Modal.Body>
