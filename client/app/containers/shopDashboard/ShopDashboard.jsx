@@ -19,6 +19,7 @@ class ShopDashboard extends Component {
   handleCloseModal() {
     this.setState({ show: false });
   }
+
   render() {
     return (
       <div className="container">
