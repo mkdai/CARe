@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Grid, Collapse, Well } from "react-bootstrap";
+import { Button, Collapse } from "react-bootstrap";
 import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
 import timekit from "timekit-sdk";
@@ -14,7 +14,7 @@ class Appointments extends Component {
       service: "",
       date: new Date().toISOString(),
       times: [],
-      time: new Date().toISOString(),
+      time: 0,
       shopCalendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
       openList: false
     };
@@ -69,13 +69,12 @@ class Appointments extends Component {
   }
 
   handleTimeChange(e) {
-    e.preventDefault();
+    console.log("this is what is being passed into handleTimeChange", e);
 
-    let time = e.target.value;
-    let { services, service, dates, date, times } = this.state;
+    // let time = e.target.value;
 
-    this.setState({ time }, () =>
-      console.log("this is the state after handletime", this.state)
+    this.setState({ time: e }, () =>
+      console.log("this is the state after time is set", this.state.time)
     );
   }
 
@@ -86,6 +85,25 @@ class Appointments extends Component {
   handleFindApptClick(e) {
     e.preventDefault();
     let { time, date } = this.state;
+
+    const TheDate = new Date(date);
+    console.log(
+      "this is the time before setting formatted date",
+      time.valueOf()
+    );
+
+    const FormattedTime = new Date(
+      TheDate.getYear(),
+      TheDate.getMonth(),
+      TheDate.getDate(),
+      0,
+      0,
+      time
+    );
+    console.log("this is the date you are setting", FormattedTime);
+
+    console.log();
+
     let widget = new TimekitBooking();
     widget.init({
       app: "hack-reactor-124",
