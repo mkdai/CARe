@@ -3,7 +3,12 @@ import { Button, Collapse } from "react-bootstrap";
 import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
 import timekit from "timekit-sdk";
-import { timekitEmail, timekitPassword } from "../../../../env/config";
+import {
+  timekitApp,
+  timekitEmail,
+  timekitPassword,
+  timekitApiToken
+} from "../../../../env/config";
 import TimekitBooking from "timekit-booking";
 
 class Appointments extends Component {
@@ -93,9 +98,9 @@ class Appointments extends Component {
 
     let widget = new TimekitBooking();
     widget.init({
-      app: "hack-reactor-124",
-      email: "EthanEFung@gmail.com",
-      apiToken: "1NFvUV1RLMYfFIKTmwOUeNBaRWMfoj01",
+      app: timekitApp,
+      email: timekitEmail,
+      apiToken: timekitApiToken,
       calendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
       availabilityView: "listing",
       timekitFindTime: {
