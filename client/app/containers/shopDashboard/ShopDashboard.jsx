@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalendar.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar";
+import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
 import { Jumbotron, Grid, Row, Col, Modal, Button } from "react-bootstrap";
 
 class ShopDashboard extends Component {
@@ -45,8 +46,11 @@ class ShopDashboard extends Component {
             >
               <Modal.Header closeButton />
               <Modal.Body>
-                <h1>This is the modal body</h1>
+                <ShopDashboardSettings />
               </Modal.Body>
+              <Modal.Footer>
+                <Button disabled>Click</Button>
+              </Modal.Footer>
             </Modal>
           </Row>
 
