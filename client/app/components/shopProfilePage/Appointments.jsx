@@ -31,7 +31,7 @@ class Appointments extends Component {
 
   componentDidMount() {
     timekit.configure({
-      app: "hack-reactor-124"
+      app: timekitApp
     });
 
     timekit
@@ -66,11 +66,7 @@ class Appointments extends Component {
 
   handleServiceChange(e) {
     e.preventDefault();
-
-    let service = e.target.value;
-    let { services, dates, date, times, time } = this.state;
-
-    this.setState({ services, service, dates, date, times, time });
+    this.setState({ service: e.target.value });
   }
 
   handleTimeChange(e) {
@@ -83,10 +79,9 @@ class Appointments extends Component {
 
   handleFindApptClick(e) {
     e.preventDefault();
+    let widget = new TimekitBooking();
     let { time, date } = this.state;
-
     const ReqDate = new Date(date);
-
     const ReqBooking = new Date(
       ReqDate.getFullYear(),
       ReqDate.getMonth(),
@@ -95,8 +90,6 @@ class Appointments extends Component {
       0,
       time
     );
-
-    let widget = new TimekitBooking();
     widget.init({
       app: timekitApp,
       email: timekitEmail,

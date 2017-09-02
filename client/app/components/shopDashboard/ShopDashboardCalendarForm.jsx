@@ -9,7 +9,11 @@ import {
 } from "react-bootstrap";
 import FieldGroup from "./FieldGroup.jsx";
 import timekit from "timekit-sdk";
-import { timekitEmail, timekitPassword } from "../../../../env/config";
+import {
+  timekitApp,
+  timekitEmail,
+  timekitPassword
+} from "../../../../env/config";
 
 class ShopDashboardCalendarForm extends Component {
   constructor(props) {
@@ -17,10 +21,14 @@ class ShopDashboardCalendarForm extends Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
   }
 
+  componentDidMount() {
+    console.log("this is the props of the shop cal form", this.props);
+  }
+
   handleSubmitForm() {
     console.log("submitting form to timekit");
     timekit.configure({
-      app: "hack-reactor-124",
+      app: timekitApp,
       inputTimestampFormat: "U",
       outputTimestampFormat: "U"
     });
@@ -34,7 +42,7 @@ class ShopDashboardCalendarForm extends Component {
       .then(() => console.log("authenticated"))
       .then(() =>
         timekit.createCalendar({
-          name: "Test-Calendar-2",
+          name: "Test-Calendar-4",
           description: "testing this calendar"
         })
       )
@@ -53,6 +61,7 @@ class ShopDashboardCalendarForm extends Component {
             type="text"
             label="this is the the field group"
             placeholder="First Name"
+            onChange={this.props.handleUpdateEmail}
           />
           <Button onClick={this.handleSubmitForm}>Submit</Button>
         </Form>
