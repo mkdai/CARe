@@ -16,8 +16,6 @@ class AppointmentInput extends Component {
     this.state = { time: 0 };
   }
 
-  // componentDidMount() {}
-
   render() {
     return (
       <Form inline>

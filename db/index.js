@@ -14,7 +14,8 @@ const Shop = db.define("shop", {
   mobile: { type: Sequelize.BOOLEAN, allowNull: true },
   phone: { type: Sequelize.INTEGER, allowNull: false },
   pickup: { type: Sequelize.BOOLEAN, allowNull: false },
-  picture: { type: Sequelize.TEXT, allowNull: true }
+  picture: { type: Sequelize.TEXT, allowNull: true },
+  calendar_id: { type: Sequelize.TEXT, allowNull: true }
 });
 
 const Car = db.define("car", {

@@ -3,7 +3,12 @@ import { Button, Collapse } from "react-bootstrap";
 import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
 import timekit from "timekit-sdk";
-import { timekitEmail, timekitPassword } from "../../../../env/config";
+import {
+  timekitApp,
+  timekitEmail,
+  timekitPassword,
+  timekitApiToken
+} from "../../../../env/config";
 import TimekitBooking from "timekit-booking";
 
 class Appointments extends Component {
@@ -26,7 +31,7 @@ class Appointments extends Component {
 
   componentDidMount() {
     timekit.configure({
-      app: "hack-reactor-124"
+      app: timekitApp
     });
 
     timekit
@@ -61,11 +66,7 @@ class Appointments extends Component {
 
   handleServiceChange(e) {
     e.preventDefault();
-
-    let service = e.target.value;
-    let { services, dates, date, times, time } = this.state;
-
-    this.setState({ services, service, dates, date, times, time });
+    this.setState({ service: e.target.value });
   }
 
   handleTimeChange(e) {
@@ -78,10 +79,9 @@ class Appointments extends Component {
 
   handleFindApptClick(e) {
     e.preventDefault();
+    let widget = new TimekitBooking();
     let { time, date } = this.state;
-
     const ReqDate = new Date(date);
-
     const ReqBooking = new Date(
       ReqDate.getFullYear(),
       ReqDate.getMonth(),
@@ -90,12 +90,10 @@ class Appointments extends Component {
       0,
       time
     );
-
-    let widget = new TimekitBooking();
     widget.init({
-      app: "hack-reactor-124",
-      email: "EthanEFung@gmail.com",
-      apiToken: "1NFvUV1RLMYfFIKTmwOUeNBaRWMfoj01",
+      app: timekitApp,
+      email: timekitEmail,
+      apiToken: timekitApiToken,
       calendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
       availabilityView: "listing",
       timekitFindTime: {
