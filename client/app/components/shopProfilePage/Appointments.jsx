@@ -112,8 +112,8 @@ class Appointments extends Component {
       calendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
       availabilityView: "listing",
       timekitFindTime: {
-        start: date,
-        future: "5 hours",
+        start: FormattedTime,
+        future: "2 hours",
         length: "30 minutes"
       }
     });
