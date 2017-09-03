@@ -12,7 +12,7 @@ const Shop = db.define("shop", {
   address: { type: Sequelize.STRING, allowNull: false },
   email: { type: Sequelize.TEXT, allowNull: false },
   mobile: { type: Sequelize.BOOLEAN, allowNull: true },
-  phone: { type: Sequelize.INTEGER, allowNull: false },
+  phone: { type: Sequelize.STRING, allowNull: false },
   pickup: { type: Sequelize.BOOLEAN, allowNull: false },
   picture: { type: Sequelize.TEXT, allowNull: true },
   calendar_id: { type: Sequelize.TEXT, allowNull: true },
@@ -103,14 +103,24 @@ HistoryEntry.belongsTo(Shop, {
   foreignKey: { name: "shopId", unique: false }
 });
 
-User.sync();
-Shop.sync();
-Car.sync();
-HistoryEntry.sync();
-Review.sync();
-Appointment.sync();
-Favorite.sync();
-Message.sync();
+// User.sync()
+//   .then(() => Shop.sync())
+//   .then(() => Car.sync())
+//   .then(() => HistoryEntry.sync())
+//   .then(() => Review.sync())
+//   .then(() => Appointment.sync())
+//   .then(() => Favorite.sync())
+//   .then(() => Message.sync())
+//   .then(() => db.close())
+//   .then(() => console.log("closed connection to the database"))
+//   .catch(err => console.log("error syncing to database"));
+// Shop.sync();
+// Car.sync();
+// HistoryEntry.sync();
+// Review.sync();
+// Appointment.sync();
+// Favorite.sync();
+// Message.sync();
 
 // User.sync({ force: true }).then(() => {
 //   console.log("User Table Created");
