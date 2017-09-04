@@ -103,6 +103,8 @@ HistoryEntry.belongsTo(Shop, {
   foreignKey: { name: "shopId", unique: false }
 });
 
+//All syncing of models and relationships occur when seed.js is run
+
 // User.sync()
 //   .then(() => Shop.sync())
 //   .then(() => Car.sync())
@@ -135,15 +137,6 @@ HistoryEntry.belongsTo(Shop, {
 //     }
 //   ]);
 // });
-
-// User.sync({ force: true });
-// Shop.sync({ force: true });
-// Car.sync({ force: true });
-// HistoryEntry.sync({ force: true });
-// Review.sync({ force: true });
-// Appointment.sync({ force: true });
-// Favorite.sync({ force: true });
-// Message.sync({ force: true });
 
 module.exports = {
   User,
