@@ -42,12 +42,11 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0"
   },
   "babel": {
-    "plugins": [
-      "transform-object-rest-spread"
-    ]
+    "plugins": ["transform-object-rest-spread"]
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node seed.js",
     "start": "nodemon server/index.js",
     "build": "webpack -w"
   },
