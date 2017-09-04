@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 const path = require("path");
-const dbURL = require(path.resolve(__dirname, "./env/config")).dbURL;
-
+const { dbURL } = require(path.resolve(__dirname, "./env/config"));
 const {
   User,
   Shop,
@@ -28,6 +27,24 @@ db
       {
         name: "Test-Name",
         email: "Email@test.com",
+        phone: "(555) 555-5555",
+        profilePic: "https://goo.gl/images/4StBwJ"
+      },
+      {
+        name: "Test-Name-2",
+        email: "Email2@test.com",
+        phone: "(555) 555-5555",
+        profilePic: "https://goo.gl/images/4StBwJ"
+      },
+      {
+        name: "Test-Name-3",
+        email: "Email3@test.com",
+        phone: "(555) 555-5555",
+        profilePic: "https://goo.gl/images/4StBwJ"
+      },
+      {
+        name: "Test-Name-4",
+        email: "Email4@test.com",
         phone: "(555) 555-5555",
         profilePic: "https://goo.gl/images/4StBwJ"
       }
@@ -71,7 +88,7 @@ db
       }
     ])
   )
-  .then(() => console.log("shops have been synced, syncing cars"))
+  .then(() => console.log("created shops, syncing cars"))
   .then(() => Car.sync({ force: true }))
   .then(() =>
     Car.bulkCreate([
@@ -109,8 +126,7 @@ db
       }
     ])
   )
-  .then(() => Car.findAll())
-  .then(() => console.log("seeded car data to table, syncing history entries"))
+  .then(() => console.log("created cars, syncing history entries"))
   .then(() => HistoryEntry.sync({ force: true }))
   .then(() =>
     HistoryEntry.bulkCreate([
@@ -144,11 +160,95 @@ db
       }
     ])
   )
-  .then(() => HistoryEntry.findAll())
-  .then(res =>
-    console.log(
-      "here are your history entries",
-      res.map(entry => entry.dataValues)
-    )
+  .then(() => console.log("created history entries, syncing reviews"))
+  .then(() => Review.sync({ force: true }))
+  .then(() =>
+    Review.bulkCreate([
+      {
+        rating: 1,
+        response: "response test1",
+        review: "review test1",
+        userId: 1,
+        shopId: 2
+      },
+      {
+        rating: 2,
+        response: "response test2",
+        review: "review test2",
+        userId: 3,
+        shopId: 1
+      },
+      {
+        rating: 3,
+        response: "response test3",
+        review: "review test3",
+        userId: 2,
+        shopId: 2
+      }
+    ])
   )
+  .then(() => console.log("created reviews, syncing appointments"))
+  .then(() => Appointment.sync({ force: true }))
+  .then(() =>
+    Appointment.bulkCreate([
+      {
+        date: new Date(2017, 8, 30),
+        service: "service test 1",
+        time: "time test 1.  I am a string",
+        userId: 2,
+        shopId: 1
+      },
+      {
+        date: new Date(2017, 8, 24),
+        service: "service test 2",
+        time: "time test 2",
+        userId: 1,
+        shopId: 3
+      },
+      {
+        date: new Date(),
+        service: "service test 3",
+        time: "time test 3",
+        userId: 4,
+        shopId: 4
+      }
+    ])
+  )
+  .then(() => console.log("created appointments, syncing favorites"))
+  .then(() => Favorite.sync({ force: true }))
+  .then(() =>
+    Favorite.bulkCreate([
+      {
+        userId: 1,
+        shopId: 2
+      },
+      {
+        userId: 3,
+        shopId: 2
+      },
+      {
+        userId: 4,
+        shopId: 3
+      }
+    ])
+  )
+  .then(() => console.log("created favorites, syncing messages"))
+  .then(() => Message.sync({ force: true }))
+  .then(() =>
+    Message.bulkCreate([
+      {
+        from: "test from 1",
+        message: "message test 1",
+        userId: 1,
+        shopId: 2
+      },
+      {
+        from: "test from 2",
+        message: "message tes 2",
+        userId: 3,
+        shopId: 2
+      }
+    ])
+  )
+  .then(() => console.log("database seeded, please disconnect"))
   .catch(err => console.log("could not connect to db: ", err));
