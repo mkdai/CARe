@@ -111,30 +111,16 @@ User.sync()
   .then(() => Appointment.sync())
   .then(() => Favorite.sync())
   .then(() => Message.sync())
-  // .then(() => db.close())
-  // .then(() => console.log("closed connection to the database"))
+  .then(() =>
+    db.authenticate(err => {
+      if (err) {
+        console.log(`Error connecting to db! ${err}`);
+      } else {
+        console.log("Successfully connected to db!");
+      }
+    })
+  )
   .catch(err => console.log("error syncing to database"));
-// Shop.sync();
-// Car.sync();
-// HistoryEntry.sync();
-// Review.sync();
-// Appointment.sync();
-// Favorite.sync();
-// Message.sync();
-
-// User.sync({ force: true }).then(() => {
-//   console.log("User Table Created");
-//   return User.bulkCreate([
-//     {
-//       id: 1,
-//       email: "mikegriff951@gmail.com",
-//       name: "Michael Griffin",
-//       phone: "9513260152",
-//       profilePic:
-//         "https://pbs.twimg.com/profile_images/809457271365320704/or_PlfyP.jpg"
-//     }
-//   ]);
-// });
 
 module.exports = {
   User,
