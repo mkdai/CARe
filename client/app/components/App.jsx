@@ -48,10 +48,6 @@ class App extends Component {
             path="/shopdashcalform"
             component={ShopDashboardCalendarForm}
           />
-          <Route
-            path="/inputmaintenancehistory"
-            component={InputMaintenanceHistory}
-          />
         </Switch>
       </BrowserRouter>
     );
