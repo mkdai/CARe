@@ -1,7 +1,8 @@
-const { Shop } = require("../../db/index.js");
+const { Shop, Review, User } = require("../../db/index.js");
 const axios = require("axios");
 const { yelpId, yelpSecret } = require("../../env/config.js");
 const qs = require("querystring");
+const Sequelize = require("sequelize");
 
 var yelpExpiration;
 var yelpToken;
@@ -19,22 +20,38 @@ var autoCategories = [
   "car_dealers",
   "windshieldinstallrepair"
 ];
+
 const processShopData = (shop, cb) => {
   Shop.find({
     where: {
       yelp_id: shop.id
     }
-  })
-    .then(response => {
-      console.log(response.dataValues);
-      shop.isSupported = true;
-      cb(shop);
-    })
-    .catch(() => {
-      console.log("nothing in our database!");
-      shop.isSupported = false;
+  }).then(response => {
+    console.log(response.dataValues);
+    shop.isSupported = true;
+    shop.rating = response.dataValues.rating;
+    Review.findAll({
+      where: { shopId: response.dataValues.id },
+      include: [User]
+    }).then(reviews => {
+      // if (reviews) {
+      shop.reviews = reviews.map(review => {
+        review.dataValues.user = review.user.dataValues;
+        return review.dataValues;
+      });
+      shop.review_count = shop.reviews.length;
+      console.log("these are shops reviews: ", shop.reviews);
+      // } else {
+      //   shop.reviews = [];
+      // }
       cb(shop);
     });
+  });
+  // .catch(() => {
+  //   console.log("nothing in our database!");
+  //   shop.isSupported = false;
+  //   cb(shop);
+  // });
 };
 const processShopResultData = (shops, cb) => {
   let yelpIds = [];

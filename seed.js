@@ -210,7 +210,7 @@ db
         response: "response test3",
         review: "review test3",
         userId: 2,
-        shopId: 2
+        shopId: 1
       }
     ])
   )
