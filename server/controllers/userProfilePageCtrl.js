@@ -2,10 +2,10 @@ const db = require("../../db/index");
 
 module.exports = {
   updateProfile: (req, res) => {
+    console.log(req.params.id);
     db.User
       .update(
         {
-          email: req.body.email,
           name: req.body.name,
           phone: req.body.phone,
           profilePic: req.body.profilePic
@@ -17,6 +17,20 @@ module.exports = {
       })
       .catch(err => {
         res.status(404).send(err);
+      });
+  },
+
+  getProfile: (req, res) => {
+    console.log("getting profile info");
+    db.User
+      .findById(req.params.id)
+      .then(response => {
+        res.send(response);
+      })
+      .catch(err => {
+        if (err) {
+          console.log(err);
+        }
       });
   }
 };
