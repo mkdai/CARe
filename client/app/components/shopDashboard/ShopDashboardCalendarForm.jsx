@@ -32,7 +32,7 @@ class ShopDashboardCalendarForm extends Component {
       inputTimestampFormat: "U",
       outputTimestampFormat: "U"
     });
-    // Timestamps coming and going to timekit sdk must be unicod
+    // Timestamps coming and going to timekit sdk must be unicode
 
     timekit
       .auth({
@@ -42,7 +42,7 @@ class ShopDashboardCalendarForm extends Component {
       .then(() => console.log("authenticated"))
       .then(() =>
         timekit.createCalendar({
-          name: "Test-Calendar-4",
+          name: "Test-Calendar-5",
           description: "testing this calendar"
         })
       )
