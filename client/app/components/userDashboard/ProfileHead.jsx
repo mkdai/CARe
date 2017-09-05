@@ -15,7 +15,7 @@ export default class ProfileHead extends React.Component {
     this.state = {
       showModal: false,
       uploadedFileCloudinaryUrl: "",
-      name: "",
+      name: "Your name here",
       email: "",
       phone: "",
       profilePic: ""
@@ -26,6 +26,22 @@ export default class ProfileHead extends React.Component {
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    axios
+      .get(`/api/userProfile/getProfile/${this.props.user.currentUser.id}`)
+      .then(response => {
+        console.log("THIS IS DATA", response);
+        this.setState({
+          name: response.data.name,
+          phone: response.data.phone,
+          profilePic: response.data.profilePic
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   open() {
@@ -77,20 +93,33 @@ export default class ProfileHead extends React.Component {
 
   handleSubmit() {
     console.log("Handle Submit is hitting");
-    //axios.put(`/api/updateProfile/$`);
+    this.close();
+    axios
+      .put(
+        `/api/userProfile/updateProfile/${this.props.user.currentUser.id}`,
+        this.state
+      )
+      .then(data => {
+        console.log("DATA", data);
+        this.setState({ name: data.data[1][0].name });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
+    console.log("CURRENT USER ID", this.props.user.currentUser.id);
     return (
       <div>
         <div className="UserPic">
           <img
-            src="http://www.hazelearth.com/admin-content/thumbs/nouser.jpg"
+            src={this.state.profilePic}
             className="img-responsive"
             id="user-pic"
           />
           <div className="profile-info">
-            <div>Brandon Tilley</div>
+            <div>{this.state.name}</div>
             <div>
               <a href="#" className="reviews-link">
                 Reviews
@@ -122,16 +151,6 @@ export default class ProfileHead extends React.Component {
                   className="edit-profile-input"
                   type="text"
                   placeholder="Enter your name"
-                />
-              </form>
-              <label>Email</label>
-              <form>
-                <input
-                  name="email"
-                  onChange={this.handleOnChange}
-                  className="edit-profile-input"
-                  type="text"
-                  placeholder="Enter your email"
                 />
               </form>
               <label>Phone</label>

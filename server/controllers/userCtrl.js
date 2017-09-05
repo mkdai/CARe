@@ -6,7 +6,11 @@ module.exports = {
       where: {
         email: req.body.email
       },
-      defaults: { name: "Your name here" }
+      defaults: {
+        name: "Your name here",
+        profilePic:
+          "https://www.hoursproject.com/images/cache/square_thumb/images/user/default.png"
+      }
     })
       .spread((user, created) => {
         if (created) {

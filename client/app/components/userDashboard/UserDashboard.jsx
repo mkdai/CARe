@@ -6,6 +6,7 @@ import CarHead from "./CarHead.jsx";
 import AddCar from "./AddCar.jsx";
 import DashboardTabs from "./DashboardTabs.jsx";
 import { connect } from "react-redux";
+import axios from "axios";
 
 function mapStateToProps(state) {
   return {
@@ -14,8 +15,12 @@ function mapStateToProps(state) {
 }
 
 class UserDashboard extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    console.log("PROPS IN USERDASH", this.props);
   }
 
   render() {
@@ -32,7 +37,10 @@ class UserDashboard extends React.Component {
               />
             </div>
             <div className="col-lg-4 col-xs-12 col-sm-12">
-              <ProfileHead />
+              <ProfileHead user={this.props} />
+              <button onClick={() => console.log(this.props.currentUser)}>
+                Test current user
+              </button>
             </div>
             <div className="col-lg-4 col-xs-12 col-sm-12">
               <CarHead />

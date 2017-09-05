@@ -1,5 +1,12 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import Dropzone from "react-dropzone";
+import request from "superagent";
+import axios from "axios";
+
+const CLOUDINARY_UPLOAD_PRESET = "griffPreset";
+const CLOUDINARY_UPLOAD_URL =
+  "https://api.cloudinary.com/v1_1/mikegriff3/image/upload";
 
 export default class AddCar extends React.Component {
   constructor() {
@@ -7,23 +14,64 @@ export default class AddCar extends React.Component {
 
     this.state = {
       showModal: false,
-      vin: 0,
+      license: 0,
       mileage: 0,
-      color: ""
+      make: "",
+      model: "",
+      year: 0,
+      uploadedFileCloudinaryUrl: ""
     };
 
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   open() {
-    this.setState({ showModal: true }, () => {
-      console.log("2: THIS IS STATE of the modal", this.state.showModal);
-    });
+    this.setState({ showModal: true });
   }
 
   close() {
-    this.setState({ showModal: false }, console.log("close is being run"));
+    this.setState({ showModal: false });
+  }
+
+  onImageDrop(files) {
+    this.setState({
+      uploadedFile: files[0]
+    });
+    this.handleImageUpload(files[0]);
+  }
+
+  handleImageUpload(file) {
+    let upload = request
+      .post(CLOUDINARY_UPLOAD_URL)
+      .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+      .field("file", file);
+
+    upload.end((err, response) => {
+      if (err) {
+        console.error(err);
+      }
+
+      if (response.body.secure_url !== "") {
+        this.setState({
+          uploadedFileCloudinaryUrl: response.body.secure_url
+        });
+      }
+    });
+  }
+
+  handleOnChange(event) {
+    let temp = event.target.name;
+    this.setState(
+      {
+        [temp]: event.target.value
+      },
+      () => {
+        console.log("STATE IS", this.state);
+      }
+    );
   }
 
   render() {
@@ -44,34 +92,75 @@ export default class AddCar extends React.Component {
             <Modal.Title>Add Car</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <label>Vin</label>
+            <label>Make</label>
             <form>
               <input
-                name="vin"
+                name="make"
+                onChange={this.handleOnChange}
                 className="edit-profile-input"
                 type="text"
-                placeholder="Enter your car's vin number"
+                placeholder="Enter the make of your car"
+              />
+            </form>
+            <label>Model</label>
+            <form>
+              <input
+                name="model"
+                onChange={this.handleOnChange}
+                className="edit-profile-input"
+                type="text"
+                placeholder="Enter the model of your car"
+              />
+            </form>
+            <label>Year</label>
+            <form>
+              <input
+                name="year"
+                onChange={this.handleOnChange}
+                className="edit-profile-input"
+                type="text"
+                placeholder="Enter the year of your car"
               />
             </form>
             <label>Mileage</label>
             <form>
               <input
                 name="mileage"
+                onChange={this.handleOnChange}
                 className="edit-profile-input"
                 type="text"
-                placeholder="Enter your car's current mileage"
+                placeholder="Enter the mileage of your car"
               />
             </form>
-            <label>Color</label>
+            <label>License Plate Number</label>
             <form>
               <input
-                name="color"
+                name="license"
+                onChange={this.handleOnChange}
                 className="edit-profile-input"
                 type="text"
-                placeholder="Enter the color of your car"
+                placeholder="Enter the license plate number of your car"
               />
             </form>
             <hr />
+            <label>Car Picture</label>
+            <Dropzone
+              multiple={false}
+              accept="image/*"
+              onDrop={this.onImageDrop.bind(this)}
+            >
+              <p>Drop an image or click to select a file to upload.</p>
+            </Dropzone>
+            <div className="FileUpload">...</div>
+
+            <div>
+              {this.state.uploadedFileCloudinaryUrl === "" ? null : (
+                <div>
+                  <p>{this.state.uploadedFile.name}</p>
+                  <img src={this.state.uploadedFileCloudinaryUrl} />
+                </div>
+              )}
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Cancel</Button>
