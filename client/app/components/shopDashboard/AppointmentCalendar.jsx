@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Well } from "react-bootstrap";
 import $ from "jquery";
 import fullCalendar from "fullcalendar";
 import timekit from "timekit-sdk";
@@ -10,7 +11,8 @@ import {
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
- *   be able to render month, week, day, and daylist views of all the shops bookings
+ *  // be able to render month, week, day, and daylist views of all the shops bookings
+ *   be able to click each individual appointments, and see relevant info about the booking
  *   be able to set the week hours
  *     should have the capability to set different days
  *     should be able to set different hours
@@ -50,17 +52,21 @@ class AppointmentCalendar extends Component {
       })
       .then(() => {
         $("#calendar").fullCalendar({
+          header: {
+            left: "prev,next today title",
+            right: "month basicWeek basicDay listDay"
+          },
           events: this.state.bookings,
-          defaultView: "listWeek"
+          defaultView: "basicWeek"
         });
       })
       .catch(err => console.log("could not get calendars", err));
   }
   render() {
     return (
-      <div>
+      <Well>
         <div id="calendar" />
-      </div>
+      </Well>
     );
   }
 }

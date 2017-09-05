@@ -15,19 +15,26 @@ import {
 import MaintenanceJobs from "./MaintenanceJobs.jsx";
 
 class ShopDashboard extends Component {
+  /*
+ * should have a button to configure a booking calendar
+ *   should have the ability to set hours, and days that the shop is open
+ *   should have a button that creates the calendar
+ * when the calendar is created, should render a full-calendar that displays all the bookings
+ */
+
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+      show: false,
+      createCal: false,
+      calendar: false
     };
+    this.handleCalCreation = this.handleCalCreation.bind(this);
   }
 
-  handleOpenModal() {
-    this.setState({ show: true });
-  }
-
-  handleCloseModal() {
-    this.setState({ show: false });
+  handleCalCreation(e) {
+    console.log("cal creation button works");
+    this.setState({ calendar: true });
   }
 
   render() {
@@ -51,32 +58,38 @@ class ShopDashboard extends Component {
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
             <Tab eventKey={1} title="Calander">
-              <Row>
-                <Button onClick={() => this.setState({ show: true })}>
-                  Click
-                </Button>
-              </Row>
+              <Row />
               <Row>
                 <Modal
                   show={this.state.show}
-                  onHide={() => this.setState({ show: false })}
+                  onHide={() =>
+                    this.setState({
+                      show: false
+                    })}
                 >
                   <Modal.Header closeButton>
                     <h2>Settings</h2>
                   </Modal.Header>
                   <Modal.Body>
-                    <ShopDashboardSettings />
+                    <ShopDashboardSettings
+                      handleCalCreation={this.handleCalCreation}
+                    />
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button disabled>Click</Button>
+                    <Button onClick={this.handleCalCreation}>Click</Button>
                   </Modal.Footer>
                 </Modal>
               </Row>
 
               <Row>
                 <Col>
-                  {"   "}
-                  <AppointmentCalendar />
+                  {!!this.state.calendar ? (
+                    <AppointmentCalendar />
+                  ) : (
+                    <Button onClick={() => this.setState({ show: true })}>
+                      Create Booking Calendar
+                    </Button>
+                  )}
                 </Col>
               </Row>
             </Tab>
