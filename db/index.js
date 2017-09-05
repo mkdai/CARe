@@ -103,25 +103,6 @@ HistoryEntry.belongsTo(Shop, {
   foreignKey: { name: "shopId", unique: false }
 });
 
-User.sync()
-  .then(() => Shop.sync())
-  .then(() => Car.sync())
-  .then(() => HistoryEntry.sync())
-  .then(() => Review.sync())
-  .then(() => Appointment.sync())
-  .then(() => Favorite.sync())
-  .then(() => Message.sync())
-  .then(() =>
-    db.authenticate(err => {
-      if (err) {
-        console.log(`Error connecting to db! ${err}`);
-      } else {
-        console.log("Successfully connected to db!");
-      }
-    })
-  )
-  .catch(err => console.log("error syncing to database"));
-
 module.exports = {
   User,
   Shop,
