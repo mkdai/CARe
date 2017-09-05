@@ -101,6 +101,7 @@ db
     Car.bulkCreate([
       {
         make: "test Make",
+        mileage: 25536,
         model: "test model",
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",
@@ -110,6 +111,7 @@ db
       },
       {
         make: "test2 Make",
+        mileage: 255345,
         model: "test2 model",
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",
@@ -119,6 +121,7 @@ db
       },
       {
         make: "test3 Make",
+        mileage: 255361,
         model: "test3 model",
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",
@@ -128,6 +131,7 @@ db
       },
       {
         make: "test4 Make",
+        mileage: 99999,
         model: "test4 model",
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",

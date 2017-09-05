@@ -22,6 +22,7 @@ const Shop = db.define("shop", {
 const Car = db.define("car", {
   license: { type: Sequelize.STRING, allowNull: true },
   make: { type: Sequelize.STRING, allowNull: false },
+  mileage: { type: Sequelize.INTEGER, allowNull: false },
   model: { type: Sequelize.STRING, allowNull: false },
   nextService: { type: Sequelize.ARRAY(Sequelize.TEXT), allowNull: true },
   picture: { type: Sequelize.TEXT, allowNull: true },

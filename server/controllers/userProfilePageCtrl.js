@@ -57,5 +57,28 @@ module.exports = {
         console.log(`Error finding car histories! ${err}`);
         res.status(404).send(`Error finding car histories! ${err}`);
       });
+  },
+  addCar: (req, res) => {
+    console.log("THIS IS ADDCAR REQUEST:::::", req.body);
+    db.Car
+      .findOrCreate({
+        where: {
+          userId: req.params.id,
+          license: req.body.license,
+          make: req.body.make,
+          model: req.body.model,
+          picture: req.body.uploadedFileCloudinaryUrl,
+          year: req.body.year,
+          mileage: req.body.mileage
+        }
+      })
+      .then(data => {
+        console.log("Successfully added car to database");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send(err);
+      });
   }
 };

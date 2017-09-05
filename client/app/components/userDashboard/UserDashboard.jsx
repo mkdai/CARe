@@ -42,11 +42,11 @@ class UserDashboard extends React.Component {
                 Test current user
               </button>
             </div>
-            <div className="col-lg-4 col-xs-12 col-sm-12">
+            <div className="car-container col-lg-4 col-xs-12 col-sm-12">
               <CarHead />
             </div>
             <div className="col-lg-4 col-xs-12 col-sm-12">
-              <AddCar />
+              <AddCar user={this.props} />
             </div>
             <div className="col-lg-12 col-xs-12 col-sm-12">
               <hr
