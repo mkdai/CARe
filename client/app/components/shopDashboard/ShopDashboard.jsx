@@ -26,6 +26,7 @@ class ShopDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       showCalModal: false,
       createCal: false,
       calendar: false,
@@ -78,6 +79,18 @@ class ShopDashboard extends Component {
         );
       })
       .catch(err => console.log("could not create cal", err));
+=======
+      show: false,
+      createCal: false,
+      calendar: false
+    };
+    this.handleCalCreation = this.handleCalCreation.bind(this);
+  }
+
+  handleCalCreation(e) {
+    console.log("cal creation button works");
+    this.setState({ calendar: true });
+>>>>>>> Render button or Appointment Calendar views
   }
 
   render() {
@@ -101,12 +114,22 @@ class ShopDashboard extends Component {
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
             <Tab eventKey={1} title="Calander">
+<<<<<<< HEAD
               <Row>
                 <Modal
                   show={this.state.showCalModal}
                   onHide={() =>
                     this.setState({
                       showCalModal: false
+=======
+              <Row />
+              <Row>
+                <Modal
+                  show={this.state.show}
+                  onHide={() =>
+                    this.setState({
+                      show: false
+>>>>>>> Render button or Appointment Calendar views
                     })}
                 >
                   <Modal.Header closeButton>
@@ -115,20 +138,34 @@ class ShopDashboard extends Component {
                   <Modal.Body>
                     <ShopDashboardSettings
                       handleCalCreation={this.handleCalCreation}
+<<<<<<< HEAD
                       handleBuildCalendar={this.handleBuildCalendar}
                     />
                   </Modal.Body>
+=======
+                    />
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button onClick={this.handleCalCreation}>Click</Button>
+                  </Modal.Footer>
+>>>>>>> Render button or Appointment Calendar views
                 </Modal>
               </Row>
 
               <Row>
                 <Col>
                   {!!this.state.calendar ? (
+<<<<<<< HEAD
                     <AppointmentCalendar {...this.props} {...this.state} />
                   ) : (
                     <Button
                       onClick={() => this.setState({ showCalModal: true })}
                     >
+=======
+                    <AppointmentCalendar />
+                  ) : (
+                    <Button onClick={() => this.setState({ show: true })}>
+>>>>>>> Render button or Appointment Calendar views
                       Create Booking Calendar
                     </Button>
                   )}

@@ -20,8 +20,13 @@ import {
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
+<<<<<<< HEAD
  *   be able to render month, week, day, and daylist views of all the shops bookings
 >>>>>>> have psuedo code of shop apptCal expectations
+=======
+ *  // be able to render month, week, day, and daylist views of all the shops bookings
+ *   be able to click each individual appointments, and see relevant info about the booking
+>>>>>>> Render button or Appointment Calendar views
  *   be able to set the week hours
  *     should have the capability to set different days
  *     should be able to set different hours
