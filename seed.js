@@ -65,6 +65,7 @@ db
         address: "Test1 St Pasadena, CA 91106",
         email: "shop@testEmail.com",
         phone: "(626) 795-7018",
+        yelp_id: "valvoline-instant-oil-change-los-angeles",
         pickup: false,
         picture:
           "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"
@@ -73,6 +74,7 @@ db
         address: "Test2 Address Ave. Glendale, CA 11111",
         email: "shop2@testEmail.com",
         phone: "(626) 555-7585",
+        yelp_id: "valvoline-instant-oil-change-los-angeles-19",
         pickup: true,
         picture:
           "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"
@@ -81,6 +83,7 @@ db
         address: "Test3 Blvd. Pasadena, CA 91106",
         email: "shop@testEmail.com",
         phone: "(626) 795-7018",
+        yelp_id: "jiffy-lube-los-angeles-3",
         pickup: false,
         picture:
           "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"
@@ -89,6 +92,7 @@ db
         address: "Test4 Ave. Glendale, CA 11111",
         email: "shop2@testEmail.com",
         phone: "(626) 555-7585",
+        yelp_id: "lube-masters-los-angeles",
         pickup: true,
         picture:
           "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"

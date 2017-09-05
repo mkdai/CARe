@@ -4,8 +4,7 @@ const { yelpId, yelpSecret } = require("../../env/config.js");
 const qs = require("querystring");
 
 var yelpExpiration;
-var yelpToken =
-  "ZOhjMpWQJpVHSq7UiCHWk9UNfMLCIkmaFv2Hxa3zPO6tKp3yVABi7c5YNXXr9ItY-gcG5N_QkyByD6DRMfdFsMW1dVkOwFCAoshGuZhHgdutCkrptYua-cyhHlqkWXYx";
+var yelpToken;
 var autoCategories = [
   "autorepair",
   "oilchange",
@@ -20,11 +19,61 @@ var autoCategories = [
   "car_dealers",
   "windshieldinstallrepair"
 ];
+const processShopData = (shop, cb) => {
+  Shop.find({
+    where: {
+      yelp_id: shop.id
+    }
+  })
+    .then(response => {
+      console.log(response.dataValues);
+      shop.isSupported = true;
+      cb(shop);
+    })
+    .catch(() => {
+      console.log("nothing in our database!");
+      shop.isSupported = false;
+      cb(shop);
+    });
+};
+const processShopResultData = (shops, cb) => {
+  let yelpIds = [];
+  shops.map(shop => yelpIds.push(shop.id));
+  Shop.findAll({
+    where: {
+      $or: [
+        {
+          yelp_id: yelpIds
+        }
+      ]
+    }
+  }).then(rows => {
+    let matchedYelpIds = rows.map(row => row.dataValues.yelp_id);
+    shops.map(shop => {
+      if (matchedYelpIds.indexOf(shop.id) !== -1) {
+        shop.isSupported = true;
+      } else {
+        shop.isSupported = false;
+      }
+    });
+    shops.sort((a, b) => {
+      if (a.isSupported === b.isSupported) {
+        return 0;
+      }
+      if (a.isSupported && !b.isSupported) {
+        return -1;
+      }
+      if (!a.isSupported && b.isSupported) {
+        return 1;
+      }
+    });
+    cb(shops);
+  });
+};
 
 module.exports = {
   getAllShops: (req, res) => {
     if (!yelpExpiration || yelpExpiration < Date.now()) {
-      console.log("need auth token ", yelpId, yelpSecret);
       axios
         .post(
           "https://api.yelp.com/oauth2/token",
@@ -52,7 +101,9 @@ module.exports = {
               headers: { Authorization: `Bearer ${yelpToken}` }
             })
             .then(searchResult => {
-              res.send(searchResult.data);
+              processShopResultData(searchResult.data.businesses, data =>
+                res.send(data)
+              );
             })
             .catch(err => console.log(err));
         })
@@ -74,7 +125,9 @@ module.exports = {
           headers: { Authorization: `Bearer ${yelpToken}` }
         })
         .then(searchResult => {
-          res.send(searchResult.data);
+          processShopResultData(searchResult.data.businesses, data =>
+            res.send(data)
+          );
         })
         .catch(err => console.log(err));
     }
@@ -100,7 +153,7 @@ module.exports = {
               headers: { Authorization: `Bearer ${yelpToken}` }
             })
             .then(searchResult => {
-              res.send(searchResult.data);
+              processShopData(searchResult.data, data => res.send(data));
             })
             .catch(err => {
               res.statusCode = 404;
@@ -115,7 +168,7 @@ module.exports = {
           headers: { Authorization: `Bearer ${yelpToken}` }
         })
         .then(searchResult => {
-          res.send(searchResult.data);
+          processShopData(searchResult.data, data => res.send(data));
         })
         .catch(err => {
           res.statusCode = 404;

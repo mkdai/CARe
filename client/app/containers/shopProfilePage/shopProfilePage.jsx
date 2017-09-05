@@ -30,7 +30,7 @@ class ShopProfilePage extends Component {
       .get(`/api/search/getshop?id=${parsed.idstring}`)
       .then(res => {
         console.log("we good");
-        console.log(JSON.stringify(res.data.name));
+        console.log(res.data);
         this.setState({
           idString: parsed.idstring,
           name: res.data.name,
