@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { addAuth } from "../actions/authAction.js";
 import SearchResults from "./searchResults/searchResults.jsx";
 import UserDashBoard from "./userDashboard/UserDashboard.jsx";
+import InputMaintenanceHistory from "./shopDashboard/InputMaintenanceHistory.jsx";
 
 function mapStateToProps(state) {
   return {

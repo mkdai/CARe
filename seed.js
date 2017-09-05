@@ -47,6 +47,13 @@ db
         email: "Email4@test.com",
         phone: "(555) 555-5555",
         profilePic: "https://goo.gl/images/4StBwJ"
+      },
+      {
+        email: "mikegriff951@gmail.com",
+        name: "Michael Griffin",
+        phone: "9513260152",
+        profilePic:
+          "https://pbs.twimg.com/profile_images/809457271365320704/or_PlfyP.jpg"
       }
     ])
   )
@@ -98,7 +105,8 @@ db
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",
         vin: "test vin",
-        year: 2020
+        year: 2020,
+        userId: 5
       },
       {
         make: "test2 Make",
@@ -106,7 +114,8 @@ db
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",
         vin: "test2 vin",
-        year: 2021
+        year: 2021,
+        userId: 5
       },
       {
         make: "test3 Make",
@@ -114,7 +123,8 @@ db
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",
         vin: "test3 vin",
-        year: 2022
+        year: 2022,
+        userId: 5
       },
       {
         make: "test4 Make",
@@ -122,7 +132,8 @@ db
         nextService: ["test service 1", "test service 2"],
         picture: "https://goo.gl/images/JS3xgR",
         vin: "test4 vin",
-        year: 2023
+        year: 2023,
+        userId: 5
       }
     ])
   )

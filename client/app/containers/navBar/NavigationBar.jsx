@@ -77,9 +77,9 @@ class NavigationBar extends React.Component {
           </Nav>
         )}
         {this.props.currentAuth.isAuthenticated() && (
-          <Nav pullRight>
-            <NavItem>
-              <Form onSubmit={this.search} inline>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <Navbar.Form onSubmit={this.search} pullLeft>
                 <FormGroup>
                   <FormControl
                     type="text"
@@ -95,15 +95,15 @@ class NavigationBar extends React.Component {
                   />
                 </FormGroup>
                 <Link to={this.state.searchUrl}> SEARCH </Link>
-              </Form>
-            </NavItem>
-            <NavItem>
-              <Link to="userdash">USER DASHBOARD</Link>
-            </NavItem>
-            <NavItem onClick={this.logout}>
-              <Link to="/">LOGOUT</Link>
-            </NavItem>
-          </Nav>
+              </Navbar.Form>
+              <NavItem>
+                <Link to="userdash">USER DASHBOARD</Link>
+              </NavItem>
+              <NavItem onClick={this.logout}>
+                <Link to="/">LOGOUT</Link>
+              </NavItem>
+            </Nav>
+          </Navbar.Collapse>
         )}
       </Navbar>
     );

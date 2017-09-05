@@ -103,41 +103,6 @@ HistoryEntry.belongsTo(Shop, {
   foreignKey: { name: "shopId", unique: false }
 });
 
-//All syncing of models and relationships occur when seed.js is run
-
-// User.sync()
-//   .then(() => Shop.sync())
-//   .then(() => Car.sync())
-//   .then(() => HistoryEntry.sync())
-//   .then(() => Review.sync())
-//   .then(() => Appointment.sync())
-//   .then(() => Favorite.sync())
-//   .then(() => Message.sync())
-//   .then(() => db.close())
-//   .then(() => console.log("closed connection to the database"))
-//   .catch(err => console.log("error syncing to database"));
-// Shop.sync();
-// Car.sync();
-// HistoryEntry.sync();
-// Review.sync();
-// Appointment.sync();
-// Favorite.sync();
-// Message.sync();
-
-// User.sync({ force: true }).then(() => {
-//   console.log("User Table Created");
-//   return User.bulkCreate([
-//     {
-//       id: 1,
-//       email: "mikegriff951@gmail.com",
-//       name: "Michael Griffin",
-//       phone: "9513260152",
-//       profilePic:
-//         "https://pbs.twimg.com/profile_images/809457271365320704/or_PlfyP.jpg"
-//     }
-//   ]);
-// });
-
 module.exports = {
   User,
   Shop,
