@@ -9,6 +9,12 @@ import {
 } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import FieldGroup from "./FieldGroup.jsx";
+import timekit from "timekit-sdk";
+import {
+  timekitApp,
+  timekitEmail,
+  timekitPassword
+} from "../../../../env/config";
 
 class ShopDashboardSettings extends Component {
   constructor(props) {
@@ -17,32 +23,34 @@ class ShopDashboardSettings extends Component {
       createCal: false,
       firstName: "",
       lastName: "",
+      shopName: "",
       shopEmail: "",
       shopPassword: "",
       shopTimeZone: ""
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleUpdateFirstName = this.handleUpdateFirstName.bind(this);
-    this.handleUpdateLastName = this.handleUpdateLastName.bind(this);
-    this.handleUpdateEmail = this.handleUpdateEmail.bind(this);
-    this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
+
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleShopNameChange = this.handleShopNameChange.bind(this);
   }
 
-  handleClick() {
-    console.log(this.state);
+  handleShopNameChange(e) {
+    e.preventDefault();
+    this.setState({ shopName: e.target.value });
   }
 
-  handleUpdateFirstName(e) {
+  handleFirstNameChange(e) {
     e.preventDefault();
     this.setState({ firstName: e.target.value });
   }
 
-  handleUpdateLastName(e) {
+  handleLastNameChange(e) {
     e.preventDefault();
     this.setState({ lastName: e.target.value });
   }
 
-  handleUpdateEmail(e) {
+  handleEmailChange(e) {
     e.preventDefault();
     this.setState({ shopEmail: e.target.value });
   }
@@ -52,9 +60,6 @@ class ShopDashboardSettings extends Component {
     this.setState({ shopPassword: e.target.value });
   }
 
-  handleBuildCalendar() {
-    console.log("building calendar");
-  }
   render() {
     return (
       <Well>
@@ -62,10 +67,20 @@ class ShopDashboardSettings extends Component {
           <FieldGroup
             id="formControlsText"
             type="text"
+            label="Shop Name"
+            placeholder="Shop Name"
+            value={this.state.shopName}
+            onChange={this.handleShopNameChange}
+          >
+            {this.state.value}
+          </FieldGroup>
+          <FieldGroup
+            id="formControlsText"
+            type="text"
             label="First Name"
             placeholder="First Name"
             value={this.state.firstName}
-            onChange={this.handleUpdateFirstName}
+            onChange={this.handleFirstNameChange}
           >
             {this.state.value}
           </FieldGroup>
@@ -75,7 +90,7 @@ class ShopDashboardSettings extends Component {
             label="Last Name"
             placeholder="Last Name"
             value={this.state.lastName}
-            onChange={this.handleUpdateLastName}
+            onChange={this.handleLastNameChange}
           >
             {this.state.value}
           </FieldGroup>
@@ -85,11 +100,8 @@ class ShopDashboardSettings extends Component {
             label="Shop Name"
             placeholder="Shop Name"
           />
-          <Button onClick={this.handleClick}>Click</Button>
 
-          <Link to="/shopdashcalform">Create Calendar</Link>
-
-          <p>These are the settings</p>
+          <Button onClick={this.props.handleBuildCalendar}>Submit</Button>
         </Form>
       </Well>
     );
