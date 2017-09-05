@@ -19,7 +19,6 @@ module.exports = {
         res.status(404).send(err);
       });
   },
-
   getProfile: (req, res) => {
     console.log("getting profile info");
     db.User
@@ -31,6 +30,32 @@ module.exports = {
         if (err) {
           console.log(err);
         }
+      });
+  },
+  getAllUserCars: (req, res) => {
+    db.Car
+      .findAll({
+        where: {
+          userId: req.params.userId
+        }
+      })
+      .then(cars => res.status(200).send(cars))
+      .catch(err => {
+        console.log(`Error finding user cars! ${err}`);
+        res.status(404).send(`Error finding user cars! ${err}`);
+      });
+  },
+  getMaintenanceHistory: (req, res) => {
+    db.HistoryEntry
+      .findAll({
+        where: {
+          carId: req.params.carId
+        }
+      })
+      .then(histories => res.status(200).send(histories))
+      .catch(err => {
+        console.log(`Error finding car histories! ${err}`);
+        res.status(404).send(`Error finding car histories! ${err}`);
       });
   }
 };

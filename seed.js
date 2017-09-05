@@ -146,28 +146,36 @@ db
         description: "Test description",
         mileage: 3000000,
         notes: "test note",
-        service: "test service"
+        service: "test service",
+        carId: 2,
+        shopId: 4
       },
       {
         date: new Date(),
         description: "Test2 description",
         mileage: 3000000,
         notes: "test note",
-        service: "test service"
+        service: "test service",
+        carId: 1,
+        shopId: 4
       },
       {
         date: new Date(),
         description: "Test3 description",
         mileage: 3000000,
         notes: "test note",
-        service: "test service"
+        service: "test service",
+        carId: 2,
+        shopId: 2
       },
       {
         date: new Date(),
         description: "Test4 description",
         mileage: 3000000,
         notes: "test note",
-        service: "test service"
+        service: "test service",
+        carId: 3,
+        shopId: 1
       }
     ])
   )
