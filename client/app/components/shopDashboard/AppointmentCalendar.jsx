@@ -57,8 +57,17 @@ class AppointmentCalendar extends Component {
 
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
+<<<<<<< HEAD
       .then(() => timekit.include("attributes").getBookings())
 >>>>>>> have psuedo code of shop apptCal expectations
+=======
+      .then(() => timekit.getCalendar({ id: this.props.calendar_id }))
+      .then(
+        res => res.data.getBookings()
+        // timekit.include("attributes")
+        // .getBookings()
+      )
+>>>>>>> Clean ShopDashboardSettings
       .then(res => {
         console.log("successfully received calandar from server", res.data);
         this.setState({ bookings: res.data });

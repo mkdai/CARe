@@ -20,6 +20,7 @@ class ShopDashboardCalendarForm extends Component {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   handleSubmitForm() {}
 =======
   handleSubmitForm() {
@@ -49,6 +50,9 @@ class ShopDashboardCalendarForm extends Component {
       .then(res => console.log("created calendar: ", res.data));
   }
 >>>>>>> Render button or Appointment Calendar views
+=======
+  handleSubmitForm() {}
+>>>>>>> Clean ShopDashboardSettings
 
   render() {
     return (

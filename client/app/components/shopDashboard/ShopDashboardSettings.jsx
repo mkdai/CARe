@@ -9,6 +9,12 @@ import {
 } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import FieldGroup from "./FieldGroup.jsx";
+import timekit from "timekit-sdk";
+import {
+  timekitApp,
+  timekitEmail,
+  timekitPassword
+} from "../../../../env/config";
 
 class ShopDashboardSettings extends Component {
   constructor(props) {
