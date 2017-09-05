@@ -9,8 +9,8 @@ const CLOUDINARY_UPLOAD_URL =
   "https://api.cloudinary.com/v1_1/mikegriff3/image/upload";
 
 export default class AddCar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       showModal: false,
@@ -26,6 +26,7 @@ export default class AddCar extends React.Component {
     this.close = this.close.bind(this);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   open() {
@@ -72,6 +73,23 @@ export default class AddCar extends React.Component {
         console.log("STATE IS", this.state);
       }
     );
+  }
+
+  handleSubmit() {
+    console.log("Handle Submit is hitting");
+    this.close();
+    axios
+      .post(
+        `/api/userProfile/addCar/${this.props.user.currentUser.id}`,
+        this.state
+      )
+      .then(data => {
+        console.log("DATA", data);
+        //this.setState({});
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -164,7 +182,7 @@ export default class AddCar extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Cancel</Button>
-            <Button onClick={this.close}>Submit</Button>
+            <Button onClick={this.handleSubmit}>Submit</Button>
           </Modal.Footer>
         </Modal>
       </div>

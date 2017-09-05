@@ -384,6 +384,11 @@ p.copyright {
     width: 25%;
     font-size: 18px;
   }
+
+  .car-container {
+    height: 300px;
+    overflow-y: scroll;
+  }
 }
 
 /* Medium Devices, Desktops */
