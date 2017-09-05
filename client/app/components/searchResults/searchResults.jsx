@@ -40,10 +40,10 @@ class SearchResults extends Component {
           console.log(
             "location cannot be found: ",
             err,
-            "using default location -33.976,-118.387"
+            "using default location 33.976,-118.387"
           );
           axios
-            .get(`/api/search/allshops?latitude=-33.976&longitude=-118.387`)
+            .get(`/api/search/allshops?latitude=33.976&longitude=-118.387`)
             .then(({ data }) => {
               this.setState({ shops: data.businesses, loading: false });
               console.log(data);
@@ -52,7 +52,7 @@ class SearchResults extends Component {
       );
     } else {
       axios.get(`/api/search/allshops${searchQueryString}`).then(({ data }) => {
-        this.setState({ shops: data.businesses, loading: false }, () =>
+        this.setState({ shops: data, loading: false }, () =>
           console.log(this.state.shops)
         );
         console.log(this.state.shops);
@@ -80,7 +80,7 @@ class SearchResults extends Component {
             {this.state.shops.map(shop => {
               return (
                 <Link to={`/shops?idstring=${shop.id}`}>
-                  <Row className="search-result-entry" className="test">
+                  <Row className="search-result-entry test">
                     <Col xs={12} sm={12} md={3} lg={3}>
                       <Image
                         src={shop.image_url}
@@ -96,6 +96,9 @@ class SearchResults extends Component {
                       </div>
                       <div className="distance-info">
                         {Math.floor(shop.distance * 0.00621371) / 10 + "mi"}
+                        <div>
+                          {shop.isSupported ? " Handled with CARE" : null}
+                        </div>
                       </div>
                     </Col>
                   </Row>

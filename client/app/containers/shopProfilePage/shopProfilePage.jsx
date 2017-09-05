@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Appointments from "../../components/shopProfilePage/Appointments.jsx";
+import Reviews from "../../components/shopProfilePage/Reviews.jsx";
 import Map from "../../components/shopProfilePage/Map.jsx";
 import NavigationBar from "../navBar/NavigationBar.jsx";
 import querystring from "querystring";
@@ -17,7 +18,8 @@ class ShopProfilePage extends Component {
       phone: "",
       name: "",
       latitude: "",
-      longitude: ""
+      longitude: "",
+      reviews: []
     };
     this.renderValidPage = this.renderValidPage.bind(this);
   }
@@ -30,7 +32,7 @@ class ShopProfilePage extends Component {
       .get(`/api/search/getshop?id=${parsed.idstring}`)
       .then(res => {
         console.log("we good");
-        console.log(JSON.stringify(res.data.name));
+        console.log(res.data);
         this.setState({
           idString: parsed.idstring,
           name: res.data.name,
@@ -38,7 +40,8 @@ class ShopProfilePage extends Component {
           address2: res.data.location.display_address[1],
           phone: res.data.display_phone,
           latitude: res.data.coordinates.latitude,
-          longitude: res.data.coordinates.longitude
+          longitude: res.data.coordinates.longitude,
+          reviews: res.data.reviews
         });
       })
       .catch(response => {
@@ -82,6 +85,9 @@ class ShopProfilePage extends Component {
           </Row>
           <Row>
             <Appointments />
+          </Row>
+          <Row>
+            <Reviews reviews={this.state.reviews} />
           </Row>
         </Grid>
       </div>
