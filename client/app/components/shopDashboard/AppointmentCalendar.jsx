@@ -2,9 +2,21 @@ import React, { Component } from "react";
 import $ from "jquery";
 import fullCalendar from "fullcalendar";
 import timekit from "timekit-sdk";
-import { timekitEmail, timekitPassword } from "../../../../env/config";
+import {
+  timekitApp,
+  timekitEmail,
+  timekitPassword
+} from "../../../../env/config";
 
 class AppointmentCalendar extends Component {
+  /* ShopDashboard Appointment Calendar should
+ *   be able to render month, week, day, and daylist views of all the shops bookings
+ *   be able to set the week hours
+ *     should have the capability to set different days
+ *     should be able to set different hours
+ *     should query bookingjs, and set the settings
+ */
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,11 +26,11 @@ class AppointmentCalendar extends Component {
 
   componentDidMount() {
     timekit.configure({
-      app: "hack-reactor-124",
+      app: timekitApp,
       inputTimestampFormat: "U",
       outputTimestampFormat: "U"
     });
-    // Timestamps coming and going to timekit sdk must be unicod
+    // Timestamps coming and going to timekit sdk must be unicode
 
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
