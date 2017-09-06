@@ -36,14 +36,10 @@ class AppointmentCalendar extends Component {
 
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
-      .then(() => timekit.getCalendar({ id: this.props.calendar_id }))
-      .then(
-        res => res.data.getBookings()
-        // timekit.include("attributes")
-        // .getBookings()
-      )
+      .then(() => timekit.include("attributes").getBookings())
       .then(res => {
         let bookings = [];
+        console.log("this is the response", res);
         res.data.forEach(booking => {
           if (!booking.completed && booking.state === "confirmed") {
             let { start, end, what } = booking.attributes.event;
