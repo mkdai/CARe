@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalendar.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
-import timekit from "timekit-sdk";
-import {
-  timekitApp,
-  timekitEmail,
-  timekitPassword
-} from "../../../../env/config";
+import axios from "axios";
+// import timekit from "timekit-sdk";
+// import {
+//   timekitApp,
+//   timekitEmail,
+//   timekitPassword
+// } from "../../../../env/config";
 import {
   Jumbotron,
   Grid,
@@ -31,7 +32,7 @@ class ShopDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
+      showCalendarModal: false,
       createCal: false,
       calendar: false,
       calendar_id: ""
@@ -40,31 +41,22 @@ class ShopDashboard extends Component {
   }
 
   handleBuildCalendar() {
-    console.log("submitting form to timekit");
-    timekit.configure({
-      app: timekitApp,
-      inputTimestampFormat: "U",
-      outputTimestampFormat: "U"
-    });
-    // Timestamps coming and going to timekit sdk must be unicode
-
-    timekit
-      .auth({ email: timekitEmail, password: timekitPassword })
-      .then(() => console.log("authenticated"))
-      .then(() =>
-        timekit.createCalendar({
-          name: "Test-Calendar-8",
-          description: "testing this calendar"
-        })
+    console.log("user request to create calendar");
+    axios
+      .post(
+        `api/shopdashboard/createCalendar/:id`,
+        {
+          // all the dependencies for a calendar
+        }
       )
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
-      .then(res => {
-        this.setState({ calendar_id: res.data.id, calendar: true }, () =>
-          console.log("created calendar: ", res.data.id, this.state)
-        );
-      });
+      .then(
+        res => console.log("receiving response from axios createCalendar", res),
+        this.setState({ calendar: true, showCalendarModal: false })
+      )
+      .catch(err => console.log("could not create cal", err));
   }
 
   render() {
@@ -90,10 +82,10 @@ class ShopDashboard extends Component {
             <Tab eventKey={1} title="Calander">
               <Row>
                 <Modal
-                  show={this.state.show}
+                  show={this.state.showCalendarModal}
                   onHide={() =>
                     this.setState({
-                      show: false
+                      showCalendarModal: false
                     })}
                 >
                   <Modal.Header closeButton>
@@ -113,7 +105,9 @@ class ShopDashboard extends Component {
                   {!!this.state.calendar ? (
                     <AppointmentCalendar {...this.props} />
                   ) : (
-                    <Button onClick={() => this.setState({ show: true })}>
+                    <Button
+                      onClick={() => this.setState({ showCalendarModal: true })}
+                    >
                       Create Booking Calendar
                     </Button>
                   )}
