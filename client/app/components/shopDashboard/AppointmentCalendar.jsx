@@ -4,6 +4,7 @@ import $ from "jquery";
 import axios from "axios";
 import fullCalendar from "fullcalendar";
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
@@ -17,6 +18,8 @@ import {
   timekitEmail,
   timekitPassword
 } from "../../../../env/config";
+=======
+>>>>>>> Clean front end dashboard components of timekit
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should

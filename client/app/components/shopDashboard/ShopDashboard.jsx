@@ -15,6 +15,7 @@ import {
 >>>>>>> Clean ShopDashboardSettings
 =======
 import axios from "axios";
+<<<<<<< HEAD
 // import timekit from "timekit-sdk";
 // import {
 //   timekitApp,
@@ -22,6 +23,8 @@ import axios from "axios";
 //   timekitPassword
 // } from "../../../../env/config";
 >>>>>>> Render timekit logic on server side
+=======
+>>>>>>> Clean front end dashboard components of timekit
 import {
   Jumbotron,
   Grid,
