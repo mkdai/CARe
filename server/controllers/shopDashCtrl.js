@@ -1,4 +1,5 @@
 const axios = require("axios");
+<<<<<<< HEAD
 const timekit = require("timekit-sdk");
 const {
   timekitApp,
@@ -69,5 +70,14 @@ module.exports = {
       .catch(err => res.status(400).send(err));
   },
   storeCalendar: (req, res) => {},
+=======
+
+module.exports = {
+  getCalendar: () => {
+    console.log("getting calendar");
+  },
+  createCalendar: () => {},
+  updateCalendar: () => {},
+>>>>>>> create axios routes and controller
   deleteCalendar: () => {}
 };

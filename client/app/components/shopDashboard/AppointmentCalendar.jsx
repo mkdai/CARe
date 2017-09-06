@@ -58,6 +58,7 @@ class AppointmentCalendar extends Component {
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
 <<<<<<< HEAD
+<<<<<<< HEAD
       .then(() => timekit.include("attributes").getBookings())
 >>>>>>> have psuedo code of shop apptCal expectations
 =======
@@ -71,6 +72,22 @@ class AppointmentCalendar extends Component {
       .then(res => {
         console.log("successfully received calandar from server", res.data);
         this.setState({ bookings: res.data });
+=======
+      .then(() => timekit.include("attributes").getBookings())
+      .then(res => {
+        let bookings = [];
+        console.log("this is the response", res);
+        res.data.forEach(booking => {
+          if (!booking.completed && booking.state === "confirmed") {
+            let { start, end, what } = booking.attributes.event;
+            let title = what;
+            bookings.push({ start, end, title });
+          }
+        });
+        this.setState({ bookings }, () =>
+          console.log("this is the state after getting bookings", this.state)
+        );
+>>>>>>> create axios routes and controller
       })
       .then(() => {
         $("#calendar").fullCalendar({
