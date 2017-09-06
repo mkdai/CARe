@@ -32,7 +32,6 @@ export default class ProfileHead extends React.Component {
     axios
       .get(`/api/userProfile/getProfile/${this.props.user.currentUser.id}`)
       .then(response => {
-        console.log("THIS IS DATA", response);
         this.setState({
           name: response.data.name,
           phone: response.data.phone,

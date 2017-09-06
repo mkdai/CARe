@@ -1,30 +1,26 @@
 import React from "react";
 
 export default class CarHead extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
+    console.log("PROPS IN CARHEAD", this.props);
     return (
       <div>
         <div className="CarPic">
           <img
-            src="http://lotusep.com/wp-content/uploads/2016/09/perfect-burgundy-front-door-about-cheap-article.jpg"
+            src={this.props.car.picture}
             className="img-responsive"
             id="car-pic"
           />
           <div className="car-info">
-            <div>2013 Ford Mustang</div>
-            <div>Next Service Date: Nov 2017</div>
-          </div>
-          <img
-            src="http://lotusep.com/wp-content/uploads/2016/09/perfect-burgundy-front-door-about-cheap-article.jpg"
-            className="img-responsive"
-            id="car-pic"
-          />
-          <div className="car-info">
-            <div>2013 Ford Mustang</div>
+            <div>
+              <span className="span-spacer">{this.props.car.year}</span>
+              <span className="span-spacer">{this.props.car.make}</span>
+              <span className="span-spacer">{this.props.car.model}</span>
+            </div>
             <div>Next Service Date: Nov 2017</div>
           </div>
         </div>
