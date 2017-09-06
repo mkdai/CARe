@@ -313,6 +313,10 @@ p.copyright {
   margin-bottom: 20px;
 }
 
+.span-spacer {
+  margin-right: 4px;
+}
+
 /* Phones */
 @media only screen and (max-width: 480px) {
   #user-pic {

@@ -17,10 +17,29 @@ function mapStateToProps(state) {
 class UserDashboard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      cars: []
+    };
   }
 
   componentDidMount() {
-    console.log("PROPS IN USERDASH", this.props);
+    axios
+      .get(`/api/userProfile/getAllUserCars/${this.props.currentUser.id}`)
+      .then(data => {
+        //console.log("THIS IS USER CARS DATA", data);
+        this.setState(
+          {
+            cars: data.data
+          },
+          () => {
+            console.log("ALL USER CARS", this.state.cars);
+          }
+        );
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -43,7 +62,7 @@ class UserDashboard extends React.Component {
               </button>
             </div>
             <div className="car-container col-lg-4 col-xs-12 col-sm-12">
-              <CarHead />
+              {this.state.cars.map((car, i) => <CarHead car={car} key={i} />)}
             </div>
             <div className="col-lg-4 col-xs-12 col-sm-12">
               <AddCar user={this.props} />

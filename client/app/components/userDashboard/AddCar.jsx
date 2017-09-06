@@ -76,7 +76,7 @@ export default class AddCar extends React.Component {
   }
 
   handleSubmit() {
-    console.log("Handle Submit is hitting");
+    //console.log("Handle Submit is hitting");
     this.close();
     axios
       .post(
@@ -84,8 +84,14 @@ export default class AddCar extends React.Component {
         this.state
       )
       .then(data => {
-        console.log("DATA", data);
-        //this.setState({});
+        console.log("DATA", data.data[0]);
+        this.setState({
+          license: data.data[0].license,
+          mileage: data.data[0].mileage,
+          make: data.data[0].make,
+          model: data.data[0].model,
+          year: data.data[0].year
+        });
       })
       .catch(err => {
         console.log(err);
