@@ -3,12 +3,6 @@ import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalen
 import NavigationBar from "../../containers/navBar/NavigationBar";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
 import axios from "axios";
-// import timekit from "timekit-sdk";
-// import {
-//   timekitApp,
-//   timekitEmail,
-//   timekitPassword
-// } from "../../../../env/config";
 import {
   Jumbotron,
   Grid,
