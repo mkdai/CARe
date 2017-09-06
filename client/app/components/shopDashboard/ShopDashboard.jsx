@@ -3,6 +3,7 @@ import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalen
 import NavigationBar from "../../containers/navBar/NavigationBar";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import axios from "axios";
 =======
 import timekit from "timekit-sdk";
@@ -12,6 +13,15 @@ import {
   timekitPassword
 } from "../../../../env/config";
 >>>>>>> Clean ShopDashboardSettings
+=======
+import axios from "axios";
+// import timekit from "timekit-sdk";
+// import {
+//   timekitApp,
+//   timekitEmail,
+//   timekitPassword
+// } from "../../../../env/config";
+>>>>>>> Render timekit logic on server side
 import {
   Jumbotron,
   Grid,
@@ -35,6 +45,7 @@ class ShopDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
 <<<<<<< HEAD
       showCalModal: false,
       createCal: false,
@@ -90,6 +101,9 @@ class ShopDashboard extends Component {
       .catch(err => console.log("could not create cal", err));
 =======
       show: false,
+=======
+      showCalendarModal: false,
+>>>>>>> Render timekit logic on server side
       createCal: false,
       calendar: false,
       calendar_id: ""
@@ -104,32 +118,31 @@ class ShopDashboard extends Component {
 >>>>>>> Render button or Appointment Calendar views
 =======
   handleBuildCalendar() {
-    console.log("submitting form to timekit");
-    timekit.configure({
-      app: timekitApp,
-      inputTimestampFormat: "U",
-      outputTimestampFormat: "U"
-    });
-    // Timestamps coming and going to timekit sdk must be unicode
-
-    timekit
-      .auth({ email: timekitEmail, password: timekitPassword })
-      .then(() => console.log("authenticated"))
-      .then(() =>
-        timekit.createCalendar({
-          name: "Test-Calendar-8",
-          description: "testing this calendar"
-        })
+    console.log("user request to create calendar");
+    axios
+      .post(
+        `api/shopdashboard/createCalendar/:id`,
+        {
+          // all the dependencies for a calendar
+        }
       )
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
+<<<<<<< HEAD
       .then(res => {
         this.setState({ calendar_id: res.data.id, calendar: true }, () =>
           console.log("created calendar: ", res.data.id, this.state)
         );
       });
 >>>>>>> Clean ShopDashboardSettings
+=======
+      .then(
+        res => console.log("receiving response from axios createCalendar", res),
+        this.setState({ calendar: true, showCalendarModal: false })
+      )
+      .catch(err => console.log("could not create cal", err));
+>>>>>>> Render timekit logic on server side
   }
 
   render() {
@@ -167,11 +180,15 @@ class ShopDashboard extends Component {
 >>>>>>> Clean ShopDashboardSettings
               <Row>
                 <Modal
-                  show={this.state.show}
+                  show={this.state.showCalendarModal}
                   onHide={() =>
                     this.setState({
+<<<<<<< HEAD
                       show: false
 >>>>>>> Render button or Appointment Calendar views
+=======
+                      showCalendarModal: false
+>>>>>>> Render timekit logic on server side
                     })}
                 >
                   <Modal.Header closeButton>
@@ -216,8 +233,14 @@ class ShopDashboard extends Component {
                     <AppointmentCalendar {...this.props} />
 >>>>>>> Clean ShopDashboardSettings
                   ) : (
+<<<<<<< HEAD
                     <Button onClick={() => this.setState({ show: true })}>
 >>>>>>> Render button or Appointment Calendar views
+=======
+                    <Button
+                      onClick={() => this.setState({ showCalendarModal: true })}
+                    >
+>>>>>>> Render timekit logic on server side
                       Create Booking Calendar
                     </Button>
                   )}
