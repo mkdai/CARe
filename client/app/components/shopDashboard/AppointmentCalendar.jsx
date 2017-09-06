@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Well } from "react-bootstrap";
 import $ from "jquery";
+import axios from "axios";
 import fullCalendar from "fullcalendar";
 import timekit from "timekit-sdk";
 import {
@@ -27,29 +28,12 @@ class AppointmentCalendar extends Component {
   }
 
   componentDidMount() {
-    timekit.configure({
-      app: timekitApp,
-      inputTimestampFormat: "U",
-      outputTimestampFormat: "U"
-    });
-    // Timestamps coming and going to timekit sdk must be unicode
-
-    timekit
-      .auth({ email: timekitEmail, password: timekitPassword })
-      .then(() => timekit.include("attributes").getBookings())
+    console.log("appointment calendar mounts now");
+    axios
+      .get(`api/shopdashboard/getCalendar/:id`)
       .then(res => {
-        let bookings = [];
-        console.log("this is the response", res);
-        res.data.forEach(booking => {
-          if (!booking.completed && booking.state === "confirmed") {
-            let { start, end, what } = booking.attributes.event;
-            let title = what;
-            bookings.push({ start, end, title });
-          }
-        });
-        this.setState({ bookings }, () =>
-          console.log("this is the state after getting bookings", this.state)
-        );
+        console.log("successfully received calandar from server", res.data);
+        this.setState({ bookings: res.data });
       })
       .then(() => {
         $("#calendar").fullCalendar({
@@ -61,7 +45,9 @@ class AppointmentCalendar extends Component {
           defaultView: "basicWeek"
         });
       })
-      .catch(err => console.log("could not get calendars", err));
+      .catch(err =>
+        console.log("could not receive response from server of calendar", err)
+      );
   }
   render() {
     return (

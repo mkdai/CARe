@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const controller = require("../controllers/shopDashCtrl");
 
-router.get("/getCalendar", controller.getCalendar);
-router.post("createCalendar", controller.createCalendar);
-router.put("/updateCalendar", controller.updateCalendar);
-router.delete("/deleteCalendar", controller.deleteCalendar);
+router.get("/getCalendar/:id", controller.getCalendar);
+router.post("/createCalendar/:id", controller.createCalendar);
+router.put("/updateCalendar/:id", controller.updateCalendar);
+router.delete("/deleteCalendar/:id", controller.deleteCalendar);
+
+module.exports = router;
