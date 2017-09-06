@@ -109,29 +109,37 @@ class ShopDashboard extends Component {
 >>>>>>> Render timekit logic on server side
       createCal: false,
       calendar: false,
-      calendar_id: ""
+      shopId: -1
     };
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   handleCalCreation(e) {
     console.log("cal creation button works");
     this.setState({ calendar: true });
 >>>>>>> Render button or Appointment Calendar views
 =======
+=======
+  componentDidMount() {
+    axios.get(`api/shopdashboard/getId`).then(() => {
+      console.log("this is the response of getting id", res);
+      this.setState({ shopId: res.body });
+    });
+  }
+
+>>>>>>> Allow, and assign shopId's to Users
   handleBuildCalendar() {
     console.log("user request to create calendar");
     axios
-      .post(
-        `api/shopdashboard/createCalendar/:id`,
-        {
-          // all the dependencies for a calendar
-        }
-      )
+      .post(`api/shopdashboard/createCalendar`, {
+        shopId: this.state.shopId
+      })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
+<<<<<<< HEAD
 <<<<<<< HEAD
       .then(res => {
         this.setState({ calendar_id: res.data.id, calendar: true }, () =>
@@ -144,6 +152,14 @@ class ShopDashboard extends Component {
         res => console.log("receiving response from axios createCalendar", res),
         this.setState({ calendar: true, showCalendarModal: false })
       )
+=======
+      .then(res => {
+        console.log(
+          "receiving response from axios createCalendar, stored id in database and created timekit calendar"
+        );
+      })
+      .then(() => this.setState({ calendar: true, showCalendarModal: false }))
+>>>>>>> Allow, and assign shopId's to Users
       .catch(err => console.log("could not create cal", err));
 >>>>>>> Render timekit logic on server side
   }

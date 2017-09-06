@@ -18,7 +18,7 @@ router.delete("/deleteCalendar", controller.deleteCalendar);
 =======
 router.get("/getCalendar/:id", controller.getCalendar);
 router.post("/createCalendar/:id", controller.createCalendar);
-router.put("/updateCalendar/:id", controller.updateCalendar);
+router.put("/storeCalendar/:id", controller.storeCalendar);
 router.delete("/deleteCalendar/:id", controller.deleteCalendar);
 
 module.exports = router;

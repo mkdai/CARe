@@ -10,9 +10,13 @@ const {
   timekitPassword
 } = require("../../env/config");
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { Shop, User } = require("../../db/index.js");
 =======
 >>>>>>> Render timekit logic on server side
+=======
+const { Shop } = require("../../db/index.js");
+>>>>>>> Allow, and assign shopId's to Users
 
 timekit.configure({
   app: timekitApp,
@@ -81,10 +85,16 @@ module.exports = {
 =======
 >>>>>>> Render timekit logic on server side
 
+//TODO: redefine shop and user relationship to include shooopkeeeeepers
+
 module.exports = {
+  getId: (req, res) => {
+    console.log('received request to get shop id')
+    Shop.find({ })
+  },
+
   getCalendar: (req, res) => {
     console.log("received request to get calendar");
-
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
       .then(() => timekit.include("attributes").getBookings())
@@ -101,6 +111,7 @@ module.exports = {
       })
       .catch(err => console.log("could not get calendars", err));
   },
+
   createCalendar: (req, res) => {
     console.log("received request to create calendar");
     timekit
@@ -113,12 +124,18 @@ module.exports = {
         })
       )
       .then(cal => {
-        console.log("created calendar", cal.data);
-        res.status(201).send(cal.data);
+        console.log("created calendar", cal.data, "storing in database");
+        Shop.update({ calendar_id: cal.data.id }, { where: shopId: 1});
       })
-      .catch(err => console.log("could not create calendar", err));
+      .then(() => Shop.findAll())
+      .then(res => console.log("these are the shops", res))
+      .catch(err => res.send("could not create calendar", err));
   },
+<<<<<<< HEAD
   updateCalendar: () => {},
 >>>>>>> create axios routes and controller
+=======
+  storeCalendar: (req, res) => {},
+>>>>>>> Allow, and assign shopId's to Users
   deleteCalendar: () => {}
 };
