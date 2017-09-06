@@ -3,12 +3,6 @@ import { Well } from "react-bootstrap";
 import $ from "jquery";
 import axios from "axios";
 import fullCalendar from "fullcalendar";
-import timekit from "timekit-sdk";
-import {
-  timekitApp,
-  timekitEmail,
-  timekitPassword
-} from "../../../../env/config";
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
