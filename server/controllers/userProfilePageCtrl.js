@@ -113,5 +113,18 @@ module.exports = {
     //     console.log(err);
     //     res.status(500).send(err);
     //   });
+  },
+  getAllReviews: (req, res) => {
+    db.Review
+      .findAll({
+        where: {
+          userId: req.params.userId
+        }
+      })
+      .then(reviews => res.status(200).send(reviews))
+      .catch(err => {
+        console.log(`Error finding user reviews! ${err}`);
+        res.status(404).send(`Error finding user reviews! ${err}`);
+      });
   }
 };

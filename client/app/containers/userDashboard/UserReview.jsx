@@ -1,30 +1,13 @@
 import React, { Component } from "react";
-import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
-import { connect } from "react-redux";
-import axios from "axios";
 
-function mapStateToProps(state) {
-  return {
-    currentUser: state.currentUser.currentUser
-  };
-}
-
-class UserReview extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    // axios.get('/api/')
-  }
-
+export default class UserReview extends Component {
   render() {
     return (
       <div>
-        <NavigationBar />
+        Review: {this.props.review}
+        Rating: {this.props.rating}
+        Response: {this.props.response}
       </div>
     );
   }
 }
-
-export default connect(mapStateToProps)(UserReview);
