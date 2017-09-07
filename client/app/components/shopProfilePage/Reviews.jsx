@@ -8,7 +8,11 @@ import {
   ButtonToolbar,
   ToggleButtonGroup,
   ToggleButton,
-  Col
+  Col,
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl
 } from "react-bootstrap";
 
 function mapStateToProps(state) {
@@ -24,6 +28,9 @@ class Reviews extends Component {
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleRating = this.handleRating.bind(this);
+    this.handleReview = this.handleReview.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   openModal() {
     this.setState({ showModal: true });
@@ -31,6 +38,19 @@ class Reviews extends Component {
   closeModal() {
     this.setState({ showModal: false });
   }
+
+  handleRating(e) {
+    this.setState({ rating: e.currentTarget.dataset.name });
+  }
+
+  handleReview(e) {
+    this.setState({ review: e.target.value });
+  }
+
+  handleSubmit() {
+    console.log(this.state);
+  }
+
   render() {
     return (
       <Col>
@@ -42,25 +62,38 @@ class Reviews extends Component {
           <Modal.Header closeButton>
             <h2>Post a Review!</h2>
           </Modal.Header>
-          <div>
+          <Form>
             Rating:
             <ButtonToolbar>
-              <ToggleButtonGroup
-                type="radio"
-                name="options"
-                defaultValue={5}
-                onChange={e => console.log("hello")}
-              >
-                <ToggleButton value={1}>1</ToggleButton>
-                <ToggleButton value={2}>2</ToggleButton>
-                <ToggleButton value={3}>3</ToggleButton>
-                <ToggleButton value={4}>4</ToggleButton>
-                <ToggleButton value={5}>5</ToggleButton>
+              <ToggleButtonGroup type="radio" name="options" defaultValue={5}>
+                <ToggleButton onClick={this.handleRating} data-name={1}>
+                  1
+                </ToggleButton>
+                <ToggleButton onClick={this.handleRating} data-name={2}>
+                  2
+                </ToggleButton>
+                <ToggleButton onClick={this.handleRating} data-name={3}>
+                  3
+                </ToggleButton>
+                <ToggleButton onClick={this.handleRating} data-name={4}>
+                  4
+                </ToggleButton>
+                <ToggleButton onClick={this.handleRating} data-name={5}>
+                  5
+                </ToggleButton>
               </ToggleButtonGroup>
             </ButtonToolbar>
-          </div>
+            <FormGroup>
+              <ControlLabel> Review:</ControlLabel>
+              <FormControl
+                componentClass="textarea"
+                type="text"
+                onChange={this.handleReview}
+              />
+            </FormGroup>
+          </Form>
           <Modal.Footer>
-            <Button>Click</Button>
+            <Button onClick={this.handleSubmit}>Click</Button>
           </Modal.Footer>
         </Modal>
       </Col>
