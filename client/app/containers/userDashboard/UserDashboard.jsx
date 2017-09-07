@@ -1,10 +1,10 @@
 import React from "react";
-import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
-import Footer from "../footer/Footer.jsx";
-import ProfileHead from "./ProfileHead.jsx";
-import CarHead from "./CarHead.jsx";
-import AddCar from "./AddCar.jsx";
-import DashboardTabs from "./DashboardTabs.jsx";
+import NavigationBar from "../navBar/NavigationBar.jsx";
+import Footer from "../../components/footer/Footer.jsx";
+import ProfileHead from "../../components/userDashboard/ProfileHead.jsx";
+import CarHead from "../../components/userDashboard/CarHead.jsx";
+import AddCar from "../../components/userDashboard/AddCar.jsx";
+import DashboardTabs from "../../components/userDashboard/DashboardTabs.jsx";
 import { connect } from "react-redux";
 import axios from "axios";
 
