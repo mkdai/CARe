@@ -11,12 +11,16 @@ const {
 } = require("../../env/config");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { Shop, User } = require("../../db/index.js");
 =======
 >>>>>>> Render timekit logic on server side
 =======
 const { Shop } = require("../../db/index.js");
 >>>>>>> Allow, and assign shopId's to Users
+=======
+const { Shop, User } = require("../../db/index.js");
+>>>>>>> ShopDashboard receives shopId from database
 
 timekit.configure({
   app: timekitApp,
@@ -88,9 +92,14 @@ module.exports = {
 //TODO: redefine shop and user relationship to include shooopkeeeeepers
 
 module.exports = {
-  getId: (req, res) => {
-    console.log('received request to get shop id')
-    Shop.find({ })
+  getShopId: (req, res) => {
+    console.log("received request to get shop id", req.query);
+    User.findOne({ where: { id: req.query.userId } })
+      .then(user => {
+        console.log("found user", user.dataValues.shopId);
+        res.status(200).send({ shopId: user.dataValues.shopId });
+      })
+      .catch(err => console.log("could not find user", err));
   },
 
   getCalendar: (req, res) => {
@@ -125,7 +134,7 @@ module.exports = {
       )
       .then(cal => {
         console.log("created calendar", cal.data, "storing in database");
-        Shop.update({ calendar_id: cal.data.id }, { where: shopId: 1});
+        Shop.update({ calendar_id: cal.data.id }, { where: { shopId: 1 } });
       })
       .then(() => Shop.findAll())
       .then(res => console.log("these are the shops", res))

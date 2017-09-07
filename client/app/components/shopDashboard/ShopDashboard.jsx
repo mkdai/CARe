@@ -109,6 +109,7 @@ class ShopDashboard extends Component {
 >>>>>>> Render timekit logic on server side
       createCal: false,
       calendar: false,
+      userId: 1,
       shopId: -1
     };
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
@@ -123,15 +124,23 @@ class ShopDashboard extends Component {
 =======
 =======
   componentDidMount() {
-    axios.get(`api/shopdashboard/getId`).then(() => {
-      console.log("this is the response of getting id", res);
-      this.setState({ shopId: res.body });
-    });
+    console.log("dash has been mounted", this.state);
+    axios
+      .get(`api/shopdashboard/getShopId`, {
+        params: { userId: this.state.userId }
+      })
+      .then(res => {
+        console.log("received shop from database id", res);
+        this.setState({ shopId: res.data.shopId }, () =>
+          console.log("setting shopId", this.state)
+        );
+      })
+      .catch(err => console.log("could not get shopId", err));
   }
 
 >>>>>>> Allow, and assign shopId's to Users
   handleBuildCalendar() {
-    console.log("user request to create calendar");
+    console.log("user requests to create calendar", this.state);
     axios
       .post(`api/shopdashboard/createCalendar`, {
         shopId: this.state.shopId
