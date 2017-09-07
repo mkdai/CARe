@@ -69,8 +69,10 @@ const processShopResultData = (shops, cb) => {
     shops.map(shop => {
       if (matchedYelpIds.indexOf(shop.id) !== -1) {
         shop.isSupported = true;
+        shop.dbpk = rows[matchedYelpIds.indexOf(shop.id)].dataValues.id;
       } else {
         shop.isSupported = false;
+        shop.dbpk = null;
       }
     });
     shops.sort((a, b) => {
