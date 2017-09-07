@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalendar.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
@@ -37,6 +38,13 @@ import {
 } from "react-bootstrap";
 import MaintenanceJobs from "./MaintenanceJobs.jsx";
 
+function mapStateToProps(state) {
+  return {
+    currentAuth: state.currentAuth.auth,
+    currentUser: state.currentUser.currentUser
+  };
+}
+
 class ShopDashboard extends Component {
   /*
  * should have a button to configure a booking calendar
@@ -54,7 +62,7 @@ class ShopDashboard extends Component {
       showCalModal: false,
       createCal: false,
       calendar: false,
-      userId: 1,
+      userId: 2,
       shopId: -1,
       calId: ""
     };
@@ -62,7 +70,7 @@ class ShopDashboard extends Component {
   }
 
   componentDidMount() {
-    console.log("dash has been mounted, requesting shopId");
+    console.log("dash has been mounted, requesting shopId", this.props);
     axios
       .get(`api/shopdashboard/getShopId`, {
         params: { userId: this.state.userId }
@@ -316,4 +324,4 @@ class ShopDashboard extends Component {
   }
 }
 
-export default ShopDashboard;
+export default connect(mapStateToProps)(ShopDashboard);
