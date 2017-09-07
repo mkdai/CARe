@@ -21,6 +21,7 @@ class ShopDashboardCalendarForm extends Component {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   handleSubmitForm() {}
 =======
   handleSubmitForm() {
@@ -53,6 +54,9 @@ class ShopDashboardCalendarForm extends Component {
 =======
   handleSubmitForm() {}
 >>>>>>> Clean ShopDashboardSettings
+=======
+  handleSubmitForm() {}
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
 
   render() {
     return (

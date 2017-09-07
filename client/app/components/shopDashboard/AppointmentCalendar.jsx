@@ -5,6 +5,7 @@ import axios from "axios";
 import fullCalendar from "fullcalendar";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
@@ -30,6 +31,14 @@ class AppointmentCalendar extends Component {
  *  // be able to render month, week, day, and daylist views of all the shops bookings
  *   be able to click each individual appointments, and see relevant info about the booking
 >>>>>>> Render button or Appointment Calendar views
+=======
+
+class AppointmentCalendar extends Component {
+  /* ShopDashboard Appointment Calendar should
+ *  // be able to render month, week, day, and daylist views of all the shops bookings
+ *     month view should simply have an indicator of appointments (not listed)
+ *   be able to click each individual appointments, and see relevant info about the booking
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
  *   be able to set the week hours
  *     should have the capability to set different days
  *     should be able to set different hours
@@ -47,11 +56,15 @@ class AppointmentCalendar extends Component {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
     console.log("mounting appointment calendar", this.props);
     axios
       .get(`api/shopdashboard/getCalendar`, {
         params: { id: this.props.calId }
       })
+<<<<<<< HEAD
 =======
     timekit.configure({
       app: timekitApp,
@@ -106,6 +119,11 @@ class AppointmentCalendar extends Component {
         console.log("successfully received calandar from server", res.data);
         this.setState({ bookings: res.data });
 >>>>>>> Render timekit logic on server side
+=======
+      .then(res => {
+        console.log("successfully received calandar from server", res.data);
+        this.setState({ bookings: res.data });
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
       })
       .then(() => {
         $("#calendar").fullCalendar({

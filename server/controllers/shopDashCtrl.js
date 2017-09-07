@@ -1,14 +1,18 @@
 const axios = require("axios");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Render timekit logic on server side
+=======
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
 const timekit = require("timekit-sdk");
 const {
   timekitApp,
   timekitEmail,
   timekitPassword
 } = require("../../env/config");
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -21,12 +25,16 @@ const { Shop } = require("../../db/index.js");
 =======
 const { Shop, User } = require("../../db/index.js");
 >>>>>>> ShopDashboard receives shopId from database
+=======
+const { Shop, User } = require("../../db/index.js");
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
 
 timekit.configure({
   app: timekitApp,
   inputTimestampFormat: "U",
   outputTimestampFormat: "U"
 }); // Timestamps coming and going to timekit sdk must be unicode
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 //TODO: redefine shop and user relationship to include shooopkeeeeepers
@@ -88,6 +96,8 @@ module.exports = {
 =======
 =======
 >>>>>>> Render timekit logic on server side
+=======
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
 
 //TODO: redefine shop and user relationship to include shooopkeeeeepers
 
@@ -145,10 +155,14 @@ module.exports = {
       .catch(err => res.status(400).send(err));
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
   updateCalendar: () => {},
 >>>>>>> create axios routes and controller
 =======
   storeCalendar: (req, res) => {},
 >>>>>>> Allow, and assign shopId's to Users
+=======
+  storeCalendar: (req, res) => {},
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
   deleteCalendar: () => {}
 };

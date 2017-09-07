@@ -4,10 +4,14 @@ const controller = require("../controllers/shopDashCtrl");
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
 router.get("/getShopId", controller.getShopId);
 router.get("/getCalendar", controller.getCalendar);
 router.post("/createCalendar", controller.createCalendar);
 router.delete("/deleteCalendar", controller.deleteCalendar);
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 module.exports = router;
@@ -30,3 +34,7 @@ router.delete("/deleteCalendar/:id", controller.deleteCalendar);
 
 module.exports = router;
 >>>>>>> Render timekit logic on server side
+=======
+
+module.exports = router;
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
