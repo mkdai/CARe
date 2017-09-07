@@ -46,6 +46,7 @@ class AppointmentCalendar extends Component {
   componentDidMount() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.log("mounting appointment calendar", this.props);
     axios
       .get(`api/shopdashboard/getCalendar`, {
@@ -94,8 +95,13 @@ class AppointmentCalendar extends Component {
 >>>>>>> create axios routes and controller
 =======
     console.log("appointment calendar mounts now");
+=======
+    console.log("mounting appointment calendar", this.props);
+>>>>>>> getCalendar now renders proper calendar from timekit
     axios
-      .get(`api/shopdashboard/getCalendar/:id`)
+      .get(`api/shopdashboard/getCalendar`, {
+        params: { id: this.props.calId }
+      })
       .then(res => {
         console.log("successfully received calandar from server", res.data);
         this.setState({ bookings: res.data });
