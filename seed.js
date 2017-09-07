@@ -246,15 +246,15 @@ db
   .then(() =>
     Favorite.bulkCreate([
       {
-        userId: 1,
+        userId: 5,
         shopId: 2
       },
       {
-        userId: 3,
+        userId: 5,
         shopId: 2
       },
       {
-        userId: 4,
+        userId: 5,
         shopId: 3
       }
     ])

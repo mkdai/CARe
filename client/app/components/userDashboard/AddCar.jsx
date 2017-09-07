@@ -19,7 +19,13 @@ export default class AddCar extends React.Component {
       make: "",
       model: "",
       year: 0,
-      uploadedFileCloudinaryUrl: ""
+      uploadedFileCloudinaryUrl: "",
+      wiperService: 9000,
+      batteryService: 60000,
+      brakeService: 60000,
+      airfilterService: 25000,
+      tireService: 50000,
+      oilService: 4000
     };
 
     this.open = this.open.bind(this);
@@ -27,6 +33,7 @@ export default class AddCar extends React.Component {
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.serviceCheck = this.serviceCheck.bind(this);
   }
 
   open() {
@@ -76,8 +83,8 @@ export default class AddCar extends React.Component {
   }
 
   handleSubmit() {
-    //console.log("Handle Submit is hitting");
     this.close();
+    this.serviceCheck();
     axios
       .post(
         `/api/userProfile/addCar/${this.props.user.currentUser.id}`,
@@ -96,6 +103,10 @@ export default class AddCar extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  serviceCheck() {
+    console.log("serviceCheck is hitting");
   }
 
   render() {
