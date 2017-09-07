@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Collapse } from "react-bootstrap";
+import { Button, Collapse, Col } from "react-bootstrap";
 import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
 import timekit from "timekit-sdk";
@@ -111,7 +111,7 @@ class Appointments extends Component {
 
   render() {
     return (
-      <div>
+      <Col>
         <AppointmentInput
           {...this.state}
           handleServiceChange={this.handleServiceChange}
@@ -123,7 +123,7 @@ class Appointments extends Component {
           {/* <Button onClick={() => this.setState({ openList: false })}>x</Button> */}
           <AppointmentsList findingAppt={this.state.openList} />
         </Collapse>
-      </div>
+      </Col>
     );
   }
 }
