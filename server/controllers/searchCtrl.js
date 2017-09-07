@@ -29,6 +29,7 @@ const processShopData = (shop, cb) => {
   }).then(response => {
     console.log(response.dataValues);
     shop.isSupported = true;
+    shop.dbpk = response.dataValues.id;
     shop.rating = response.dataValues.rating;
     Review.findAll({
       where: { shopId: response.dataValues.id },
@@ -36,6 +37,7 @@ const processShopData = (shop, cb) => {
     }).then(reviews => {
       // if (reviews) {
       shop.reviews = reviews.map(review => {
+        console.log(review);
         review.dataValues.user = review.user.dataValues;
         return review.dataValues;
       });

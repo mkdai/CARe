@@ -17,6 +17,7 @@ import {
 
 function mapStateToProps(state) {
   return {
+    currentAuth: state.currentAuth.auth,
     currentUser: state.currentUser.currentUser
   };
 }
@@ -24,13 +25,17 @@ class Reviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false
+      showModal: false,
+      currentUser: this.props.currentUser
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleRating = this.handleRating.bind(this);
     this.handleReview = this.handleReview.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log("receiving props: ", nextProps);
   }
   openModal() {
     this.setState({ showModal: true });
@@ -48,13 +53,23 @@ class Reviews extends Component {
   }
 
   handleSubmit() {
-    console.log(this.state);
+    axios
+      .post("/api/shopProfile/postReviewEntry", {
+        userId: this.state.currentUser.id,
+        shopId: this.props.dbShopId,
+        rating: this.state.rating,
+        review: this.state.review
+      })
+      .then(() => console.log("Review Posted!!"));
+    this.closeModal();
   }
 
   render() {
     return (
       <Col>
-        <Button onClick={this.openModal}>Post a Review</Button>
+        {this.props.currentAuth.isAuthenticated() ? (
+          <Button onClick={this.openModal}>Post a Review</Button>
+        ) : null}
         {this.props.reviews.map(review => {
           return <ReviewEntry review={review} />;
         })}

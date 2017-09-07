@@ -88,7 +88,10 @@ class ShopProfilePage extends Component {
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
             <Tab eventKey={1} title={`Reviews(${this.state.reviews.length})`}>
               <Row>
-                <Reviews reviews={this.state.reviews} />
+                <Reviews
+                  reviews={this.state.reviews}
+                  dbShopId={this.state.dbpk}
+                />
               </Row>
             </Tab>
             <Tab eventKey={2} title="Appointments">
