@@ -17,17 +17,17 @@ timekit.configure({
 
 module.exports = {
   getShopId: (req, res) => {
-    console.log("received request to get shop id");
+    console.log("received request to get shop id. USER ID: ", req.query);
     User.findOne({ where: { id: req.query.userId } })
       .then(user => {
-        console.log("found userId: ", user.dataValues.shopId);
-        res.status(200).send({ shopId: user.dataValues.shopId });
+        console.log("found userId: ", user.dataValues);
+        res.status(200).send({ shopId: user.dataValues });
       })
       .catch(err => console.log("could not find user", err));
   },
 
   getCalendar: (req, res) => {
-    console.log("received request to get calendar");
+    console.log("received request to get calendar", req.query);
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
       .then(() => timekit.include("attributes", "calendar").getBookings())

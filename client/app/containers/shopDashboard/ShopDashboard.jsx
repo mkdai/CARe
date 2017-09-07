@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalendar.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
@@ -13,7 +14,13 @@ import {
   Tab,
   Tabs
 } from "react-bootstrap";
-import MaintenanceJobs from "./MaintenanceJobs.jsx";
+import MaintenanceJobs from "../../components/shopDashboard/MaintenanceJobs.jsx";
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser.currentUser
+  };
+}
 
 class ShopDashboard extends Component {
   /*
@@ -36,17 +43,19 @@ class ShopDashboard extends Component {
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
+  // componentWillReceiveProps() {}
+
   componentDidMount() {
-    console.log("dash has been mounted, requesting shopId");
+    console.log("ShopDashboard mounts, PROPS:: ", this.props);
     axios
       .get(`api/shopdashboard/getShopId`, {
-        params: { userId: this.state.userId }
+        params: { userId: this.props.currentUser.id }
       })
       .then(res => {
         this.setState({ shopId: res.data.shopId }, () =>
           console.log(
             "shopId has been set, calendar has been created: ",
-            !!this.props.calendar
+            !!this.state.calendar
           )
         );
       })
@@ -72,11 +81,11 @@ class ShopDashboard extends Component {
           () => console.log("received calId from back-end, and updated state")
         );
       })
-      .then(res => {
+      .then(() =>
         console.log(
           "received response from axios createCalendar, stored id in database and created timekit calendar"
-        );
-      })
+        )
+      )
       .catch(err => console.log("could not create cal", err));
   }
 
@@ -145,4 +154,4 @@ class ShopDashboard extends Component {
   }
 }
 
-export default ShopDashboard;
+export default connect(mapStateToProps)(ShopDashboard);
