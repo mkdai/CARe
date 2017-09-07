@@ -59,7 +59,7 @@ module.exports = {
       });
   },
   addCar: (req, res) => {
-    console.log("THIS IS ADDCAR REQUEST:::::", req.body);
+    //console.log("THIS IS ADDCAR REQUEST:::::", req.body);
     db.Car
       .findOrCreate({
         where: {
@@ -80,5 +80,38 @@ module.exports = {
         console.log(err);
         res.status(500).send(err);
       });
+  },
+  getUserFavorites: (req, res) => {
+    console.log("THIS IS USERFAVS", req);
+    // db.Favorite.findAll({
+    //   where: {
+    //     userId: req.params.id
+    //   }
+    // })
+    // .then(data => {
+    //   console.log("successfully fetched all favorites");
+    //   res.status(200).send(data);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    //   res.status(500).send(err);
+    // })
+  },
+  getUserReviews: (req, res) => {
+    console.log("THIS IS USERREVIEWS", req);
+    // db.Review
+    //   .findAll({
+    //     where: {
+    //       userId: req.params.id
+    //     }
+    //   })
+    //   .then(data => {
+    //     console.log("Successfully fetched all reviews");
+    //     res.status(200).send(data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     res.status(500).send(err);
+    //   });
   }
 };
