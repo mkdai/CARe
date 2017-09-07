@@ -18,8 +18,8 @@ function mapStateToProps(state) {
 }
 
 class NavigationBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     // this.search = this.search.bind(this);
@@ -98,6 +98,9 @@ class NavigationBar extends React.Component {
               </Navbar.Form>
               <NavItem>
                 <Link to="userdash">USER DASHBOARD</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="shopdashboard">SHOP DASHBOARD</Link>
               </NavItem>
               <NavItem onClick={this.logout}>
                 <Link to="/">LOGOUT</Link>

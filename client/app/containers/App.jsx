@@ -4,7 +4,7 @@ import LandingPage from "../components/landingPage/LandingPage.jsx";
 import LoadingPage from "./loadingPage/LoadingPage.jsx";
 import Auth from "../../Auth/Auth.js";
 import ShopProfilePage from "../components/shopProfilePage/ShopProfilePage.jsx";
-import ShopDashboard from "../components/shopDashboard/ShopDashboard.jsx";
+import ShopDashboard from "../containers/shopDashboard/ShopDashboard.jsx";
 import ShopDashboardSettings from "../components/shopDashboard/ShopDashboardSettings.jsx";
 import ShopDashboardCalendarForm from "../components/shopDashboard/ShopDashboardCalendarForm.jsx";
 import { bindActionCreators } from "redux";
