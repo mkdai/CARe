@@ -5,7 +5,7 @@ import Map from "../../components/shopProfilePage/Map.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import axios from "axios";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Grid, Row, Col, Tabs, Tab } from "react-bootstrap";
 
 class ShopProfilePage extends Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class ShopProfilePage extends Component {
       name: "",
       latitude: "",
       longitude: "",
-      reviews: []
+      reviews: [],
+      dbpk: -1
     };
     this.renderValidPage = this.renderValidPage.bind(this);
   }
@@ -41,7 +42,8 @@ class ShopProfilePage extends Component {
           phone: res.data.display_phone,
           latitude: res.data.coordinates.latitude,
           longitude: res.data.coordinates.longitude,
-          reviews: res.data.reviews
+          reviews: res.data.reviews,
+          dbpk: res.data.dbpk
         });
       })
       .catch(response => {
@@ -83,12 +85,18 @@ class ShopProfilePage extends Component {
               />
             </Col>
           </Row>
-          <Row>
-            <Appointments />
-          </Row>
-          <Row>
-            <Reviews reviews={this.state.reviews} />
-          </Row>
+          <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
+            <Tab eventKey={1} title={`Reviews(${this.state.reviews.length})`}>
+              <Row>
+                <Reviews reviews={this.state.reviews} />
+              </Row>
+            </Tab>
+            <Tab eventKey={2} title="Appointments">
+              <Row>
+                <Appointments />
+              </Row>
+            </Tab>
+          </Tabs>
         </Grid>
       </div>
     );
