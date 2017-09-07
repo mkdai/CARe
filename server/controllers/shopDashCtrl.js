@@ -20,12 +20,20 @@ module.exports = {
     console.log("received request to get shop id. USER ID: ", req.query);
     User.findOne({ where: { id: req.query.userId } })
       .then(user => {
-        console.log("found userId: ", user.dataValues);
-        res.status(200).send({ shopId: user.dataValues });
+        console.log("found userId: ", user.dataValues.id);
+        res.status(200).send({ shopId: user.dataValues.shopId });
       })
       .catch(err => console.log("could not find user", err));
   },
-
+  getCalId: (req, res) => {
+    console.log("request has been received for calId", req.query);
+    Shop.findOne({ where: { id: req.query.shopId } })
+      .then(shop => {
+        console.log("found shopId:", shop.dataValues.calendar_id);
+        res.status(200).send({ calId: shop.dataValues.calendar_id });
+      })
+      .catch(err => console.log("could not find shop", err));
+  },
   getCalendar: (req, res) => {
     console.log("received request to get calendar", req.query);
     timekit

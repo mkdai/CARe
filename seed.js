@@ -59,8 +59,8 @@ db
           "https://pbs.twimg.com/profile_images/809457271365320704/or_PlfyP.jpg"
       },
       {
-        name: "Ethan-Test",
-        email: "This shouldn't change",
+        name: "Ethan Fung",
+        email: "ethanefung@gmail.com",
         phone: "(626) 354-8475",
         profilePic: "https://goo.gl/images/4StBwJ",
         shopId: 1

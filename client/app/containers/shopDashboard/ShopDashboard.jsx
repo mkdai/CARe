@@ -46,19 +46,17 @@ class ShopDashboard extends Component {
   // componentWillReceiveProps() {}
 
   componentDidMount() {
-    console.log("ShopDashboard mounts, PROPS:: ", this.props);
     axios
       .get(`api/shopdashboard/getShopId`, {
         params: { userId: this.props.currentUser.id }
       })
-      .then(res => {
-        this.setState({ shopId: res.data.shopId }, () =>
-          console.log(
-            "shopId has been set, calendar has been created: ",
-            !!this.state.calendar
-          )
-        );
-      })
+      .then(res => this.setState({ shopId: res.data.shopId }))
+      .then(() =>
+        axios.get(`api/shopdashboard/getCalId`, {
+          params: { shopId: this.state.shopId }
+        })
+      )
+      .then(res => this.setState({ calId: res.data.calId, calendar: true }))
       .catch(err => console.log("could not get shopId", err));
   }
 
