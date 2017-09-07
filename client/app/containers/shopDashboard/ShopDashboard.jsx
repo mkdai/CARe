@@ -26,45 +26,57 @@ class ShopDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCalendarModal: false,
+      showCalModal: false,
       createCal: false,
       calendar: false,
       userId: 1,
-      shopId: -1
+      shopId: -1,
+      calId: ""
     };
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
   componentDidMount() {
-    console.log("dash has been mounted", this.state);
+    console.log("dash has been mounted, requesting shopId");
     axios
       .get(`api/shopdashboard/getShopId`, {
         params: { userId: this.state.userId }
       })
       .then(res => {
-        console.log("received shop from database id", res);
         this.setState({ shopId: res.data.shopId }, () =>
-          console.log("setting shopId", this.state)
+          console.log(
+            "shopId has been set, calendar has been created: ",
+            !!this.props.calendar
+          )
         );
       })
       .catch(err => console.log("could not get shopId", err));
   }
 
   handleBuildCalendar() {
-    console.log("user requests to create calendar", this.state);
+    console.log("user requests to create calendar");
     axios
       .post(`api/shopdashboard/createCalendar`, {
-        shopId: this.state.shopId
+        id: this.state.shopId
       })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
-      .then(res => {
-        console.log(
-          "receiving response from axios createCalendar, stored id in database and created timekit calendar"
+      .then(cal => {
+        this.setState(
+          {
+            calendar: true,
+            showCalModal: false,
+            calId: cal.data.calId
+          },
+          () => console.log("received calId from back-end, and updated state")
         );
       })
-      .then(() => this.setState({ calendar: true, showCalendarModal: false }))
+      .then(res => {
+        console.log(
+          "received response from axios createCalendar, stored id in database and created timekit calendar"
+        );
+      })
       .catch(err => console.log("could not create cal", err));
   }
 
@@ -91,10 +103,10 @@ class ShopDashboard extends Component {
             <Tab eventKey={1} title="Calander">
               <Row>
                 <Modal
-                  show={this.state.showCalendarModal}
+                  show={this.state.showCalModal}
                   onHide={() =>
                     this.setState({
-                      showCalendarModal: false
+                      showCalModal: false
                     })}
                 >
                   <Modal.Header closeButton>
@@ -112,10 +124,10 @@ class ShopDashboard extends Component {
               <Row>
                 <Col>
                   {!!this.state.calendar ? (
-                    <AppointmentCalendar {...this.props} />
+                    <AppointmentCalendar {...this.props} {...this.state} />
                   ) : (
                     <Button
-                      onClick={() => this.setState({ showCalendarModal: true })}
+                      onClick={() => this.setState({ showCalModal: true })}
                     >
                       Create Booking Calendar
                     </Button>
