@@ -5,7 +5,7 @@ const {
   timekitEmail,
   timekitPassword
 } = require("../../env/config");
-const { Shop } = require("../../db/index.js");
+const { Shop, User } = require("../../db/index.js");
 
 timekit.configure({
   app: timekitApp,
@@ -16,9 +16,14 @@ timekit.configure({
 //TODO: redefine shop and user relationship to include shooopkeeeeepers
 
 module.exports = {
-  getId: (req, res) => {
-    console.log('received request to get shop id')
-    Shop.find({ })
+  getShopId: (req, res) => {
+    console.log("received request to get shop id", req.query);
+    User.findOne({ where: { id: req.query.userId } })
+      .then(user => {
+        console.log("found user", user.dataValues.shopId);
+        res.status(200).send({ shopId: user.dataValues.shopId });
+      })
+      .catch(err => console.log("could not find user", err));
   },
 
   getCalendar: (req, res) => {
@@ -53,7 +58,7 @@ module.exports = {
       )
       .then(cal => {
         console.log("created calendar", cal.data, "storing in database");
-        Shop.update({ calendar_id: cal.data.id }, { where: shopId: 1});
+        Shop.update({ calendar_id: cal.data.id }, { where: { shopId: 1 } });
       })
       .then(() => Shop.findAll())
       .then(res => console.log("these are the shops", res))
