@@ -41,7 +41,8 @@ const HistoryEntry = db.define("historyentry", {
 const Review = db.define("review", {
   rating: { type: Sequelize.INTEGER, allowNull: false },
   response: { type: Sequelize.TEXT, allowNull: true },
-  review: { type: Sequelize.TEXT, allowNull: false }
+  review: { type: Sequelize.TEXT, allowNull: false },
+  verified: { type: Sequelize.BOOLEAN, allowNull: true }
 });
 
 const Appointment = db.define("appointment", {
