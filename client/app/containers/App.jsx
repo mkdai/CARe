@@ -13,7 +13,7 @@ import { addAuth } from "../actions/authAction.js";
 import SearchResults from "../components/searchResults/searchResults.jsx";
 import UserDashBoard from "./userDashboard/UserDashboard.jsx";
 import InputMaintenanceHistory from "../components/shopDashboard/InputMaintenanceHistory.jsx";
-import UserReview from "./userDashboard/UserReview.jsx";
+import UserReviews from "./userDashboard/UserReviews.jsx";
 
 function mapStateToProps(state) {
   return {
@@ -49,7 +49,7 @@ class App extends Component {
             path="/shopdashcalform"
             component={ShopDashboardCalendarForm}
           />
-          <Route path="/user-reviews" component={UserReview} />
+          <Route path="/user-reviews" component={UserReviews} />
         </Switch>
       </BrowserRouter>
     );
