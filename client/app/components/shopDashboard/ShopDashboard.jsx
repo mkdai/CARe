@@ -1,7 +1,31 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalendar.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
+<<<<<<< HEAD
+<<<<<<< HEAD
+import axios from "axios";
+=======
+import timekit from "timekit-sdk";
+import {
+  timekitApp,
+  timekitEmail,
+  timekitPassword
+} from "../../../../env/config";
+>>>>>>> Clean ShopDashboardSettings
+=======
+import axios from "axios";
+<<<<<<< HEAD
+// import timekit from "timekit-sdk";
+// import {
+//   timekitApp,
+//   timekitEmail,
+//   timekitPassword
+// } from "../../../../env/config";
+>>>>>>> Render timekit logic on server side
+=======
+>>>>>>> Clean front end dashboard components of timekit
 import {
   Jumbotron,
   Grid,
@@ -14,20 +38,170 @@ import {
 } from "react-bootstrap";
 import MaintenanceJobs from "./MaintenanceJobs.jsx";
 
+function mapStateToProps(state) {
+  return {
+    currentAuth: state.currentAuth.auth,
+    currentUser: state.currentUser.currentUser
+  };
+}
+
 class ShopDashboard extends Component {
+  /*
+ * should have a button to configure a booking calendar
+ *   should have the ability to set hours, and days that the shop is open
+ *   should have a button that creates the calendar
+ * when the calendar is created, should render a full-calendar that displays all the bookings
+ */
+
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+      showCalModal: false,
+      createCal: false,
+      calendar: false,
+      userId: 2,
+      shopId: -1,
+      calId: ""
     };
+    this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
-  handleOpenModal() {
-    this.setState({ show: true });
+  componentDidMount() {
+    console.log("dash has been mounted, requesting shopId", this.props);
+    axios
+      .get(`api/shopdashboard/getShopId`, {
+        params: { userId: this.state.userId }
+      })
+      .then(res => {
+        this.setState({ shopId: res.data.shopId }, () =>
+          console.log(
+            "shopId has been set, calendar has been created: ",
+            !!this.props.calendar
+          )
+        );
+      })
+      .catch(err => console.log("could not get shopId", err));
   }
 
-  handleCloseModal() {
-    this.setState({ show: false });
+  handleBuildCalendar() {
+    console.log("user requests to create calendar");
+    axios
+      .post(`api/shopdashboard/createCalendar`, {
+        id: this.state.shopId
+      })
+      //You can create a new calendar for the current user by calling this endpoint.
+      // If the user/resource has a connected Google account, then we will save the new calendar to Google.
+      // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
+      .then(cal => {
+        this.setState(
+          {
+            calendar: true,
+            showCalModal: false,
+            calId: cal.data.calId
+          },
+          () => console.log("received calId from back-end, and updated state")
+        );
+      })
+      .then(res => {
+        console.log(
+          "received response from axios createCalendar, stored id in database and created timekit calendar"
+        );
+      })
+      .catch(err => console.log("could not create cal", err));
+=======
+      show: false,
+=======
+      showCalendarModal: false,
+>>>>>>> Render timekit logic on server side
+=======
+      showCalModal: false,
+>>>>>>> getCalendar now renders proper calendar from timekit
+      createCal: false,
+      calendar: false,
+      userId: 1,
+      shopId: -1,
+      calId: ""
+    };
+    this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
+  }
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+  handleCalCreation(e) {
+    console.log("cal creation button works");
+    this.setState({ calendar: true });
+>>>>>>> Render button or Appointment Calendar views
+=======
+=======
+  componentDidMount() {
+    console.log("dash has been mounted, requesting shopId");
+    axios
+      .get(`api/shopdashboard/getShopId`, {
+        params: { userId: this.state.userId }
+      })
+      .then(res => {
+        this.setState({ shopId: res.data.shopId }, () =>
+          console.log(
+            "shopId has been set, calendar has been created: ",
+            !!this.props.calendar
+          )
+        );
+      })
+      .catch(err => console.log("could not get shopId", err));
+  }
+
+>>>>>>> Allow, and assign shopId's to Users
+  handleBuildCalendar() {
+    console.log("user requests to create calendar");
+    axios
+      .post(`api/shopdashboard/createCalendar`, {
+        id: this.state.shopId
+      })
+      //You can create a new calendar for the current user by calling this endpoint.
+      // If the user/resource has a connected Google account, then we will save the new calendar to Google.
+      // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+      .then(res => {
+        this.setState({ calendar_id: res.data.id, calendar: true }, () =>
+          console.log("created calendar: ", res.data.id, this.state)
+        );
+      });
+>>>>>>> Clean ShopDashboardSettings
+=======
+      .then(
+        res => console.log("receiving response from axios createCalendar", res),
+        this.setState({ calendar: true, showCalendarModal: false })
+      )
+=======
+=======
+      .then(cal => {
+        this.setState(
+          {
+            calendar: true,
+            showCalModal: false,
+            calId: cal.data.calId
+          },
+          () => console.log("received calId from back-end, and updated state")
+        );
+      })
+>>>>>>> getCalendar now renders proper calendar from timekit
+      .then(res => {
+        console.log(
+          "received response from axios createCalendar, stored id in database and created timekit calendar"
+        );
+      })
+<<<<<<< HEAD
+      .then(() => this.setState({ calendar: true, showCalendarModal: false }))
+>>>>>>> Allow, and assign shopId's to Users
+=======
+>>>>>>> getCalendar now renders proper calendar from timekit
+      .catch(err => console.log("could not create cal", err));
+>>>>>>> Render timekit logic on server side
   }
 
   render() {
@@ -51,32 +225,92 @@ class ShopDashboard extends Component {
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
             <Tab eventKey={1} title="Calander">
-              <Row>
-                <Button onClick={() => this.setState({ show: true })}>
-                  Click
-                </Button>
-              </Row>
+<<<<<<< HEAD
+<<<<<<< HEAD
               <Row>
                 <Modal
-                  show={this.state.show}
-                  onHide={() => this.setState({ show: false })}
+                  show={this.state.showCalModal}
+                  onHide={() =>
+                    this.setState({
+                      showCalModal: false
+=======
+              <Row />
+=======
+>>>>>>> Clean ShopDashboardSettings
+              <Row>
+                <Modal
+                  show={this.state.showCalModal}
+                  onHide={() =>
+                    this.setState({
+<<<<<<< HEAD
+<<<<<<< HEAD
+                      show: false
+>>>>>>> Render button or Appointment Calendar views
+=======
+                      showCalendarModal: false
+>>>>>>> Render timekit logic on server side
+=======
+                      showCalModal: false
+>>>>>>> getCalendar now renders proper calendar from timekit
+                    })}
                 >
                   <Modal.Header closeButton>
                     <h2>Settings</h2>
                   </Modal.Header>
                   <Modal.Body>
-                    <ShopDashboardSettings />
+                    <ShopDashboardSettings
+                      handleCalCreation={this.handleCalCreation}
+<<<<<<< HEAD
+<<<<<<< HEAD
+                      handleBuildCalendar={this.handleBuildCalendar}
+                    />
+                  </Modal.Body>
+=======
+                    />
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button disabled>Click</Button>
+                    <Button onClick={this.handleCalCreation}>Click</Button>
                   </Modal.Footer>
+>>>>>>> Render button or Appointment Calendar views
+=======
+                      handleBuildCalendar={this.handleBuildCalendar}
+                    />
+                  </Modal.Body>
+>>>>>>> Clean ShopDashboardSettings
                 </Modal>
               </Row>
 
               <Row>
                 <Col>
-                  {"   "}
-                  <AppointmentCalendar />
+                  {!!this.state.calendar ? (
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    <AppointmentCalendar {...this.props} {...this.state} />
+                  ) : (
+                    <Button
+                      onClick={() => this.setState({ showCalModal: true })}
+                    >
+=======
+                    <AppointmentCalendar />
+=======
+                    <AppointmentCalendar {...this.props} />
+>>>>>>> Clean ShopDashboardSettings
+=======
+                    <AppointmentCalendar {...this.props} {...this.state} />
+>>>>>>> getCalendar now renders proper calendar from timekit
+                  ) : (
+<<<<<<< HEAD
+                    <Button onClick={() => this.setState({ show: true })}>
+>>>>>>> Render button or Appointment Calendar views
+=======
+                    <Button
+                      onClick={() => this.setState({ showCalModal: true })}
+                    >
+>>>>>>> Render timekit logic on server side
+                      Create Booking Calendar
+                    </Button>
+                  )}
                 </Col>
               </Row>
             </Tab>
@@ -90,4 +324,4 @@ class ShopDashboard extends Component {
   }
 }
 
-export default ShopDashboard;
+export default connect(mapStateToProps)(ShopDashboard);

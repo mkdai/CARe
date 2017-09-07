@@ -8,12 +8,6 @@ import {
   Well
 } from "react-bootstrap";
 import FieldGroup from "./FieldGroup.jsx";
-import timekit from "timekit-sdk";
-import {
-  timekitApp,
-  timekitEmail,
-  timekitPassword
-} from "../../../../env/config";
 
 class ShopDashboardCalendarForm extends Component {
   constructor(props) {
@@ -25,6 +19,11 @@ class ShopDashboardCalendarForm extends Component {
     console.log("this is the props of the shop cal form", this.props);
   }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+  handleSubmitForm() {}
+=======
   handleSubmitForm() {
     console.log("submitting form to timekit");
     timekit.configure({
@@ -32,7 +31,7 @@ class ShopDashboardCalendarForm extends Component {
       inputTimestampFormat: "U",
       outputTimestampFormat: "U"
     });
-    // Timestamps coming and going to timekit sdk must be unicod
+    // Timestamps coming and going to timekit sdk must be unicode
 
     timekit
       .auth({
@@ -42,7 +41,7 @@ class ShopDashboardCalendarForm extends Component {
       .then(() => console.log("authenticated"))
       .then(() =>
         timekit.createCalendar({
-          name: "Test-Calendar-4",
+          name: "Test-Calendar-5",
           description: "testing this calendar"
         })
       )
@@ -51,6 +50,13 @@ class ShopDashboardCalendarForm extends Component {
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
       .then(res => console.log("created calendar: ", res.data));
   }
+>>>>>>> Render button or Appointment Calendar views
+=======
+  handleSubmitForm() {}
+>>>>>>> Clean ShopDashboardSettings
+=======
+  handleSubmitForm() {}
+>>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
 
   render() {
     return (
