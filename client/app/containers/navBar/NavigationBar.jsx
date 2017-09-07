@@ -18,8 +18,9 @@ function mapStateToProps(state) {
 }
 
 class NavigationBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    console.log("these are the navigation bar props", this.props);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     // this.search = this.search.bind(this);
