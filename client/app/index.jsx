@@ -6,17 +6,17 @@ import App from "./containers/App.jsx";
 import authReducer from "./reducers/authReducer.js";
 import UserDashboard from "./containers/userDashboard/UserDashboard.jsx";
 import currentUserReducer from "./reducers/currentUserReducer.js";
-import { persistStore, autoRehydrate } from "redux-persist";
-import { asyncSessionStorage } from "redux-persist/storages";
+// import { persistStore, autoRehydrate } from "redux-persist";
+// import { asyncSessionStorage } from "redux-persist/storages";
 
 const reducers = combineReducers({
   currentAuth: authReducer,
   currentUser: currentUserReducer
 });
 
-const store = createStore(reducers, undefined, compose(autoRehydrate()));
+const store = createStore(reducers /*, undefined, compose(autoRehydrate())*/);
 
-persistStore(store).purge();
+//persistStore(store).purge();
 
 render(
   <Provider store={store}>

@@ -29,11 +29,15 @@ class LoadingPage extends Component {
   componentDidMount() {
     this.props.currentAuth.handleAuthentication(authResult => {
       this.setState({ loggedIn: this.props.currentAuth.isAuthenticated() });
+      console.log("heres idTokenPayload: ", authResult.idTokenPayload);
       axios
         .post("/api/user/adduser", {
-          email: authResult.idTokenPayload.name
+          email: authResult.idTokenPayload.email,
+          name: authResult.idTokenPayload.name,
+          picture: authResult.idTokenPayload.picture
         })
         .then(({ data }) => {
+          console.log(data);
           this.props.addUser(data);
         })
         .catch(err => console.log(err));
@@ -44,24 +48,6 @@ class LoadingPage extends Component {
       // });
     });
   }
-
-  // getAccessToken() {
-  //   const accessToken = localStorage.getItem("access_token");
-  //   if (!accessToken) {
-  //     throw new Error("No access token found");
-  //   }
-  //   return accessToken;
-  // }
-
-  // getProfile(cb) {
-  //   let accessToken = this.getAccessToken();
-  //   this.props.currentAuth.auth0.client.userInfo(
-  //     accessToken,
-  //     (err, profile) => {
-  //       cb(err, profile);
-  //     }
-  //   );
-  // }
 
   handleRedirect() {
     if (this.state.loggedIn === 0) {

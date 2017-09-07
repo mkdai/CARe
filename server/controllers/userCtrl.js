@@ -7,8 +7,9 @@ module.exports = {
         email: req.body.email
       },
       defaults: {
-        name: "Your name here",
+        name: req.body.name,
         profilePic:
+          req.body.picture ||
           "https://www.hoursproject.com/images/cache/square_thumb/images/user/default.png"
       }
     })

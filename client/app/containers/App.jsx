@@ -10,10 +10,12 @@ import ShopDashboardCalendarForm from "../components/shopDashboard/ShopDashboard
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { addAuth } from "../actions/authAction.js";
+import { addUser } from "../actions/currentUserAction.js";
 import SearchResults from "../components/searchResults/searchResults.jsx";
 import UserDashBoard from "./userDashboard/UserDashboard.jsx";
 import InputMaintenanceHistory from "../components/shopDashboard/InputMaintenanceHistory.jsx";
 import UserReviews from "./userDashboard/UserReviews.jsx";
+import axios from "axios";
 
 function mapStateToProps(state) {
   return {
@@ -22,7 +24,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addAuth }, dispatch);
+  return bindActionCreators({ addAuth, addUser }, dispatch);
 }
 
 class App extends Component {
@@ -30,16 +32,31 @@ class App extends Component {
     super(props);
     this.props.addAuth(new Auth());
   }
-
+  componentWillReceiveProps(nextProps) {
+    console.log("recieved auth as prop");
+    if (nextProps.currentAuth.isAuthenticated()) {
+      nextProps.currentAuth.getProfile((err, profile) => {
+        console.log(profile);
+        axios
+          .post("/api/user/adduser", {
+            email: profile.email,
+            name: profile.name,
+            picture: profile.picture
+          })
+          .then(({ data }) => {
+            console.log(data);
+            this.props.addUser(data);
+          })
+          .catch(err => console.log(err));
+      });
+    }
+  }
   render() {
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route
-            path="/loadingpage"
-            render={() => <LoadingPage auth={this.props.currentAuth} />}
-          />
+          <Route path="/loadingpage" render={() => <LoadingPage />} />
           <Route path="/search" component={SearchResults} />
           <Route path="/shops" component={ShopProfilePage} />
           <Route path="/userdash" component={UserDashBoard} />
