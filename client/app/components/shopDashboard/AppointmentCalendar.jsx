@@ -3,9 +3,6 @@ import { Well } from "react-bootstrap";
 import $ from "jquery";
 import axios from "axios";
 import fullCalendar from "fullcalendar";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
@@ -53,77 +50,10 @@ class AppointmentCalendar extends Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
     console.log("mounting appointment calendar", this.props);
     axios
       .get(`api/shopdashboard/getCalendar`, {
         params: { id: this.props.calId }
-      })
-<<<<<<< HEAD
-=======
-    timekit.configure({
-      app: timekitApp,
-      inputTimestampFormat: "U",
-      outputTimestampFormat: "U"
-    });
-    // Timestamps coming and going to timekit sdk must be unicode
-
-    timekit
-      .auth({ email: timekitEmail, password: timekitPassword })
-<<<<<<< HEAD
-<<<<<<< HEAD
-      .then(() => timekit.include("attributes").getBookings())
->>>>>>> have psuedo code of shop apptCal expectations
-=======
-      .then(() => timekit.getCalendar({ id: this.props.calendar_id }))
-      .then(
-        res => res.data.getBookings()
-        // timekit.include("attributes")
-        // .getBookings()
-      )
->>>>>>> Clean ShopDashboardSettings
-      .then(res => {
-        console.log("successfully received calandar from server", res.data);
-        this.setState({ bookings: res.data });
-=======
-      .then(() => timekit.include("attributes").getBookings())
-      .then(res => {
-        let bookings = [];
-        console.log("this is the response", res);
-        res.data.forEach(booking => {
-          if (!booking.completed && booking.state === "confirmed") {
-            let { start, end, what } = booking.attributes.event;
-            let title = what;
-            bookings.push({ start, end, title });
-          }
-        });
-        this.setState({ bookings }, () =>
-          console.log("this is the state after getting bookings", this.state)
-        );
->>>>>>> create axios routes and controller
-=======
-    console.log("appointment calendar mounts now");
-=======
-    console.log("mounting appointment calendar", this.props);
->>>>>>> getCalendar now renders proper calendar from timekit
-    axios
-      .get(`api/shopdashboard/getCalendar`, {
-        params: { id: this.props.calId }
-      })
-      .then(res => {
-        console.log("successfully received calandar from server", res.data);
-        this.setState({ bookings: res.data });
->>>>>>> Render timekit logic on server side
-=======
-      .then(res => {
-        console.log("successfully received calandar from server", res.data);
-        this.setState({ bookings: res.data });
->>>>>>> 81ea3afcd55040922411f692878bb29ab7fcddf4
       })
       .then(() => {
         $("#calendar").fullCalendar({
