@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CLOUDINARY_UPLOAD_PRESET = "griffPreset";
 const CLOUDINARY_UPLOAD_URL =
@@ -120,9 +121,7 @@ export default class ProfileHead extends React.Component {
           <div className="profile-info">
             <div>{this.state.name}</div>
             <div>
-              <a href="#" className="reviews-link">
-                Reviews
-              </a>
+              <Link to="/user-reviews">Reviews</Link>
             </div>
             <div>
               <a href="#" className="favorites-link">

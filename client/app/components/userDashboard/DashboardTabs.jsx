@@ -1,5 +1,5 @@
 import React from "react";
-import UserHistory from "../../containers/userHistory/UserHistory.jsx";
+import UserHistory from "../userHistory/UserHistory.jsx";
 
 export default class DashboardTabs extends React.Component {
   constructor() {

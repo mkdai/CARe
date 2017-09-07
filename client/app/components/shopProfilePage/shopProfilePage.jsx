@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Appointments from "../../components/shopProfilePage/Appointments.jsx";
 import Reviews from "../../components/shopProfilePage/Reviews.jsx";
 import Map from "../../components/shopProfilePage/Map.jsx";
-import NavigationBar from "../navBar/NavigationBar.jsx";
+import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import axios from "axios";
 import { Grid, Row, Col } from "react-bootstrap";
