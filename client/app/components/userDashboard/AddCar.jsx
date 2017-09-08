@@ -92,6 +92,7 @@ export default class AddCar extends React.Component {
         this.state
       )
       .then(data => {
+        this.props.handleAddCar(data.data[0]);
         console.log("DATA", data.data[0]);
         this.setState(
           {

@@ -40,7 +40,7 @@ export default class DashboardTabs extends React.Component {
 
         <div className="tab-content">
           <div role="tabpanel" className="tab-pane active" id="home">
-            <UserHistory />
+            <UserHistory currentCar={this.props.currentCarId} />
           </div>
           <div role="tabpanel" className="tab-pane" id="profile">
             Select your car for service reminders.

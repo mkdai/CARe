@@ -7,7 +7,9 @@ module.exports = {
       description: req.body.description,
       mileage: req.body.mileage,
       notes: req.body.notes,
-      service: req.body.service
+      service: req.body.service,
+      shopId: req.body.shopId,
+      carId: req.body.carId
     })
       .then(() =>
         res.status(201).send("Successfully created maintenance history!")
