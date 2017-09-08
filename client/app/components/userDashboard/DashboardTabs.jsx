@@ -1,5 +1,6 @@
 import React from "react";
 import UserHistory from "../userHistory/UserHistory.jsx";
+import Reminder from "./Reminder.jsx";
 
 export default class DashboardTabs extends React.Component {
   constructor() {
@@ -35,16 +36,6 @@ export default class DashboardTabs extends React.Component {
               Appointments
             </a>
           </li>
-          <li id="summary-tab" role="presentation">
-            <a
-              href="#settings"
-              aria-controls="settings"
-              role="tab"
-              data-toggle="tab"
-            >
-              Summary
-            </a>
-          </li>
         </ul>
 
         <div className="tab-content">
@@ -52,13 +43,12 @@ export default class DashboardTabs extends React.Component {
             <UserHistory />
           </div>
           <div role="tabpanel" className="tab-pane" id="profile">
-            This is the reminders content.
+            Select your car for service reminders.
+            <hr />
+            <Reminder currentCar={this.props.currentCarId} />
           </div>
           <div role="tabpanel" className="tab-pane" id="messages">
-            This is the appointments content.
-          </div>
-          <div role="tabpanel" className="tab-pane" id="settings">
-            This is the summary content.
+            Select your car to see appointments.
           </div>
         </div>
       </div>

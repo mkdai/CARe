@@ -19,8 +19,10 @@ class UserDashboard extends React.Component {
     super(props);
 
     this.state = {
-      cars: []
+      cars: [],
+      currentCarId: null
     };
+    this.selectCar = this.selectCar.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +42,17 @@ class UserDashboard extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  selectCar(id) {
+    this.setState(
+      {
+        currentCarId: id
+      },
+      () => {
+        console.log("STATE", this.state);
+      }
+    );
   }
 
   render() {
@@ -62,10 +75,15 @@ class UserDashboard extends React.Component {
               </button>
             </div>
             <div className="car-container col-lg-4 col-xs-12 col-sm-12">
-              {this.state.cars.map((car, i) => <CarHead car={car} key={i} />)}
+              {this.state.cars.map((car, i) => (
+                <CarHead selectCar={this.selectCar} car={car} key={i} />
+              ))}
             </div>
             <div className="col-lg-4 col-xs-12 col-sm-12">
-              <AddCar user={this.props} />
+              <AddCar
+                user={this.props}
+                currentCarId={this.state.currentCarId}
+              />
             </div>
             <div className="col-lg-12 col-xs-12 col-sm-12">
               <hr
@@ -75,7 +93,7 @@ class UserDashboard extends React.Component {
             </div>
           </div>
           <div className="row">
-            <DashboardTabs />
+            <DashboardTabs currentCarId={this.state.currentCarId} />
           </div>
         </div>
         <Footer />

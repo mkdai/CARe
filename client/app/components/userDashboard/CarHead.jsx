@@ -9,7 +9,12 @@ export default class CarHead extends React.Component {
     console.log("PROPS IN CARHEAD", this.props);
     return (
       <div>
-        <div className="CarPic">
+        <div
+          className="CarPic"
+          onClick={() => {
+            this.props.selectCar(this.props.car.id);
+          }}
+        >
           <img
             src={this.props.car.picture}
             className="img-responsive"

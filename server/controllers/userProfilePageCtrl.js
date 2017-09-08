@@ -126,5 +126,38 @@ module.exports = {
         console.log(`Error finding user reviews! ${err}`);
         res.status(404).send(`Error finding user reviews! ${err}`);
       });
+  },
+  getUserReminders: (req, res) => {
+    console.log("THIS IS USERREMINDERS:", req);
+    db.Reminder
+      .findAll({
+        where: {
+          carId: req.params.id
+        }
+      })
+      .then(data => {
+        console.log("Successfully fetched all reminders");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+  },
+  createReminder: (req, res) => {
+    console.log("THIS IS CREATEREMINDER REQ.params", req.params);
+    console.log("THIS IS CREATEREMINDER REQ.body", req.body.input);
+    db.Reminder
+      .create({
+        userId: req.body.userId,
+        service: req.body.input,
+        carId: req.params.id
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
