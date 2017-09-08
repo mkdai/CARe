@@ -65,6 +65,12 @@ db
         phone: "(626) 354-8475",
         profilePic: "https://goo.gl/images/4StBwJ",
         shopId: 1
+      },
+      {
+        name: "Michael Dai",
+        email: "mkdai@gmail.com",
+        phone: "(626) 354-8475",
+        profilePic: "https://goo.gl/images/4StBwJ"
       }
     ])
   )
@@ -265,8 +271,8 @@ db
         shopId: 2
       },
       {
-        userId: 5,
-        shopId: 3
+        userId: 7,
+        shopId: 1
       }
     ])
   )
