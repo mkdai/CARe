@@ -63,7 +63,7 @@ module.exports = {
               0,
               0,
               0,
-              time.parseInt()
+              time
             )
         );
         console.log(times);

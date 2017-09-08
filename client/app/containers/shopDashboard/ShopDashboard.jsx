@@ -33,17 +33,22 @@ class ShopDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      firstName: "",
+      lastName: "",
+
       showCalModal: false,
       createCal: false,
       calendar: false,
       userId: 1,
       shopId: -1,
-      calId: ""
+      calId: "",
+      shopName: "",
+      shopDescription: "",
+      hoursOfOperation: {}
     };
+    this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
-
-  // componentWillReceiveProps() {}
 
   componentDidMount() {
     axios
@@ -63,29 +68,48 @@ class ShopDashboard extends Component {
       )
       .then(() => {
         if (!!this.state.calId) {
-          this.setState({ calendar: true });
+          this.setState({ calendar: true }); //TODO: Switch to true when done testing
         }
       })
       .catch(err => console.log("could not get shopId", err));
+  }
+
+  handleAttributeChange(e, attribute) {
+    e.preventDefault();
+    console.log("I change", e.target.value);
+    this.setState({ [attribute]: e.target.value }, () =>
+      console.log("state", this.state)
+    );
   }
 
   handleBuildCalendar() {
     console.log("user requests to create calendar");
     axios
       .post(`api/shopdashboard/createCalendar`, {
-        id: this.state.shopId
+        id: this.state.shopId,
+        shopName: this.state.shopName,
+        shopDescription: this.state.shopDescription,
+        hoursOfOperation: { days: [] }
       })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
       .then(cal => {
+        console.log(
+          "this is the data received by the backend for creating calendar",
+          cal
+        );
         this.setState(
           {
-            calendar: true,
+            calendar: false, // TODO: switch to true when done testing
             showCalModal: false,
-            calId: cal.data.calId
+            calId: cal.data.cal.calId
           },
-          () => console.log("received calId from back-end, and updated state")
+          () =>
+            console.log(
+              "received calId from back-end, and updated state",
+              this.state
+            )
         );
       })
       .then(() =>
@@ -130,6 +154,7 @@ class ShopDashboard extends Component {
                   </Modal.Header>
                   <Modal.Body>
                     <ShopDashboardSettings
+                      handleAttributeChange={this.handleAttributeChange}
                       handleCalCreation={this.handleCalCreation}
                       handleBuildCalendar={this.handleBuildCalendar}
                     />
