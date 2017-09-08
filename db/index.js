@@ -58,6 +58,20 @@ const Message = db.define("message", {
   message: { type: Sequelize.TEXT, allowNull: false }
 });
 
+const Reminder = db.define("reminder", {
+  service: { type: Sequelize.STRING, allowNull: false }
+});
+
+Reminder.belongsTo(User, {
+  through: Reminder,
+  foreignKey: { name: "userId", unique: false }
+});
+
+Reminder.belongsTo(Car, {
+  through: Reminder,
+  foreignKey: { name: "carId", unique: false }
+});
+
 User.hasMany(Car);
 Car.belongsTo(User);
 
@@ -117,5 +131,6 @@ module.exports = {
   Review,
   Appointment,
   Favorite,
-  Message
+  Message,
+  Reminder
 };

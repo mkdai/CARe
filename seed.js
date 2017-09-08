@@ -9,7 +9,8 @@ const {
   Review,
   Appointment,
   Favorite,
-  Message
+  Message,
+  Reminder
 } = require(path.resolve(__dirname, "./db/index"));
 
 const db = new Sequelize(dbURL, {
@@ -286,6 +287,10 @@ db
         shopId: 2
       }
     ])
+  )
+  .then(() => Reminder.sync({ force: true }))
+  .then(() =>
+    Reminder.bulkCreate([{ service: "windshield wipers", userId: 3, carId: 2 }])
   )
   .then(() => console.log("database seeded, please disconnect"))
   .catch(err => console.log("could not connect to db: ", err));
