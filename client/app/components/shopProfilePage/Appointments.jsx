@@ -14,7 +14,6 @@ class Appointments extends Component {
       date: new Date().toISOString(),
       times: [],
       time: 0,
-      shopCalendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
       shopLocation: "",
       openList: false
     };
@@ -26,6 +25,10 @@ class Appointments extends Component {
   }
 
   componentDidMount() {
+    console.log(
+      "Appointments component mounted, getting bookings.  PROPS:: ",
+      this.props
+    );
     axios
       .get(`api/shopProfile/getBookings`, {
         params: { calId: this.props.calId }
@@ -38,7 +41,8 @@ class Appointments extends Component {
           },
           () => console.log("set the times", this.state)
         )
-      );
+      )
+      .catch(err => console.log("could not get shop appointments", err.data));
   }
 
   handleServiceChange(e) {
@@ -72,7 +76,7 @@ class Appointments extends Component {
       email: timekitEmail,
       apiToken: timekitApiToken,
       name: "Appt",
-      calendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
+      calendar: this.props.calId,
       availabilityView: "listing",
       timekitFindTime: {
         start: ReqBooking,

@@ -8,7 +8,9 @@ const {
 } = require("../../env/config");
 
 timekit.configure({
-  app: timekitApp
+  app: timekitApp,
+  inputTimestampFormat: "U",
+  outputTimestampFormat: "U"
 });
 
 module.exports = {
@@ -37,7 +39,6 @@ module.exports = {
 
   getBookings: (req, res) => {
     console.log("received request to get calendar bookings", req.query);
-
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
       .then(() =>
@@ -51,13 +52,24 @@ module.exports = {
         })
       )
       .then(response => {
-        console.log("received timekit response for availaibility", response);
-
+        console.log("received response from timekit");
+        let today = Date.now();
+        const times = response.data.map(
+          time =>
+            new Date(
+              today.getYears(),
+              today.getMonth(),
+              today.getDate(),
+              0,
+              0,
+              0,
+              time.parseInt()
+            )
+        );
+        console.log(times);
         res.status(200).send(response.data);
       })
-      .catch(err =>
-        res.status(400).send({ "error receiving timekit bookings": err })
-      );
+      .catch(err => res.status(400).send({ error: err }));
   },
 
   postHistoryEntry: (req, res) => {
@@ -78,22 +90,26 @@ module.exports = {
         res.status(500).send(`Error creating maintenance history ${err}`);
       });
   },
+
   postReview: (req, res) => {
     HistoryEntry.findAll({
       where: {
         shopId: req.body.shopId
       },
       include: [{ model: Car, where: { userId: req.body.userId } }]
-    }).then(rows => {
-      Review.create({
-        userId: req.body.userId,
-        shopId: req.body.shopId,
-        rating: req.body.rating,
-        review: req.body.review,
-        verified: !!rows.length
-      }).then(() =>
+    })
+      .then(rows => {
+        Review.create({
+          userId: req.body.userId,
+          shopId: req.body.shopId,
+          rating: req.body.rating,
+          review: req.body.review,
+          verified: !!rows.length
+        });
+      })
+      .then(() =>
         res.status(201).send("Successfully created maintenance history!")
-      );
-    });
+      )
+      .catch(err => res.status(500).send("could not post to reviews"));
   }
 };
