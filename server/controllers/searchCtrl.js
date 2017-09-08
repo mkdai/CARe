@@ -1,4 +1,4 @@
-const { Shop, Review, User } = require("../../db/index.js");
+const { Shop, Review, User, Favorite } = require("../../db/index.js");
 const axios = require("axios");
 const { yelpId, yelpSecret } = require("../../env/config.js");
 const qs = require("querystring");
@@ -21,39 +21,58 @@ var autoCategories = [
   "windshieldinstallrepair"
 ];
 
-const processShopData = (shop, cb) => {
+const processShopData = (shop, userId, cb) => {
   Shop.find({
     where: {
       yelp_id: shop.id
     }
-  }).then(response => {
-    console.log(response.dataValues);
-    shop.isSupported = true;
-    shop.dbpk = response.dataValues.id;
-    shop.rating = response.dataValues.rating;
-    Review.findAll({
-      where: { shopId: response.dataValues.id },
-      include: [User]
-    }).then(reviews => {
-      // if (reviews) {
-      shop.reviews = reviews.map(review => {
-        console.log(review);
-        review.dataValues.user = review.user.dataValues;
-        return review.dataValues;
+  })
+    .then(response => {
+      shop.isSupported = true;
+      shop.dbpk = response.dataValues.id;
+      shop.rating = response.dataValues.rating;
+      Review.findAll({
+        where: { shopId: response.dataValues.id },
+        include: [User]
+      }).then(reviews => {
+        // if (reviews) {
+        shop.reviews = reviews.map(review => {
+          console.log(review);
+          review.dataValues.user = review.user.dataValues;
+          return review.dataValues;
+        });
+        shop.review_count = shop.reviews.length;
+        console.log(
+          "looking for favorite [userId, shopid]: ",
+          userId,
+          shop.dbpk
+        );
+        Favorite.find({
+          where: {
+            shopId: shop.dbpk,
+            userId: userId
+          }
+        })
+          .then(data => {
+            console.log("favorite data return: ", data);
+            shop.favorited = !!data;
+            cb(shop);
+          })
+          .catch(() => {
+            console.log("favorite not found");
+            shop.favorited = false;
+            cb(shop);
+          });
       });
-      shop.review_count = shop.reviews.length;
-      console.log("these are shops reviews: ", shop.reviews);
-      // } else {
-      //   shop.reviews = [];
-      // }
+    })
+    .catch(() => {
+      console.log("nothing in our database!");
+      shop.review_count = 0;
+      shop.reviews = [];
+      shop.favorited = false;
+      shop.isSupported = false;
       cb(shop);
     });
-  });
-  // .catch(() => {
-  //   console.log("nothing in our database!");
-  //   shop.isSupported = false;
-  //   cb(shop);
-  // });
 };
 const processShopResultData = (shops, cb) => {
   let yelpIds = [];
@@ -154,6 +173,7 @@ module.exports = {
     }
   },
   getShop: (req, res) => {
+    console.log("these are query params: ", req.query);
     if (!yelpExpiration || yelpExpiration < Date.now()) {
       console.log("need auth token ", yelpId, yelpSecret);
       axios
@@ -174,7 +194,9 @@ module.exports = {
               headers: { Authorization: `Bearer ${yelpToken}` }
             })
             .then(searchResult => {
-              processShopData(searchResult.data, data => res.send(data));
+              processShopData(searchResult.data, req.query.userId, data =>
+                res.send(data)
+              );
             })
             .catch(err => {
               res.statusCode = 404;
@@ -189,7 +211,9 @@ module.exports = {
           headers: { Authorization: `Bearer ${yelpToken}` }
         })
         .then(searchResult => {
-          processShopData(searchResult.data, data => res.send(data));
+          processShopData(searchResult.data, req.query.userId, data =>
+            res.send(data)
+          );
         })
         .catch(err => {
           res.statusCode = 404;

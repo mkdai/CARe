@@ -1,6 +1,28 @@
-const { HistoryEntry, Review, Car } = require("../../db/index");
+const { HistoryEntry, Review, Car, Favorite } = require("../../db/index");
 
 module.exports = {
+  postFavorite: (req, res) => {
+    console.log("adding fav", req.query.userId, req.query.shopId);
+    Favorite.findOrCreate({
+      where: {
+        userId: req.query.userId,
+        shopId: req.query.shopId
+      }
+    }).then(() => {
+      res.status(201).send();
+    });
+  },
+  deleteFavorite: (req, res) => {
+    console.log("deleting fav", req.query.userId, req.query.shopId);
+    Favorite.destroy({
+      where: {
+        userId: req.query.userId,
+        shopId: req.query.shopId
+      }
+    }).then(() => {
+      res.status(200).send();
+    });
+  },
   postHistoryEntry: (req, res) => {
     HistoryEntry.create({
       date: req.body.date,

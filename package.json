@@ -36,6 +36,7 @@
     "superagent": "^3.6.0",
     "timekit-booking": "^1.18.1",
     "timekit-sdk": "^1.10.1",
+    "underscore": "^1.8.3",
     "webpack": "^3.5.5"
   },
   "devDependencies": {

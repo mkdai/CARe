@@ -5,12 +5,21 @@ import Map from "../../components/shopProfilePage/Map.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import axios from "axios";
-import { Grid, Row, Col, Tabs, Tab } from "react-bootstrap";
+import { Grid, Row, Col, Tabs, Tab, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import _ from "underscore";
+
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser.currentUser
+  };
+}
 
 class ShopProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      favorited: false,
       supported: false,
       idString: "arglebargle",
       address1: "",
@@ -22,18 +31,49 @@ class ShopProfilePage extends Component {
       reviews: [],
       dbpk: -1
     };
+    this.handleFav = _.debounce(this.handleFav, 500).bind(this);
     this.renderValidPage = this.renderValidPage.bind(this);
+    this.getShopData = this.getShopData.bind(this);
+  }
+  handleFav() {
+    if (this.state.favorited) {
+      axios
+        .delete(
+          `/api/shopProfile/favorite?userId=${this.props.currentUser
+            .id}&shopId=${this.state.dbpk}`
+        )
+        .then(() => {
+          this.setState({ favorited: false });
+        });
+    } else {
+      axios
+        .post(
+          `/api/shopProfile/favorite?userId=${this.props.currentUser
+            .id}&shopId=${this.state.dbpk}`
+        )
+        .then(() => {
+          this.setState({ favorited: true });
+        });
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    //handles browser refresh case, since async issues with redux
+    this.getShopData(nextProps);
   }
   componentDidMount() {
-    console.log("mounting");
+    console.log(this.props.currentUser);
+    this.getShopData(this.props);
+  }
+  getShopData(props) {
     let searchQueryString = this.props.location.search;
     let parsed = querystring.parse(searchQueryString.substring(1));
-    //TODO: SEE IF some request so see if valid, and set state, other wise, set to undefined
     axios
-      .get(`/api/search/getshop?id=${parsed.idstring}`)
+      .get(
+        `/api/search/getshop?id=${parsed.idstring}&userId=${props.currentUser
+          .id}`
+      )
       .then(res => {
-        console.log("we good");
-        console.log(res.data);
+        console.log("shop info recieved: ", res.data);
         this.setState({
           idString: parsed.idstring,
           name: res.data.name,
@@ -43,8 +83,13 @@ class ShopProfilePage extends Component {
           latitude: res.data.coordinates.latitude,
           longitude: res.data.coordinates.longitude,
           reviews: res.data.reviews,
-          dbpk: res.data.dbpk
+          dbpk: res.data.dbpk,
+          supported: res.data.isSupported
         });
+        if (!this.state.favorited)
+          this.setState({
+            favorited: res.data.favorited
+          });
       })
       .catch(response => {
         console.log("jk why", response);
@@ -52,21 +97,30 @@ class ShopProfilePage extends Component {
       });
   }
   renderValidPage() {
-    console.log(this.state.name);
     return (
       <div>
         <NavigationBar />
         <Grid className="bump">
           <Row>
             <Col lg={6} md={6} sm={4}>
-              <div>
-                <h3>{this.state.name}</h3>
-              </div>
-              <div>
-                <div>{this.state.address1}</div>
-                <div>{this.state.address2}</div>
-              </div>
-              <div>{this.state.phone}</div>
+              <Col>
+                <div>
+                  <h3>{this.state.name}</h3>
+                </div>
+                <div>
+                  <div>{this.state.address1}</div>
+                  <div>{this.state.address2}</div>
+                </div>
+                <div>{this.state.phone}</div>
+              </Col>
+              <Col>
+                {this.state.supported && !!this.props.currentUser.id ? this
+                  .state.favorited ? (
+                  <Button onClick={this.handleFav}> Unfavorite </Button>
+                ) : (
+                  <Button onClick={this.handleFav}> Favorite </Button>
+                ) : null}
+              </Col>
             </Col>
             <Col lg={6} md={6} sm={8}>
               <Map
@@ -128,4 +182,4 @@ class ShopProfilePage extends Component {
   }
 }
 
-export default ShopProfilePage;
+export default connect(mapStateToProps)(ShopProfilePage);
