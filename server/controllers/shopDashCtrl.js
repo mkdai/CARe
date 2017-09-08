@@ -25,15 +25,17 @@ module.exports = {
       })
       .catch(err => console.log("could not find user", err));
   },
+
   getCalId: (req, res) => {
     console.log("request has been received for calId", req.query);
     Shop.findOne({ where: { id: req.query.shopId } })
       .then(shop => {
-        console.log("found shopId:", shop.dataValues.calendar_id);
+        console.log("found shopId:", shop.dataValues);
         res.status(200).send({ calId: shop.dataValues.calendar_id });
       })
       .catch(err => console.log("could not find shop", err));
   },
+
   getCalendar: (req, res) => {
     console.log("received request to get calendar", req.query);
     timekit
@@ -60,7 +62,7 @@ module.exports = {
   },
 
   createCalendar: (req, res) => {
-    console.log("received request to create calendar");
+    console.log("received request to create calendar", req.query);
     timekit
       .auth({ email: timekitEmail, password: timekitPassword })
       .then(() => console.log("authenticated"))
@@ -76,6 +78,6 @@ module.exports = {
       .then(() => console.log("sent shop calendar_id to front end"))
       .catch(err => res.status(400).send(err));
   },
-  storeCalendar: (req, res) => {},
+
   deleteCalendar: () => {}
 };

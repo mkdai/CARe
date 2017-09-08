@@ -56,7 +56,16 @@ class ShopDashboard extends Component {
           params: { shopId: this.state.shopId }
         })
       )
-      .then(res => this.setState({ calId: res.data.calId, calendar: true }))
+      .then(res =>
+        this.setState({ calId: res.data.calId }, () =>
+          console.log("calendarId has been set", !!this.state.calId)
+        )
+      )
+      .then(() => {
+        if (!!this.state.calId) {
+          this.setState({ calendar: true });
+        }
+      })
       .catch(err => console.log("could not get shopId", err));
   }
 

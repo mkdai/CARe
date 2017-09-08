@@ -84,7 +84,8 @@ class ShopProfilePage extends Component {
           longitude: res.data.coordinates.longitude,
           reviews: res.data.reviews,
           dbpk: res.data.dbpk,
-          supported: res.data.isSupported
+          supported: res.data.isSupported,
+          calId: res.data.calId
         });
         if (!this.state.favorited)
           this.setState({
@@ -150,7 +151,7 @@ class ShopProfilePage extends Component {
             </Tab>
             <Tab eventKey={2} title="Appointments">
               <Row>
-                <Appointments />
+                <Appointments {...this.state} {...this.props} />
               </Row>
             </Tab>
           </Tabs>

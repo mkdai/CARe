@@ -2,14 +2,8 @@ import React, { Component } from "react";
 import { Button, Collapse, Col } from "react-bootstrap";
 import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
-import timekit from "timekit-sdk";
-import {
-  timekitApp,
-  timekitEmail,
-  timekitPassword,
-  timekitApiToken
-} from "../../../../env/config";
 import TimekitBooking from "timekit-booking";
+import axios from "axios";
 
 class Appointments extends Component {
   constructor(props) {
@@ -32,38 +26,19 @@ class Appointments extends Component {
   }
 
   componentDidMount() {
-    timekit.configure({
-      app: timekitApp
-    });
-
-    timekit
-      .auth({ email: timekitEmail, password: timekitPassword })
-      .then(() =>
-        timekit.findTime({
-          calendar_ids: [this.state.shopCalendar],
-          future: "12 hours",
-          // filters: {
-          //   and: [{ specific_time: { start: 9, end: 24 } }]
-          // },
-          length: "30 minutes"
-        })
-      )
-      .then(res => {
-        let times = res.data.map(time => {
-          return time.start.split("T")[1].split("-")[0];
-        });
-
-        let { time, dates, date, services, service } = this.state;
-
-        this.setState({
-          time,
-          times,
-          dates,
-          date,
-          services: ["Oil Change", "Detailing"],
-          service
-        });
-      });
+    axios
+      .get(`api/shopProfile/getBookings`, {
+        params: { calId: this.props.calId }
+      })
+      .then(res =>
+        this.setState(
+          {
+            times: res.data,
+            services: ["Oil Change", "Detailing"]
+          },
+          () => console.log("set the times", this.state)
+        )
+      );
   }
 
   handleServiceChange(e) {
