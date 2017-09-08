@@ -23,6 +23,32 @@ class UserDashboard extends React.Component {
       currentCarId: null
     };
     this.selectCar = this.selectCar.bind(this);
+    this.handleAddCar = this.handleAddCar.bind(this);
+  }
+
+  handleAddCar(car) {
+    console.log("CAR", car);
+    console.log("CARS", this.state.cars);
+    this.setState({ cars: [...this.state.cars, car] });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    axios
+      .get(`/api/userProfile/getAllUserCars/${nextProps.currentUser.id}`)
+      .then(data => {
+        //console.log("THIS IS USER CARS DATA", data);
+        this.setState(
+          {
+            cars: data.data
+          },
+          () => {
+            console.log("ALL USER CARS", this.state.cars);
+          }
+        );
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   componentDidMount() {
@@ -83,6 +109,7 @@ class UserDashboard extends React.Component {
               <AddCar
                 user={this.props}
                 currentCarId={this.state.currentCarId}
+                handleAddCar={this.handleAddCar}
               />
             </div>
             <div className="col-lg-12 col-xs-12 col-sm-12">

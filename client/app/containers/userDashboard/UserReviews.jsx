@@ -23,6 +23,13 @@ class UserReviews extends Component {
       .catch(err => console.log(`Error getting user reviews! ${err}`));
   }
 
+  componentWillReceiveProps(nextProps) {
+    axios
+      .get(`/api/userProfile/getAllReviews/${nextProps.currentUser.id}`)
+      .then(({ data }) => this.setState({ userReviews: data }))
+      .catch(err => console.log(`Error getting user reviews! ${err}`));
+  }
+
   render() {
     return (
       <div>
@@ -31,9 +38,7 @@ class UserReviews extends Component {
         <br />
         <br />
         {this.state.userReviews.length ? (
-          this.state.userReviews.forEach(review => (
-            <UserReview review={review} />
-          ))
+          this.state.userReviews.map(review => <UserReview review={review} />)
         ) : (
           <div>Looks like you have no reviews!</div>
         )}

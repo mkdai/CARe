@@ -31,9 +31,11 @@ export default class InputMaintenanceHistory extends Component {
         description: this.state.formServiceDescription,
         mileage: this.state.formCarMileage,
         notes: this.state.formAdditionalNotes,
-        service: this.state.formServiceName
+        service: this.state.formServiceName,
         // carId from redux/state
         // ShopId from redux/state
+        shopId: 1,
+        carId: 5
       })
       .then(() => {
         console.log("Successfully posted maintenance history!");

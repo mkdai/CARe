@@ -17,6 +17,9 @@ export default class UserHistoryEntry extends Component {
         <Collapse in={this.state.open}>
           <div>
             <Well>
+              <button onClick={() => console.log(this.props.history)}>
+                history
+              </button>
               <MaintenanceEntry />
             </Well>
           </div>
