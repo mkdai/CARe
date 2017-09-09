@@ -7,9 +7,7 @@ const {
 } = require("../../env/config");
 const { Shop, User } = require("../../db/index.js");
 
-function l(...props) {
-  console.log(...props);
-}
+const l = console.log;
 
 timekit.configure({
   app: timekitApp,
@@ -88,15 +86,14 @@ module.exports = {
         timezone: "America/Los_Angeles",
         email: shopEmail
       })
-      .then(tk => l("created User", tk.data))
-      .then(() =>
-        timekit.setUser({ email: shopEmail, apiToken: tk.data.api_token })
-      )
-      .then(tk => l("set the user", tk.data))
-      .then(() => timekit.getUserInfo())
-      .then(tk => l("getting user info", tk.data))
       .then(tk => {
-        l("ShopDashCtrl: created user, creating calendar. RESPONSE: ", tk);
+        timekit.setUser(shopEmail, tk.data.api_token);
+      })
+      .then(tk => l("set the user"))
+      .then(timekit.getUser)
+      .then(tk => l("here is the user", tk))
+      .then(tk => {
+        l("ShopDashCtrl: created user, creating calendar. RESPONSE: ", tk.data);
         // timekit.createCalendar({
         //   name: shopName,
         //   description: shopDescription
@@ -113,8 +110,8 @@ module.exports = {
       })
       .then(() => l("sent shop calendar_id to front end"))
       .catch(err => {
-        l("error creating calendar", err.data);
-        res.status(400).send("could not create calendar" + err.data);
+        l("error creating calendar", err);
+        res.status(400).send("could not create calendar" + err);
       });
   },
 
