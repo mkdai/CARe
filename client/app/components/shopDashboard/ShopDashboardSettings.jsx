@@ -13,7 +13,7 @@ import FieldGroup from "./FieldGroup.jsx";
 class ShopDashboardSettings extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {}; // Do not delete, needed for FieldGroup Component
   }
 
   render() {

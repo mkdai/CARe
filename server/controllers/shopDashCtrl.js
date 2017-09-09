@@ -48,7 +48,7 @@ module.exports = {
       .getBookings()
       .then(books => {
         let bookings = [];
-        console.log("this is the request", req.query);
+        bookings.action = "bookings request for ShopDashboard";
         books.data.forEach(booking => {
           if (
             !booking.completed &&
@@ -63,7 +63,7 @@ module.exports = {
         });
         res.status(200).send(bookings);
       })
-      .catch(err => console.log("could not get calendars", err));
+      .catch(err => res.status(400).send("could not get calendar" + err));
   },
 
   createCalendar: (req, res) => {
