@@ -33,8 +33,9 @@ class AppointmentCalendar extends Component {
         l("AppointmentCalendar: getCalendar: ", res.data);
         $("#calendar").fullCalendar({
           header: {
-            left: "prev,next today title",
-            right: "month basicWeek basicDay listDay"
+            left: "prev,next today",
+            center: "title",
+            right: "month basicWeek basicDay listWeek"
           },
           events: res.data,
           defaultView: "basicWeek"

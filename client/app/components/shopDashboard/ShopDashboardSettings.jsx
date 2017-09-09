@@ -23,16 +23,6 @@ class ShopDashboardSettings extends Component {
           <FieldGroup
             id="formControlsText"
             type="text"
-            label="Shop Name"
-            placeholder="Shop Name"
-            value={this.props.shopName}
-            onChange={e => this.props.handleAttributeChange(e, "shopName")}
-          >
-            {this.state.value}
-          </FieldGroup>
-          <FieldGroup
-            id="formControlsText"
-            type="text"
             label="First Name"
             placeholder="First Name"
             value={this.props.firstName}
@@ -47,6 +37,26 @@ class ShopDashboardSettings extends Component {
             placeholder="Last Name"
             value={this.props.lastName}
             onChange={e => this.props.handleAttributeChange(e, "lastName")}
+          >
+            {this.state.value}
+          </FieldGroup>
+          <FieldGroup
+            id="formControlsText"
+            type="text"
+            label="Email"
+            placeholder="Email"
+            value={this.props.shopEmail}
+            onChange={e => this.props.handleAttributeChange(e, "shopEmail")}
+          >
+            {this.state.value}
+          </FieldGroup>
+          <FieldGroup
+            id="formControlsText"
+            type="text"
+            label="Shop Name"
+            placeholder="Shop Name"
+            value={this.props.shopName}
+            onChange={e => this.props.handleAttributeChange(e, "shopName")}
           >
             {this.state.value}
           </FieldGroup>

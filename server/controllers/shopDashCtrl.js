@@ -7,6 +7,10 @@ const {
 } = require("../../env/config");
 const { Shop, User } = require("../../db/index.js");
 
+function l(...props) {
+  console.log(...props);
+}
+
 timekit.configure({
   app: timekitApp,
   inputTimestampFormat: "U",
@@ -67,7 +71,7 @@ module.exports = {
   },
 
   createCalendar: (req, res) => {
-    console.log(`received create calendar request`);
+    l(`received create calendar request`, req.body);
     let { shopName, shopDescription, id } = req.body;
     const cal = {};
     timekit
@@ -76,7 +80,7 @@ module.exports = {
         description: shopDescription
       })
       .then(tk => {
-        console.log(`created tk calendar updating db with cal_id`);
+        l(`created tk calendar updating db with cal_id`);
         cal.calId = tk.data.id;
         Shop.update({ calendar_id: tk.data.id }, { where: { id } });
       })
@@ -84,9 +88,9 @@ module.exports = {
         cal.action = "updated db with calendar id";
         res.status(201).send(cal);
       })
-      .then(() => console.log("sent shop calendar_id to front end"))
+      .then(() => l("sent shop calendar_id to front end"))
       .catch(err => {
-        console.log("error creating calendar", err);
+        l("error creating calendar", err);
         res.status(400).send("could not create calendar" + err);
       });
   },

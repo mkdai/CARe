@@ -16,6 +16,10 @@ import {
 } from "react-bootstrap";
 import MaintenanceJobs from "../../components/shopDashboard/MaintenanceJobs.jsx";
 
+function l(...props) {
+  console.log(...props);
+}
+
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser.currentUser
@@ -42,23 +46,23 @@ class ShopDashboard extends Component {
       shopId: -1,
       calId: "",
       shopName: "",
+      shopEmail: "",
       shopDescription: "",
-      hoursOfOperation: {},
-      calendarBookings: []
+      hoursOfOperation: {}
     };
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
   componentDidMount() {
-    console.log("shop dashboard mounted, requesting shopId");
+    l("shop dashboard mounted, requesting shopId");
     axios
       .get(`api/shopdashboard/getShopId`, {
         params: { userId: this.props.currentUser.id }
       })
-      .then(response => {
-        console.log("getShopId response received", response);
-        let { shopId } = response.data;
+      .then(res => {
+        l("getShopId response received", res);
+        let { shopId } = res.data;
         this.setState({ shopId });
       })
       .then(() =>
@@ -67,9 +71,9 @@ class ShopDashboard extends Component {
         })
       )
       .then(res => {
-        console.log("getCalId responded", res);
+        l("getCalId responded", res);
         this.setState({ calId: res.data.calId }, () =>
-          console.log("calendarId has been set", !!this.state.calId)
+          l("calendarId has been set", !!this.state.calId)
         );
       })
       .then(() => {
@@ -77,7 +81,7 @@ class ShopDashboard extends Component {
           this.setState({ hasCalendar: true });
         }
       })
-      .catch(err => console.log("could not get shopId"));
+      .catch(err => l("could not get shopId"));
   }
 
   handleAttributeChange(e, attribute) {
@@ -86,26 +90,29 @@ class ShopDashboard extends Component {
   }
 
   handleBuildCalendar() {
-    console.log("user requests to create calendar");
+    l("user requests to create calendar");
+    let { shopId, shopName, shopDescription, shopEmail } = this.state;
+
     axios
       .post(`api/shopdashboard/createCalendar`, {
-        id: this.state.shopId,
-        shopName: this.state.shopName,
-        shopDescription: this.state.shopDescription,
+        id: shopId,
+        shopName: shopName,
+        shopDescription: shopDescription,
+        shopEmail: shopEmail,
         hoursOfOperation: { days: [] }
       })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
-      .then(response => {
+      .then(res => {
         this.setState({
           hasCalendar: true,
           showCalModal: false,
-          calId: response.data.calId
+          calId: res.data.calId
         });
       })
-      .then(() => console.log("created tk calendar & stored id in db"))
-      .catch(err => console.log("could not create cal", err));
+      .then(() => l("created tk calendar & stored id in db"))
+      .catch(err => l("could not create cal", err));
   }
 
   render() {
