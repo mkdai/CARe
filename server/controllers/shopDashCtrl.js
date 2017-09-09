@@ -7,9 +7,7 @@ const {
 } = require("../../env/config");
 const { Shop, User } = require("../../db/index.js");
 
-function l(...props) {
-  console.log(...props);
-}
+const l = console.log;
 
 timekit.configure({
   app: timekitApp,
@@ -19,10 +17,8 @@ timekit.configure({
 
 timekit
   .auth({ email: timekitEmail, password: timekitPassword })
-  .then(() => console.log("ShopDashCtrl: authorized tk credentials"))
-  .catch(err => console.log("ShopDashCtrl: unauthorized tk credentials"));
-
-//TODO: redefine shop and user relationship to include shooopkeeeeepers
+  .then(() => l("ShopDashCtrl: authorized tk credentials"))
+  .catch(err => l("ShopDashCtrl: unauthorized tk credentials"));
 
 module.exports = {
   getShopId: (req, res) => {
@@ -72,15 +68,36 @@ module.exports = {
 
   createCalendar: (req, res) => {
     l(`received create calendar request`, req.body);
-    let { shopName, shopDescription, id } = req.body;
+    let {
+      firstName,
+      lastName,
+      shopName,
+      shopDescription,
+      shopEmail,
+      id
+    } = req.body;
+    l("the email for create cal is a ", typeof shopEmail);
     const cal = {};
     timekit
-      .createCalendar({
-        name: shopName,
-        description: shopDescription
+      .createUser({
+        name: `${firstName} ${lastName}`,
+        first_name: firstName,
+        last_name: lastName,
+        timezone: "America/Los_Angeles",
+        email: shopEmail
       })
+      .then(tk => timekit.setUser(shopEmail, tk.data.api_token))
+      .then(tk => l("set the user"))
+      .then(timekit.getUser)
+      .then(tk => l("here is the user", tk))
+      .then(tk =>
+        timekit.createCalendar({
+          name: shopName,
+          description: shopDescription
+        })
+      )
       .then(tk => {
-        l(`created tk calendar updating db with cal_id`);
+        l(`created tk calendar updating db with cal_id. RESPONSE: `, tk.data);
         cal.calId = tk.data.id;
         Shop.update({ calendar_id: tk.data.id }, { where: { id } });
       })
@@ -90,8 +107,8 @@ module.exports = {
       })
       .then(() => l("sent shop calendar_id to front end"))
       .catch(err => {
-        l("error creating calendar", err);
-        res.status(400).send("could not create calendar" + err);
+        l("error creating calendar", err.data.errors);
+        res.status(400).send("could not create calendar" + err.data);
       });
   },
 

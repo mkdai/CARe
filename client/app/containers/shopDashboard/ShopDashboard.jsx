@@ -55,7 +55,10 @@ class ShopDashboard extends Component {
   }
 
   componentDidMount() {
-    l("shop dashboard mounted, requesting shopId");
+    l("shop dashboard mounted & requesting shopId, PROPS:", this.props);
+
+    this.setState({ shopEmail: this.props.currentUser.email });
+
     axios
       .get(`api/shopdashboard/getShopId`, {
         params: { userId: this.props.currentUser.id }
@@ -86,16 +89,27 @@ class ShopDashboard extends Component {
 
   handleAttributeChange(e, attribute) {
     e.preventDefault();
+    l(this.state[attribute], e.target.value);
     this.setState({ [attribute]: e.target.value });
   }
 
   handleBuildCalendar() {
     l("user requests to create calendar");
-    let { shopId, shopName, shopDescription, shopEmail } = this.state;
+    let {
+      firstName,
+      lastName,
+      shopId,
+      shopName,
+      shopDescription,
+      shopEmail
+    } = this.state;
+    l("the email is a ", typeof email);
 
     axios
       .post(`api/shopdashboard/createCalendar`, {
         id: shopId,
+        firstName: firstName,
+        lastName: lastName,
         shopName: shopName,
         shopDescription: shopDescription,
         shopEmail: shopEmail,
@@ -112,7 +126,7 @@ class ShopDashboard extends Component {
         });
       })
       .then(() => l("created tk calendar & stored id in db"))
-      .catch(err => l("could not create cal", err));
+      .catch(err => l("could not create cal", err.data.errors));
   }
 
   render() {
