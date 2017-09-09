@@ -80,7 +80,7 @@ db
     Shop.bulkCreate([
       {
         address: "Test1 St Pasadena, CA 91106",
-        email: "shop@testEmail.com",
+        email: "ethanefung@gmail.com",
         phone: "(626) 795-7018",
         yelp_id: "valvoline-instant-oil-change-los-angeles",
         pickup: false,

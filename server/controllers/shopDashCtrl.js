@@ -84,6 +84,7 @@ module.exports = {
     const cal = {};
     timekit
       .createUser({
+        name: `${firstName} ${lastName}`,
         first_name: firstName,
         last_name: lastName,
         timezone: "America/Los_Angeles",
