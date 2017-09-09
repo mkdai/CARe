@@ -19,10 +19,8 @@ timekit.configure({
 
 timekit
   .auth({ email: timekitEmail, password: timekitPassword })
-  .then(() => console.log("ShopDashCtrl: authorized tk credentials"))
-  .catch(err => console.log("ShopDashCtrl: unauthorized tk credentials"));
-
-//TODO: redefine shop and user relationship to include shooopkeeeeepers
+  .then(() => l("ShopDashCtrl: authorized tk credentials"))
+  .catch(err => l("ShopDashCtrl: unauthorized tk credentials"));
 
 module.exports = {
   getShopId: (req, res) => {
@@ -90,15 +88,22 @@ module.exports = {
         timezone: "America/Los_Angeles",
         email: shopEmail
       })
-      .then(() => {
-        l("ShopDashCtrl: created user, creating calendar");
-        timekit.createCalendar({
-          name: shopName,
-          description: shopDescription
-        });
+      .then(tk => l("created User", tk.data))
+      .then(() =>
+        timekit.setUser({ email: shopEmail, apiToken: tk.data.api_token })
+      )
+      .then(tk => l("set the user", tk.data))
+      .then(() => timekit.getUserInfo())
+      .then(tk => l("getting user info", tk.data))
+      .then(tk => {
+        l("ShopDashCtrl: created user, creating calendar. RESPONSE: ", tk);
+        // timekit.createCalendar({
+        //   name: shopName,
+        //   description: shopDescription
+        // });
       })
       .then(tk => {
-        l(`created tk calendar updating db with cal_id`);
+        l(`created tk calendar updating db with cal_id. RESPONSE: `, tk.data);
         cal.calId = tk.data.id;
         Shop.update({ calendar_id: tk.data.id }, { where: { id } });
       })
@@ -108,8 +113,8 @@ module.exports = {
       })
       .then(() => l("sent shop calendar_id to front end"))
       .catch(err => {
-        l("error creating calendar", err);
-        res.status(400).send("could not create calendar" + err);
+        l("error creating calendar", err.data);
+        res.status(400).send("could not create calendar" + err.data);
       });
   },
 
