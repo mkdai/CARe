@@ -15,7 +15,6 @@ class UserFavorites extends React.Component {
   }
 
   componentDidMount() {
-    //console.log("current user in favorites: ", this.props.currentUser.id);
     axios
       .get(`/api/userProfile/getUserFavorites/${this.props.currentUser.id}`)
       .then(data => {

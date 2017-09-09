@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../../components/footer/Footer.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar";
+import Testing from "./Testing.jsx";
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -11,7 +12,10 @@ export default class LandingPage extends React.Component {
     return (
       <div>
         <NavigationBar />
-        <header className="intro-header">
+        <br />
+        <br />
+        <Testing />
+        {/* <header className="intro-header">
           <div className="container">
             <div className="intro-message">
               <h1>CARe</h1>
@@ -65,7 +69,7 @@ export default class LandingPage extends React.Component {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <Footer />
       </div>
     );

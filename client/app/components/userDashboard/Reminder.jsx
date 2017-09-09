@@ -11,14 +11,11 @@ export default class Reminder extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("COMPONENT RECIEVED PROPS", nextProps.currentCar);
     axios
       .get(`/api/userProfile/getUserReminders/${nextProps.currentCar}`)
       .then(data => {
         console.log("REMINDER RESPONSE:", data);
-        this.setState({
-          reminders: data.data
-        });
+        this.setState({ reminders: data.data });
       })
       .catch(err => {
         console.log(err);
@@ -26,7 +23,6 @@ export default class Reminder extends React.Component {
   }
 
   render() {
-    console.log("REMINDER PROPS:", this.props.currentCar);
     return (
       <div>
         {this.state.reminders.map((reminder, i) => (

@@ -63,13 +63,14 @@ class NavigationBar extends React.Component {
 
   render() {
     return (
-      <Navbar fixedTop inverse>
+      <Navbar fixedTop inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">
               CAR<span id="e-span">E</span>
             </Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
         {!this.props.currentAuth.isAuthenticated() && (
           <Nav pullRight>

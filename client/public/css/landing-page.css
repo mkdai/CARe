@@ -449,3 +449,28 @@ p.copyright {
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {
 }
+
+.parallax {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.inner {
+  color: white;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.inner h1,
+h3 {
+  text-shadow: 5px 5px 10px black;
+}
+
+.parallax-seperator {
+  font-size: 20px;
+  margin: 30px;
+}
