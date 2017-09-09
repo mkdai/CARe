@@ -28,7 +28,7 @@ module.exports = {
       })
       .catch(err => {
         if (err) {
-          console.log(err);
+          // console.log(err);
         }
       });
   },
@@ -41,7 +41,7 @@ module.exports = {
       })
       .then(cars => res.status(200).send(cars))
       .catch(err => {
-        console.log(`Error finding user cars! ${err}`);
+        // console.log(`Error finding user cars! ${err}`);
         res.status(404).send(`Error finding user cars! ${err}`);
       });
   },
@@ -54,7 +54,7 @@ module.exports = {
       })
       .then(histories => res.status(200).send(histories))
       .catch(err => {
-        console.log(`Error finding car histories! ${err}`);
+        // console.log(`Error finding car histories! ${err}`);
         res.status(404).send(`Error finding car histories! ${err}`);
       });
   },
@@ -76,7 +76,7 @@ module.exports = {
         }
       })
       .then(data => {
-        console.log("Successfully added car to database");
+        // console.log("Successfully added car to database");
         res.status(200).send(data);
       })
       .catch(err => {
@@ -93,16 +93,16 @@ module.exports = {
         }
       })
       .then(data => {
-        console.log("successfully fetched all favorites");
+        // console.log("successfully fetched all favorites");
         res.status(200).send(data);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         res.status(500).send(err);
       });
   },
   getUserReviews: (req, res) => {
-    console.log("THIS IS USERREVIEWS", req);
+    // console.log("THIS IS USERREVIEWS", req);
     // db.Review
     //   .findAll({
     //     where: {
@@ -127,7 +127,7 @@ module.exports = {
       })
       .then(reviews => res.status(200).send(reviews))
       .catch(err => {
-        console.log(`Error finding user reviews! ${err}`);
+        // console.log(`Error finding user reviews! ${err}`);
         res.status(404).send(`Error finding user reviews! ${err}`);
       });
   },
@@ -140,11 +140,11 @@ module.exports = {
         }
       })
       .then(data => {
-        console.log("Successfully fetched all reminders");
+        // console.log("Successfully fetched all reminders");
         res.status(200).send(data);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         res.status(500).send(err);
       });
   },
@@ -161,7 +161,7 @@ module.exports = {
         res.status(200).send(data);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   },
   deleteReminder: (req, res) => {

@@ -23,9 +23,9 @@ timekit
 module.exports = {
   getShopId: (req, res) => {
     console.log("received request to get shop id. USER ID: ", req.query);
-    User.findOne({ where: { id: req.query.userId } })
+    User.find({ where: { id: req.query.userId } })
       .then(user => {
-        console.log("found userId: ", user.dataValues.id);
+        console.log("getShopId --> found user", user.dataValues);
         res.status(200).send({ shopId: user.dataValues.shopId });
       })
       .catch(err => res.status(400).send(`could not find user ${err}`));
@@ -67,27 +67,27 @@ module.exports = {
   },
 
   createCalendar: (req, res) => {
-    console.log(
-      `received request to create calendar creating calendar with...`,
-      req.body
-    );
-
-    let { shopName, shopDescription } = req.body;
-
+    console.log(`received create calendar request`, req.body);
+    let { shopName, shopDescription, id } = req.body;
     const cal = {};
     timekit
       .createCalendar({
         name: shopName,
         description: shopDescription
       })
-      .then(x => {
-        console.log(`created tk calendar`, x.data, `updating db with cal_id`);
-        cal.calId = x.data.id;
-        Shop.update({ calendar_id: x.data.id }, { where: req.body });
+      .then(tk => {
+        console.log(
+          `created tk calendar`,
+          tk.data.id,
+          `updating db with cal_id`
+        );
+        cal.calId = tk.data.id;
+        Shop.update({ calendar_id: tk.data.id }, { where: { id } });
       })
       .then(() => {
         cal.action = "updated db with calendar id";
-        res.status(201).send({ cal });
+        console.log(cal.calId);
+        res.status(201).send(cal);
       })
       .then(() => console.log("sent shop calendar_id to front end"))
       .catch(err => {

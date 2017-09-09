@@ -66,7 +66,7 @@ export default class AddCar extends React.Component {
 
     upload.end((err, response) => {
       if (err) {
-        console.error(err);
+        // console.error(err);
       }
 
       if (response.body.secure_url !== "") {
@@ -93,7 +93,7 @@ export default class AddCar extends React.Component {
       )
       .then(data => {
         this.props.handleAddCar(data.data[0]);
-        console.log("DATA", data.data[0]);
+        // console.log("DATA", data.data[0]);
         this.setState(
           {
             license: data.data[0].license,
@@ -104,7 +104,7 @@ export default class AddCar extends React.Component {
             currentCar: data.data[0].id
           },
           () => {
-            console.log("THIS IS STATE AFTER CAR ADDED", this.state.currentCar);
+            // console.log("THIS IS STATE AFTER CAR ADDED", this.state.currentCar);
             this.wiperCheck();
             this.batteryCheck();
             this.brakeCheck();
@@ -115,7 +115,7 @@ export default class AddCar extends React.Component {
         );
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
@@ -123,7 +123,7 @@ export default class AddCar extends React.Component {
     var time =
       (this.state.wiperService - this.state.mileage % this.state.wiperService) /
       1000;
-    console.log("THIS IS TIME FOR WIPER SERVICE:", time);
+    // console.log("THIS IS TIME FOR WIPER SERVICE:", time);
     if (time <= 1) {
       this.sendReminder("Windshield Wiper Replacement");
     }
@@ -134,7 +134,7 @@ export default class AddCar extends React.Component {
       (this.state.batteryService -
         this.state.mileage % this.state.batteryService) /
       1000;
-    console.log("THIS IS TIME FOR BATTERY SERVICE:", time);
+    // console.log("THIS IS TIME FOR BATTERY SERVICE:", time);
     if (time <= 1) {
       this.sendReminder("Change Battery");
     }
@@ -144,7 +144,7 @@ export default class AddCar extends React.Component {
     var time =
       (this.state.brakeService - this.state.mileage % this.state.brakeService) /
       1000;
-    console.log("THIS IS TIME FOR BRAKE SERVICE:", time);
+    // console.log("THIS IS TIME FOR BRAKE SERVICE:", time);
     if (time <= 1) {
       this.sendReminder("Check Brake Pads");
     }
@@ -155,7 +155,7 @@ export default class AddCar extends React.Component {
       (this.state.airfilterService -
         this.state.mileage % this.state.airfilterService) /
       1000;
-    console.log("THIS IS TIME FOR AIR-FILTER SERVICE:", time);
+    // console.log("THIS IS TIME FOR AIR-FILTER SERVICE:", time);
     if (time <= 1) {
       this.sendReminder("Air Filter Replacement");
     }
@@ -165,7 +165,7 @@ export default class AddCar extends React.Component {
     var time =
       (this.state.tireService - this.state.mileage % this.state.tireService) /
       1000;
-    console.log("THIS IS TIME FOR TIRE SERVICE:", time);
+    // console.log("THIS IS TIME FOR TIRE SERVICE:", time);
     if (time <= 1) {
       this.sendReminder("Check Your Tires");
     }
@@ -175,14 +175,14 @@ export default class AddCar extends React.Component {
     var time =
       (this.state.oilService - this.state.mileage % this.state.oilService) /
       1000;
-    console.log("THIS IS TIME FOR OIL SERVICE:", time);
+    // console.log("THIS IS TIME FOR OIL SERVICE:", time);
     if (time <= 1) {
       this.sendReminder("Oil Service");
     }
   }
 
   sendReminder(input) {
-    console.log("sending a reminder", input);
+    // console.log("sending a reminder", input);
     axios
       .post(`/api/userProfile/createReminder/${this.state.currentCar}`, {
         input: input,
@@ -197,7 +197,7 @@ export default class AddCar extends React.Component {
   }
 
   render() {
-    console.log("PROPS IN ADDCAR", this.props);
+    // console.log("PROPS IN ADDCAR", this.props);
     return (
       <div>
         <div className="CarPic" onClick={this.open}>

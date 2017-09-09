@@ -50,32 +50,37 @@ class ShopDashboard extends Component {
   }
 
   componentDidMount() {
+    console.log("shop dashboard mounted, requesting shopId");
     axios
       .get(`api/shopdashboard/getShopId`, {
         params: { userId: this.props.currentUser.id }
       })
-      .then(res => this.setState({ shopId: res.data.shopId }))
+      .then(response => {
+        console.log("getShopId response received", response);
+        let { shopId } = response.data;
+        this.setState({ shopId });
+      })
       .then(() =>
         axios.get(`api/shopdashboard/getCalId`, {
           params: { shopId: this.state.shopId }
         })
       )
-      .then(res =>
+      .then(res => {
+        console.log("getCalId responded", res);
         this.setState({ calId: res.data.calId }, () =>
           console.log("calendarId has been set", !!this.state.calId)
-        )
-      )
+        );
+      })
       .then(() => {
         if (!!this.state.calId) {
           this.setState({ hasCalendar: true });
         }
       })
-      .catch(err => console.log("could not get shopId", err));
+      .catch(err => console.log("could not get shopId"));
   }
 
   handleAttributeChange(e, attribute) {
     e.preventDefault();
-    console.log("I change", e.target.value);
     this.setState({ [attribute]: e.target.value });
   }
 
@@ -95,12 +100,10 @@ class ShopDashboard extends Component {
         this.setState({
           hasCalendar: true,
           showCalModal: false,
-          calId: response.data.cal.calId
+          calId: response.data.calId
         });
       })
-      .then(response =>
-        console.log("created tk calendar & stored id in db", response)
-      )
+      .then(() => console.log("created tk calendar & stored id in db"))
       .catch(err => console.log("could not create cal", err));
   }
 

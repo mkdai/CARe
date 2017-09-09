@@ -40,7 +40,7 @@ export default class ProfileHead extends React.Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
@@ -67,7 +67,7 @@ export default class ProfileHead extends React.Component {
 
     upload.end((err, response) => {
       if (err) {
-        console.error(err);
+        // console.error(err);
       }
 
       if (response.body.secure_url !== "") {
@@ -86,13 +86,13 @@ export default class ProfileHead extends React.Component {
         [temp]: event.target.value
       },
       () => {
-        console.log("STATE IS", this.state);
+        // console.log("STATE IS", this.state);
       }
     );
   }
 
   handleSubmit() {
-    console.log("Handle Submit is hitting");
+    // console.log("Handle Submit is hitting");
     this.close();
     axios
       .put(
@@ -100,16 +100,16 @@ export default class ProfileHead extends React.Component {
         this.state
       )
       .then(data => {
-        console.log("DATA", data);
+        // console.log("DATA", data);
         this.setState({ name: data.data[1][0].name });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
   render() {
-    console.log("CURRENT USER ID", this.props.user.currentUser.id);
+    // console.log("CURRENT USER ID", this.props.user.currentUser.id);
     return (
       <div>
         <div className="UserPic">
