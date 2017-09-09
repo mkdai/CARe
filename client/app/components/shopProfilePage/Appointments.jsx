@@ -26,7 +26,7 @@ class Appointments extends Component {
 
   componentDidMount() {
     console.log(
-      "Appointments component mounted, getting bookings.  PROPS:: ",
+      "Appointments component mounted, getting bookings, props:",
       this.props
     );
     axios

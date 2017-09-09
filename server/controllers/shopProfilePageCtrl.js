@@ -13,6 +13,11 @@ timekit.configure({
   outputTimestampFormat: "U"
 });
 
+timekit
+  .auth({ email: timekitEmail, password: timekitPassword })
+  .then(() => console.log("SProfilePageCtrl: authorized tk credentials"))
+  .catch(() => console.log("SProfilePageCtrl: un-authorized tk credentials"));
+
 module.exports = {
   postFavorite: (req, res) => {
     console.log("adding fav", req.query.userId, req.query.shopId);
@@ -38,21 +43,22 @@ module.exports = {
   },
 
   getBookings: (req, res) => {
-    console.log("received request to get calendar bookings", req.query);
+    console.log(
+      "getBookings: received ax request to get calendar bookings",
+      req.query
+    );
+
     timekit
-      .auth({ email: timekitEmail, password: timekitPassword })
-      .then(() =>
-        timekit.findTime({
-          calendar_ids: [req.query.calId],
-          future: "12 hours",
-          // filters: {
-          //   and: [{ specific_time: { start: 9, end: 24 } }]
-          // },
-          length: "30 minutes"
-        })
-      )
+      .findTime({
+        calendar_ids: [req.query.calId],
+        future: "12 hours",
+        // filters: {
+        //   and: [{ specific_time: { start: 9, end: 24 } }]
+        // },
+        length: "30 minutes"
+      })
       .then(response => {
-        console.log("received response from timekit");
+        console.log("getBookings: received response from timekit");
         let today = Date.now();
         const times = response.data.map(
           time =>
@@ -66,7 +72,7 @@ module.exports = {
               time
             )
         );
-        console.log(times);
+        console.log("configuring response data for hours", times);
         res.status(200).send(response.data);
       })
       .catch(err => res.status(400).send({ error: err }));

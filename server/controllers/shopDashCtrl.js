@@ -15,8 +15,8 @@ timekit.configure({
 
 timekit
   .auth({ email: timekitEmail, password: timekitPassword })
-  .then(() => console.log("authorized tk credentials"))
-  .catch(err => console.log("unauthorized tk credentials"));
+  .then(() => console.log("ShopDashCtrl: authorized tk credentials"))
+  .catch(err => console.log("ShopDashCtrl: unauthorized tk credentials"));
 
 //TODO: redefine shop and user relationship to include shooopkeeeeepers
 
@@ -67,7 +67,7 @@ module.exports = {
   },
 
   createCalendar: (req, res) => {
-    console.log(`received create calendar request`, req.body);
+    console.log(`received create calendar request`);
     let { shopName, shopDescription, id } = req.body;
     const cal = {};
     timekit
@@ -76,17 +76,12 @@ module.exports = {
         description: shopDescription
       })
       .then(tk => {
-        console.log(
-          `created tk calendar`,
-          tk.data.id,
-          `updating db with cal_id`
-        );
+        console.log(`created tk calendar updating db with cal_id`);
         cal.calId = tk.data.id;
         Shop.update({ calendar_id: tk.data.id }, { where: { id } });
       })
       .then(() => {
         cal.action = "updated db with calendar id";
-        console.log(cal.calId);
         res.status(201).send(cal);
       })
       .then(() => console.log("sent shop calendar_id to front end"))
