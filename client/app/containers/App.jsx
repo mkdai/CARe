@@ -6,7 +6,6 @@ import Auth from "../../Auth/Auth.js";
 import ShopProfilePage from "../components/shopProfilePage/ShopProfilePage.jsx";
 import ShopDashboard from "../containers/shopDashboard/ShopDashboard.jsx";
 import ShopDashboardSettings from "../components/shopDashboard/ShopDashboardSettings.jsx";
-import ShopDashboardCalendarForm from "../components/shopDashboard/ShopDashboardCalendarForm.jsx";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { addAuth } from "../actions/authAction.js";
@@ -60,10 +59,6 @@ class App extends Component {
           <Route path="/userdash" component={UserDashBoard} />
           <Route path="/shopdashboard" component={ShopDashboard} />
           <Route path="/shopdashsettings" component={ShopDashboardSettings} />
-          <Route
-            path="/shopdashcalform"
-            component={ShopDashboardCalendarForm}
-          />
           <Route path="/user-reviews" component={UserReviews} />
           <Route path="/user-favorites" component={UserFavorites} />
         </Switch>

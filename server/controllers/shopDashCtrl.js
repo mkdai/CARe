@@ -72,11 +72,20 @@ module.exports = {
 
   createCalendar: (req, res) => {
     l(`received create calendar request`, req.body);
-    let { shopName, shopDescription, shopEmail, id } = req.body;
+    let {
+      firstName,
+      lastName,
+      shopName,
+      shopDescription,
+      shopEmail,
+      id
+    } = req.body;
+    l("the email for create cal is a ", typeof shopEmail);
     const cal = {};
     timekit
       .createUser({
-        name: shopName,
+        first_name: firstName,
+        last_name: lastName,
         timezone: "America/Los_Angeles",
         email: shopEmail
       })

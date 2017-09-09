@@ -91,11 +91,20 @@ class ShopDashboard extends Component {
 
   handleBuildCalendar() {
     l("user requests to create calendar");
-    let { shopId, shopName, shopDescription, shopEmail } = this.state;
+    let {
+      firstName,
+      lastName,
+      shopId,
+      shopName,
+      shopDescription,
+      shopEmail
+    } = this.state;
 
     axios
       .post(`api/shopdashboard/createCalendar`, {
         id: shopId,
+        firstName: firstName,
+        lastName: lastName,
         shopName: shopName,
         shopDescription: shopDescription,
         shopEmail: shopEmail,
