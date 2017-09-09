@@ -21,16 +21,14 @@ export default class UserHistory extends Component {
     return (
       <Grid>
         <ListGroup>
-          <button onClick={() => console.log(this.state)}>click</button>
           {this.state.histories ? (
             this.state.histories.map(history => (
-              <div>
-                {console.log("here  FIREEEEEEEEEE", this.props.history)}
+              <div key={history.id}>
                 <UserHistoryEntry history={history} />
               </div>
             ))
           ) : (
-            <div>This car doesn't have any history yet!</div>
+            <div>Please select a car to view it's history.</div>
           )}
         </ListGroup>
       </Grid>
