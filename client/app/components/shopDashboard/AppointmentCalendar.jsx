@@ -24,7 +24,6 @@ class AppointmentCalendar extends Component {
   }
 
   componentDidMount() {
-    console.log("mounting appointment calendar", this.props);
     axios
       .get(`api/shopdashboard/getCalendar`, {
         params: { id: this.props.calId }

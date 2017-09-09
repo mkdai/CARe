@@ -10,7 +10,6 @@ export default class UserHistory extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("updating", nextProps);
     axios
       .get(`/api/userProfile/getMaintenanceHistory/${nextProps.currentCar}`)
       .then(({ data }) => this.setState({ histories: data }))

@@ -39,9 +39,20 @@ export default class ProfileHead extends React.Component {
           profilePic: response.data.profilePic
         });
       })
-      .catch(err => {
-        // console.log(err);
-      });
+      .catch(err => console.log(err));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    axios
+      .get(`/api/userProfile/getProfile/${nextProps.user.currentUser.id}`)
+      .then(response => {
+        this.setState({
+          name: response.data.name,
+          phone: response.data.phone,
+          profilePic: response.data.profilePic
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   open() {
@@ -65,7 +76,7 @@ export default class ProfileHead extends React.Component {
 
     upload.end((err, response) => {
       if (err) {
-        // console.error(err);
+        console.error(err);
       }
 
       if (response.body.secure_url !== "") {
@@ -92,9 +103,7 @@ export default class ProfileHead extends React.Component {
       .then(({ data }) => {
         this.setState({ name: data[1][0].name });
       })
-      .catch(err => {
-        // console.log(err);
-      });
+      .catch(err => console.log(err));
   }
 
   render() {

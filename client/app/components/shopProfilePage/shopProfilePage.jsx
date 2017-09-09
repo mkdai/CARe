@@ -170,13 +170,11 @@ class ShopProfilePage extends Component {
     ) : this.state.idString === "DOESNTEXIST" ? (
       <div>
         <NavigationBar />
-        {console.log("Doesnt exist")}
         <div className="bump">This Shop Does Not Exist!</div>
       </div>
     ) : (
       <div>
         <NavigationBar />
-        {console.log("Loading")}
         <div className="bump">Loading</div>
       </div>
     );

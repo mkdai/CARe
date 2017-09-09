@@ -2,7 +2,6 @@ const db = require("../../db/index");
 
 module.exports = {
   updateProfile: (req, res) => {
-    //console.log(req.params.id);
     db.User
       .update(
         {
@@ -20,7 +19,6 @@ module.exports = {
       });
   },
   getProfile: (req, res) => {
-    //console.log("getting profile info");
     db.User
       .findById(req.params.id)
       .then(response => {
@@ -28,7 +26,7 @@ module.exports = {
       })
       .catch(err => {
         if (err) {
-          // console.log(err);
+          console.log(err);
         }
       });
   },
@@ -59,7 +57,6 @@ module.exports = {
       });
   },
   addCar: (req, res) => {
-    //console.log("THIS IS ADDCAR REQUEST:::::", req.body);
     db.Car
       .findOrCreate({
         where: {
@@ -76,7 +73,7 @@ module.exports = {
         }
       })
       .then(data => {
-        // console.log("Successfully added car to database");
+        console.log("Successfully added car to database");
         res.status(200).send(data);
       })
       .catch(err => {
@@ -85,7 +82,6 @@ module.exports = {
       });
   },
   getUserFavorites: (req, res) => {
-    //console.log("THIS IS USERFAVS", req);
     db.Favorite
       .findAll({
         where: {
@@ -132,7 +128,6 @@ module.exports = {
       });
   },
   getUserReminders: (req, res) => {
-    //console.log("THIS IS USERREMINDERS:", req);
     db.Reminder
       .findAll({
         where: {
@@ -149,8 +144,6 @@ module.exports = {
       });
   },
   createReminder: (req, res) => {
-    //console.log("THIS IS CREATEREMINDER REQ.params", req.params);
-    //console.log("THIS IS CREATEREMINDER REQ.body", req.body.input);
     db.Reminder
       .create({
         userId: req.body.userId,
@@ -165,7 +158,6 @@ module.exports = {
       });
   },
   deleteReminder: (req, res) => {
-    //console.log("THIS IS DELETEREMINDER REQ.params", req.params);
     db.Reminder
       .destroy({
         where: {
