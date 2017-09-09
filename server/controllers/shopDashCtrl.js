@@ -86,19 +86,16 @@ module.exports = {
         timezone: "America/Los_Angeles",
         email: shopEmail
       })
-      .then(tk => {
-        timekit.setUser(shopEmail, tk.data.api_token);
-      })
+      .then(tk => timekit.setUser(shopEmail, tk.data.api_token))
       .then(tk => l("set the user"))
       .then(timekit.getUser)
       .then(tk => l("here is the user", tk))
-      .then(tk => {
-        l("ShopDashCtrl: created user, creating calendar. RESPONSE: ", tk.data);
-        // timekit.createCalendar({
-        //   name: shopName,
-        //   description: shopDescription
-        // });
-      })
+      .then(tk =>
+        timekit.createCalendar({
+          name: shopName,
+          description: shopDescription
+        })
+      )
       .then(tk => {
         l(`created tk calendar updating db with cal_id. RESPONSE: `, tk.data);
         cal.calId = tk.data.id;
@@ -110,8 +107,8 @@ module.exports = {
       })
       .then(() => l("sent shop calendar_id to front end"))
       .catch(err => {
-        l("error creating calendar", err);
-        res.status(400).send("could not create calendar" + err);
+        l("error creating calendar", err.data.errors);
+        res.status(400).send("could not create calendar" + err.data);
       });
   },
 
