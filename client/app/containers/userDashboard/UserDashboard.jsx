@@ -35,9 +35,7 @@ class UserDashboard extends React.Component {
     axios
       .get(`/api/userProfile/getAllUserCars/${nextProps.currentUser.id}`)
       .then(data => {
-        this.setState({ cars: data.data }, () => {
-          console.log("ALL USER CARS", this.state.cars);
-        });
+        this.setState({ cars: data.data });
       })
       .catch(err => {
         console.log(err);
@@ -48,9 +46,7 @@ class UserDashboard extends React.Component {
     axios
       .get(`/api/userProfile/getAllUserCars/${this.props.currentUser.id}`)
       .then(data => {
-        this.setState({ cars: data.data }, () => {
-          console.log("ALL USER CARS", this.state.cars);
-        });
+        this.setState({ cars: data.data });
       })
       .catch(err => {
         console.log(err);
