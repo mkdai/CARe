@@ -5,9 +5,7 @@ import AppointmentsList from "./AppointmentsList";
 import TimekitBooking from "timekit-booking";
 import axios from "axios";
 
-function log(...props) {
-  console.log(...props);
-}
+const l = console.log;
 
 class Appointments extends Component {
   constructor(props) {
@@ -29,7 +27,7 @@ class Appointments extends Component {
   }
 
   componentDidMount() {
-    log("Appointments component mounted, getting bookings, props:", this.props);
+    l("Appointments component mounted, getting bookings, props:", this.props);
     axios
       .get(`api/shopProfile/getBookings`, {
         params: { calId: this.props.calId }
@@ -41,14 +39,14 @@ class Appointments extends Component {
             services: ["Oil Change", "Detailing"]
           },
           () =>
-            log(
+            l(
               "Appointments: getBookings responds.  Current State: ",
               this.state
             )
         )
       )
       .catch(err =>
-        log("Appointments: getBookings --> could not get shop appointments")
+        l("Appointments: getBookings --> could not get shop appointments")
       );
   }
 
@@ -67,13 +65,13 @@ class Appointments extends Component {
 
   handleFindApptClick(e) {
     e.preventDefault();
-    log("Appointments: handleFindAppt: These are the props", this.props);
+    l("Appointments: handleFindAppt: These are the props", this.props);
     axios
       .get("api/shopProfile/getAppointments", {
         params: { calId: this.props.calId }
       })
       .then(res => {
-        log("Appointments: handleFindAppt: ", res.data);
+        l("Appointments: handleFindAppt: ", res.data);
 
         let { app, email, token } = res.data;
         let { time, date } = this.state;
@@ -101,7 +99,7 @@ class Appointments extends Component {
           }
         });
       })
-      .catch(err => log("Appointments: handleFindAppt, could not init widget"));
+      .catch(err => l("Appointments: handleFindAppt, could not init widget"));
 
     //send a request to timekit to find time within 3 hours of time,
     //render 5 within 30 minutes of each other

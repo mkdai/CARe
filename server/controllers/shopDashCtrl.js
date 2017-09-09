@@ -76,6 +76,8 @@ module.exports = {
       shopEmail,
       id
     } = req.body;
+    let tk_api_token;
+
     l("the email for create cal is a ", typeof shopEmail);
     const cal = {};
     timekit
@@ -86,7 +88,15 @@ module.exports = {
         timezone: "America/Los_Angeles",
         email: shopEmail
       })
-      .then(tk => timekit.setUser(shopEmail, tk.data.api_token))
+      .then(tk => {
+        l("created user saving api_token", tk.data.api_token);
+        tk_api_token = tk.data.api_token;
+        Shop.update({ tk_api_token: tk.data.api_token }, { where: { id } });
+      })
+      .then(() => {
+        l("updated shop with tk api token, setting user");
+        timekit.setUser(shopEmail, tk_api_token);
+      })
       .then(tk => l("set the user"))
       .then(timekit.getUser)
       .then(tk => l("here is the user", tk))
