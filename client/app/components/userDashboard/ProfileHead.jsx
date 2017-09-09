@@ -124,9 +124,11 @@ export default class ProfileHead extends React.Component {
               <Link to="/user-reviews">Reviews</Link>
             </div>
             <div>
-              <a href="#" className="favorites-link">
-                Favorites
-              </a>
+              <Link to="/user-favorites">
+                <a href="#" className="favorites-link">
+                  Favorites
+                </a>
+              </Link>
             </div>
             <Button
               className="btn-primary"

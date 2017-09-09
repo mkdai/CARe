@@ -1,6 +1,7 @@
 import React from "react";
 import UserHistory from "../userHistory/UserHistory.jsx";
 import Reminder from "./Reminder.jsx";
+import UpdateCar from "./UpdateCar.jsx";
 
 export default class DashboardTabs extends React.Component {
   constructor() {
@@ -36,6 +37,16 @@ export default class DashboardTabs extends React.Component {
               Appointments
             </a>
           </li>
+          <li id="carUpdate-tab" role="presentation">
+            <a
+              href="#update"
+              aria-controls="update"
+              role="tab"
+              data-toggle="tab"
+            >
+              Update Car
+            </a>
+          </li>
         </ul>
 
         <div className="tab-content">
@@ -49,6 +60,11 @@ export default class DashboardTabs extends React.Component {
           </div>
           <div role="tabpanel" className="tab-pane" id="messages">
             Select your car to see appointments.
+          </div>
+          <div role="tabpanel" className="tab-pane" id="update">
+            Select your car to update.
+            <hr />
+            <UpdateCar currentCar={this.props.currentCarId} />
           </div>
         </div>
       </div>
