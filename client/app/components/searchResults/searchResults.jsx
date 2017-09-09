@@ -23,7 +23,6 @@ class SearchResults extends Component {
       this.setState({ term: parsed.term, location: parsed.location });
     }
     if (!parsed.location) {
-      console.log("no location given, getting current location");
       this.setState({ location: "Current Position" });
       navigator.geolocation.getCurrentPosition(
         position => {
@@ -33,7 +32,6 @@ class SearchResults extends Component {
             .get(`/api/search/allshops${searchQueryString}`)
             .then(({ data }) => {
               this.setState({ shops: data.businesses, loading: false });
-              console.log(data);
             });
         },
         err => {
@@ -46,16 +44,12 @@ class SearchResults extends Component {
             .get(`/api/search/allshops?latitude=33.976&longitude=-118.387`)
             .then(({ data }) => {
               this.setState({ shops: data.businesses, loading: false });
-              console.log(data);
             });
         }
       );
     } else {
       axios.get(`/api/search/allshops${searchQueryString}`).then(({ data }) => {
-        this.setState({ shops: data, loading: false }, () =>
-          console.log(this.state.shops)
-        );
-        console.log(this.state.shops);
+        this.setState({ shops: data, loading: false });
       });
     }
   }

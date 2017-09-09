@@ -19,7 +19,6 @@ export default class ReminderEntry extends React.Component {
   }
 
   render() {
-    console.log("PROPS IN REMINDER ENTRY:", this.props);
     return (
       <div>
         <span>Service: {this.props.reminder.service}</span>

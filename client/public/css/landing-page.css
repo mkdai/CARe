@@ -465,8 +465,8 @@ p.copyright {
   transform: translate(-50%, -50%);
 }
 
-.inner h1,
-h3 {
+.inner > h1,
+.inner > h3 {
   text-shadow: 5px 5px 10px black;
 }
 

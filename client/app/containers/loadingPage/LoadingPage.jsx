@@ -27,7 +27,6 @@ class LoadingPage extends Component {
   componentDidMount() {
     this.props.currentAuth.handleAuthentication(authResult => {
       this.setState({ loggedIn: this.props.currentAuth.isAuthenticated() });
-      console.log("heres idTokenPayload: ", authResult.idTokenPayload);
       axios
         .post("/api/user/adduser", {
           email: authResult.idTokenPayload.email,
@@ -35,7 +34,6 @@ class LoadingPage extends Component {
           picture: authResult.idTokenPayload.picture
         })
         .then(({ data }) => {
-          console.log(data);
           this.props.addUser(data);
         })
         .catch(err => console.log(err));

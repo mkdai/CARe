@@ -14,7 +14,6 @@ export default class Reminder extends React.Component {
     axios
       .get(`/api/userProfile/getUserReminders/${nextProps.currentCar}`)
       .then(data => {
-        console.log("REMINDER RESPONSE:", data);
         this.setState({ reminders: data.data });
       })
       .catch(err => {

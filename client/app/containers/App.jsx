@@ -34,10 +34,8 @@ class App extends Component {
     this.props.addAuth(new Auth());
   }
   componentWillReceiveProps(nextProps) {
-    console.log("recieved auth as prop");
     if (nextProps.currentAuth.isAuthenticated()) {
       nextProps.currentAuth.getProfile((err, profile) => {
-        console.log(profile);
         axios
           .post("/api/user/adduser", {
             email: profile.email,
@@ -45,7 +43,6 @@ class App extends Component {
             picture: profile.picture
           })
           .then(({ data }) => {
-            console.log(data);
             this.props.addUser(data);
           })
           .catch(err => console.log(err));
