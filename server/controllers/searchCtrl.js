@@ -73,6 +73,7 @@ const processShopData = (shop, userId, cb) => {
     })
     .catch(() => {
       console.log("nothing in our database!");
+      shop.calId = null;
       shop.review_count = 0;
       shop.reviews = [];
       shop.favorited = false;
