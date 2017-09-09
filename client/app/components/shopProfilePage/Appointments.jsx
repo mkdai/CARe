@@ -38,11 +38,7 @@ class Appointments extends Component {
             times: res.data,
             services: ["Oil Change", "Detailing"]
           },
-          () =>
-            l(
-              "Appointments: getBookings responds.  Current State: ",
-              this.state
-            )
+          () => l("Appointments: getBookings responds. State: ", this.state)
         )
       )
       .catch(err =>

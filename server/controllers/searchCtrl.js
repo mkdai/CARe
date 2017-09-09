@@ -37,6 +37,7 @@ const processShopData = (shop, userId, cb) => {
       shop.dbpk = response.dataValues.id;
       shop.rating = response.dataValues.rating;
       shop.calId = response.dataValues.calendar_id;
+      shop.tkToken = response.dataValues.tk_api_token;
       Review.findAll({
         where: { shopId: response.dataValues.id },
         include: [User]
