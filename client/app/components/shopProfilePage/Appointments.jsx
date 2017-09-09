@@ -89,8 +89,10 @@ class Appointments extends Component {
           app: app,
           email: email,
           apiToken: token,
-          name: this.state.service + " service with " + this.props.name,
           calendar: this.props.calId,
+
+          name: this.state.service + " service with " + this.props.name,
+          bookingGraph: "confirm_decline",
           availabilityView: "listing",
           timekitFindTime: {
             start: ReqBooking,

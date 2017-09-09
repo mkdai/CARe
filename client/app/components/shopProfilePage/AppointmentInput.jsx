@@ -46,7 +46,6 @@ class AppointmentInput extends Component {
         </FormGroup>
 
         <FormGroup controlId="date">
-          <ControlLabel>Date</ControlLabel>
           <DatePicker
             id="datepicker"
             value={this.props.date}

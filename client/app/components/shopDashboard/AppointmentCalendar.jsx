@@ -4,6 +4,10 @@ import $ from "jquery";
 import axios from "axios";
 import fullCalendar from "fullcalendar";
 
+function l(...props) {
+  console.log(...props);
+}
+
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
  *  // be able to render month, week, day, and daylist views of all the shops bookings
@@ -17,9 +21,6 @@ class AppointmentCalendar extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      bookings: []
-    };
   }
 
   componentDidMount() {
@@ -28,13 +29,14 @@ class AppointmentCalendar extends Component {
       .get(`api/shopdashboard/getCalendar`, {
         params: { id: this.props.calId }
       })
-      .then(() => {
+      .then(res => {
+        l("AppointmentCalendar: getCalendar: ", res.data);
         $("#calendar").fullCalendar({
           header: {
             left: "prev,next today title",
             right: "month basicWeek basicDay listDay"
           },
-          events: this.state.bookings,
+          events: res.data,
           defaultView: "basicWeek"
         });
       })

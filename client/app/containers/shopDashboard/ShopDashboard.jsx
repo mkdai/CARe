@@ -43,7 +43,8 @@ class ShopDashboard extends Component {
       calId: "",
       shopName: "",
       shopDescription: "",
-      hoursOfOperation: {}
+      hoursOfOperation: {},
+      calendarBookings: []
     };
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
