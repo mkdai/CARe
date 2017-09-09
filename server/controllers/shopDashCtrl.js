@@ -72,12 +72,20 @@ module.exports = {
 
   createCalendar: (req, res) => {
     l(`received create calendar request`, req.body);
-    let { shopName, shopDescription, id } = req.body;
+    let { shopName, shopDescription, shopEmail, id } = req.body;
     const cal = {};
     timekit
-      .createCalendar({
+      .createUser({
         name: shopName,
-        description: shopDescription
+        timezone: "America/Los_Angeles",
+        email: shopEmail
+      })
+      .then(() => {
+        l("ShopDashCtrl: created user, creating calendar");
+        timekit.createCalendar({
+          name: shopName,
+          description: shopDescription
+        });
       })
       .then(tk => {
         l(`created tk calendar updating db with cal_id`);
