@@ -5,6 +5,10 @@ import AppointmentsList from "./AppointmentsList";
 import TimekitBooking from "timekit-booking";
 import axios from "axios";
 
+function log(...props) {
+  console.log(...props);
+}
+
 class Appointments extends Component {
   constructor(props) {
     super(props);
@@ -25,10 +29,7 @@ class Appointments extends Component {
   }
 
   componentDidMount() {
-    console.log(
-      "Appointments component mounted, getting bookings, props:",
-      this.props
-    );
+    log("Appointments component mounted, getting bookings, props:", this.props);
     axios
       .get(`api/shopProfile/getBookings`, {
         params: { calId: this.props.calId }
@@ -39,10 +40,16 @@ class Appointments extends Component {
             times: res.data,
             services: ["Oil Change", "Detailing"]
           },
-          () => console.log("set the times", this.state)
+          () =>
+            log(
+              "Appointments: getBookings responds.  Current State: ",
+              this.state
+            )
         )
       )
-      .catch(err => console.log("could not get shop appointments", err.data));
+      .catch(err =>
+        log("Appointments: getBookings --> could not get shop appointments")
+      );
   }
 
   handleServiceChange(e) {
@@ -60,30 +67,39 @@ class Appointments extends Component {
 
   handleFindApptClick(e) {
     e.preventDefault();
-    let widget = new TimekitBooking();
-    let { time, date } = this.state;
-    const ReqDate = new Date(date);
-    const ReqBooking = new Date(
-      ReqDate.getFullYear(),
-      ReqDate.getMonth(),
-      ReqDate.getDate(),
-      0,
-      0,
-      time
-    );
-    widget.init({
-      app: timekitApp,
-      email: timekitEmail,
-      apiToken: timekitApiToken,
-      name: "Appt",
-      calendar: this.props.calId,
-      availabilityView: "listing",
-      timekitFindTime: {
-        start: ReqBooking,
-        future: "2 hours",
-        length: "1 hour"
-      }
-    });
+    log("Appointments: handleFindAppt: These are the props", this.props);
+    axios
+      .get("api/shopProfile/getAppointments", {
+        params: { calId: this.props.calId }
+      })
+      .then(res => {
+        log("Appointments: handleFindAppt: ", res.data);
+
+        let { app, email, token } = res.data;
+        let { time, date } = this.state;
+        const widget = new TimekitBooking();
+        const ReqDate = new Date(date);
+        let year = ReqDate.getFullYear();
+        let month = ReqDate.getMonth();
+        date = ReqDate.getDate();
+
+        const ReqBooking = new Date(year, month, date, -1, 0, time);
+
+        widget.init({
+          app: app,
+          email: email,
+          apiToken: token,
+          name: this.state.service + " service with " + this.props.name,
+          calendar: this.props.calId,
+          availabilityView: "listing",
+          timekitFindTime: {
+            start: ReqBooking,
+            future: "4 hours",
+            length: "1 hour"
+          }
+        });
+      })
+      .catch(err => log("Appointments: handleFindAppt, could not init widget"));
 
     //send a request to timekit to find time within 3 hours of time,
     //render 5 within 30 minutes of each other

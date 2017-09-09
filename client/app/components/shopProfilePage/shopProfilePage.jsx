@@ -94,7 +94,7 @@ class ShopProfilePage extends Component {
           });
       })
       .catch(response => {
-        console.log("jk why", response);
+        console.log("could not get shop data", response);
         this.setState({ idString: "DOESNTEXIST" });
       });
   }

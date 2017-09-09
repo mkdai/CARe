@@ -7,6 +7,10 @@ const {
   timekitApiToken
 } = require("../../env/config");
 
+function l(...props) {
+  console.log(...props);
+}
+
 timekit.configure({
   app: timekitApp,
   inputTimestampFormat: "U",
@@ -59,23 +63,30 @@ module.exports = {
       })
       .then(response => {
         console.log("getBookings: received response from timekit");
-        let today = Date.now();
-        const times = response.data.map(
-          time =>
-            new Date(
-              today.getYears(),
-              today.getMonth(),
-              today.getDate(),
-              0,
-              0,
-              0,
-              time
-            )
-        );
-        console.log("configuring response data for hours", times);
+        // let today = Date.now();
+        // const times = response.data.map(
+        //   time =>
+        //     new Date(
+        //       today.getYears(),
+        //       today.getMonth(),
+        //       today.getDate(),
+        //       0,
+        //       0,
+        //       0,
+        //       time
+        //     )
+        // );
         res.status(200).send(response.data);
       })
       .catch(err => res.status(400).send({ error: err }));
+  },
+
+  getAppointments: (req, res) => {
+    l("received request for Appointments");
+    let app = timekitApp,
+      email = timekitEmail,
+      token = timekitApiToken;
+    res.status(200).send({ app, email, token });
   },
 
   postHistoryEntry: (req, res) => {
