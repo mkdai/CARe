@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import ReminderEntry from "./ReminderEntry.jsx";
 
-export default class DashboardTabs extends React.Component {
+export default class Reminder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

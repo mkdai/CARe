@@ -11,5 +11,8 @@ router.get("/getAllReviews/:userId", controller.getAllReviews);
 router.get("/getUserReminders/:id", controller.getUserReminders);
 router.post("/createReminder/:id", controller.createReminder);
 router.get("/getMaintenanceHistory/:carId", controller.getMaintenanceHistory);
+router.delete("/deleteReminder/:id", controller.deleteReminder);
+router.put("/updateMileage/:id", controller.updateMileage);
+router.delete("/deleteCar/:id", controller.deleteCar);
 
 module.exports = router;

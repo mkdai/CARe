@@ -2,7 +2,7 @@ const db = require("../../db/index");
 
 module.exports = {
   updateProfile: (req, res) => {
-    console.log(req.params.id);
+    //console.log(req.params.id);
     db.User
       .update(
         {
@@ -20,7 +20,7 @@ module.exports = {
       });
   },
   getProfile: (req, res) => {
-    console.log("getting profile info");
+    //console.log("getting profile info");
     db.User
       .findById(req.params.id)
       .then(response => {
@@ -63,12 +63,15 @@ module.exports = {
     db.Car
       .findOrCreate({
         where: {
-          userId: req.params.id,
+          //userId: null,
           license: req.body.license,
           make: req.body.make,
           model: req.body.model,
+          year: req.body.year
+        },
+        defaults: {
+          userId: req.params.id,
           picture: req.body.uploadedFileCloudinaryUrl,
-          year: req.body.year,
           mileage: req.body.mileage
         }
       })
@@ -82,20 +85,21 @@ module.exports = {
       });
   },
   getUserFavorites: (req, res) => {
-    console.log("THIS IS USERFAVS", req);
-    // db.Favorite.findAll({
-    //   where: {
-    //     userId: req.params.id
-    //   }
-    // })
-    // .then(data => {
-    //   console.log("successfully fetched all favorites");
-    //   res.status(200).send(data);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    //   res.status(500).send(err);
-    // })
+    //console.log("THIS IS USERFAVS", req);
+    db.Favorite
+      .findAll({
+        where: {
+          userId: req.params.id
+        }
+      })
+      .then(data => {
+        console.log("successfully fetched all favorites");
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send(err);
+      });
   },
   getUserReviews: (req, res) => {
     console.log("THIS IS USERREVIEWS", req);
@@ -128,7 +132,7 @@ module.exports = {
       });
   },
   getUserReminders: (req, res) => {
-    console.log("THIS IS USERREMINDERS:", req);
+    //console.log("THIS IS USERREMINDERS:", req);
     db.Reminder
       .findAll({
         where: {
@@ -145,8 +149,8 @@ module.exports = {
       });
   },
   createReminder: (req, res) => {
-    console.log("THIS IS CREATEREMINDER REQ.params", req.params);
-    console.log("THIS IS CREATEREMINDER REQ.body", req.body.input);
+    //console.log("THIS IS CREATEREMINDER REQ.params", req.params);
+    //console.log("THIS IS CREATEREMINDER REQ.body", req.body.input);
     db.Reminder
       .create({
         userId: req.body.userId,
@@ -158,6 +162,50 @@ module.exports = {
       })
       .catch(err => {
         console.log(err);
+      });
+  },
+  deleteReminder: (req, res) => {
+    //console.log("THIS IS DELETEREMINDER REQ.params", req.params);
+    db.Reminder
+      .destroy({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(data => {
+        res.sendStatus(200).send(data);
+      })
+      .catch(err => {
+        res.sendStatus(500).send(err);
+      });
+  },
+  updateMileage: (req, res) => {
+    db.Car
+      .update(
+        {
+          mileage: req.body.mileage
+        },
+        { where: { id: req.params.id }, returning: true }
+      )
+      .then(data => {
+        res.sendStatus(200).send(data);
+      })
+      .catch(err => {
+        res.sendStatus(500).send(err);
+      });
+  },
+  deleteCar: (req, res) => {
+    db.Car
+      .destroy({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(data => {
+        res.sendStatus(200).send(data);
+      })
+      .catch(err => {
+        res.sendStatus(500).send(err);
       });
   }
 };
