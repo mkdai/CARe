@@ -10,6 +10,10 @@ import {
 import DatePicker from "react-bootstrap-date-picker";
 import TimePicker from "react-bootstrap-time-picker";
 
+function log(...props) {
+  console.log(...props);
+}
+
 class AppointmentInput extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +46,6 @@ class AppointmentInput extends Component {
         </FormGroup>
 
         <FormGroup controlId="date">
-          <ControlLabel>Date</ControlLabel>
           <DatePicker
             id="datepicker"
             value={this.props.date}

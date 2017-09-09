@@ -61,10 +61,11 @@ class ShopProfilePage extends Component {
     this.getShopData(nextProps);
   }
   componentDidMount() {
-    console.log(this.props.currentUser);
+    console.log(`shopProfilePage mounted for user:`, this.props.currentUser);
     this.getShopData(this.props);
   }
   getShopData(props) {
+    console.log("getShopData request is made");
     let searchQueryString = this.props.location.search;
     let parsed = querystring.parse(searchQueryString.substring(1));
     axios
@@ -73,7 +74,7 @@ class ShopProfilePage extends Component {
           .id}`
       )
       .then(res => {
-        console.log("shop info recieved: ", res.data);
+        console.log("shop info received: ", res.data);
         this.setState({
           idString: parsed.idstring,
           name: res.data.name,
@@ -84,7 +85,8 @@ class ShopProfilePage extends Component {
           longitude: res.data.coordinates.longitude,
           reviews: res.data.reviews,
           dbpk: res.data.dbpk,
-          supported: res.data.isSupported
+          supported: res.data.isSupported,
+          calId: res.data.calId
         });
         if (!this.state.favorited)
           this.setState({
@@ -92,7 +94,7 @@ class ShopProfilePage extends Component {
           });
       })
       .catch(response => {
-        console.log("jk why", response);
+        console.log("could not get shop data", response);
         this.setState({ idString: "DOESNTEXIST" });
       });
   }
@@ -150,7 +152,7 @@ class ShopProfilePage extends Component {
             </Tab>
             <Tab eventKey={2} title="Appointments">
               <Row>
-                <Appointments />
+                <Appointments {...this.state} {...this.props} />
               </Row>
             </Tab>
           </Tabs>

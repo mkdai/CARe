@@ -6,7 +6,7 @@ export default class CarHead extends React.Component {
   }
 
   render() {
-    console.log("PROPS IN CARHEAD", this.props);
+    // console.log("PROPS IN CARHEAD", this.props);
     return (
       <div>
         <div

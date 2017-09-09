@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { Button, Collapse, Col } from "react-bootstrap";
 import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
-import timekit from "timekit-sdk";
-import {
-  timekitApp,
-  timekitEmail,
-  timekitPassword,
-  timekitApiToken
-} from "../../../../env/config";
 import TimekitBooking from "timekit-booking";
+import axios from "axios";
+
+function log(...props) {
+  console.log(...props);
+}
 
 class Appointments extends Component {
   constructor(props) {
@@ -20,7 +18,6 @@ class Appointments extends Component {
       date: new Date().toISOString(),
       times: [],
       time: 0,
-      shopCalendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
       shopLocation: "",
       openList: false
     };
@@ -32,38 +29,27 @@ class Appointments extends Component {
   }
 
   componentDidMount() {
-    timekit.configure({
-      app: timekitApp
-    });
-
-    timekit
-      .auth({ email: timekitEmail, password: timekitPassword })
-      .then(() =>
-        timekit.findTime({
-          calendar_ids: [this.state.shopCalendar],
-          future: "12 hours",
-          // filters: {
-          //   and: [{ specific_time: { start: 9, end: 24 } }]
-          // },
-          length: "30 minutes"
-        })
+    log("Appointments component mounted, getting bookings, props:", this.props);
+    axios
+      .get(`api/shopProfile/getBookings`, {
+        params: { calId: this.props.calId }
+      })
+      .then(res =>
+        this.setState(
+          {
+            times: res.data,
+            services: ["Oil Change", "Detailing"]
+          },
+          () =>
+            log(
+              "Appointments: getBookings responds.  Current State: ",
+              this.state
+            )
+        )
       )
-      .then(res => {
-        let times = res.data.map(time => {
-          return time.start.split("T")[1].split("-")[0];
-        });
-
-        let { time, dates, date, services, service } = this.state;
-
-        this.setState({
-          time,
-          times,
-          dates,
-          date,
-          services: ["Oil Change", "Detailing"],
-          service
-        });
-      });
+      .catch(err =>
+        log("Appointments: getBookings --> could not get shop appointments")
+      );
   }
 
   handleServiceChange(e) {
@@ -81,30 +67,41 @@ class Appointments extends Component {
 
   handleFindApptClick(e) {
     e.preventDefault();
-    let widget = new TimekitBooking();
-    let { time, date } = this.state;
-    const ReqDate = new Date(date);
-    const ReqBooking = new Date(
-      ReqDate.getFullYear(),
-      ReqDate.getMonth(),
-      ReqDate.getDate(),
-      0,
-      0,
-      time
-    );
-    widget.init({
-      app: timekitApp,
-      email: timekitEmail,
-      apiToken: timekitApiToken,
-      name: "Appt",
-      calendar: "9aefc3b5-f55b-4f41-afd2-ccb2829fdfc8",
-      availabilityView: "listing",
-      timekitFindTime: {
-        start: ReqBooking,
-        future: "2 hours",
-        length: "1 hour"
-      }
-    });
+    log("Appointments: handleFindAppt: These are the props", this.props);
+    axios
+      .get("api/shopProfile/getAppointments", {
+        params: { calId: this.props.calId }
+      })
+      .then(res => {
+        log("Appointments: handleFindAppt: ", res.data);
+
+        let { app, email, token } = res.data;
+        let { time, date } = this.state;
+        const widget = new TimekitBooking();
+        const ReqDate = new Date(date);
+        let year = ReqDate.getFullYear();
+        let month = ReqDate.getMonth();
+        date = ReqDate.getDate();
+
+        const ReqBooking = new Date(year, month, date, -1, 0, time);
+
+        widget.init({
+          app: app,
+          email: email,
+          apiToken: token,
+          calendar: this.props.calId,
+
+          name: this.state.service + " service with " + this.props.name,
+          bookingGraph: "confirm_decline",
+          availabilityView: "listing",
+          timekitFindTime: {
+            start: ReqBooking,
+            future: "4 hours",
+            length: "1 hour"
+          }
+        });
+      })
+      .catch(err => log("Appointments: handleFindAppt, could not init widget"));
 
     //send a request to timekit to find time within 3 hours of time,
     //render 5 within 30 minutes of each other

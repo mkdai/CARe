@@ -16,6 +16,10 @@ import {
 } from "react-bootstrap";
 import MaintenanceJobs from "../../components/shopDashboard/MaintenanceJobs.jsx";
 
+function l(...props) {
+  console.log(...props);
+}
+
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser.currentUser
@@ -33,58 +37,82 @@ class ShopDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      firstName: "",
+      lastName: "",
       showCalModal: false,
       createCal: false,
-      calendar: false,
+      hasCalendar: false,
       userId: 1,
       shopId: -1,
-      calId: ""
+      calId: "",
+      shopName: "",
+      shopEmail: "",
+      shopDescription: "",
+      hoursOfOperation: {}
     };
+    this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
-  // componentWillReceiveProps() {}
-
   componentDidMount() {
+    l("shop dashboard mounted, requesting shopId");
     axios
       .get(`api/shopdashboard/getShopId`, {
         params: { userId: this.props.currentUser.id }
       })
-      .then(res => this.setState({ shopId: res.data.shopId }))
+      .then(res => {
+        l("getShopId response received", res);
+        let { shopId } = res.data;
+        this.setState({ shopId });
+      })
       .then(() =>
         axios.get(`api/shopdashboard/getCalId`, {
           params: { shopId: this.state.shopId }
         })
       )
-      .then(res => this.setState({ calId: res.data.calId, calendar: true }))
-      .catch(err => console.log("could not get shopId", err));
+      .then(res => {
+        l("getCalId responded", res);
+        this.setState({ calId: res.data.calId }, () =>
+          l("calendarId has been set", !!this.state.calId)
+        );
+      })
+      .then(() => {
+        if (!!this.state.calId) {
+          this.setState({ hasCalendar: true });
+        }
+      })
+      .catch(err => l("could not get shopId"));
+  }
+
+  handleAttributeChange(e, attribute) {
+    e.preventDefault();
+    this.setState({ [attribute]: e.target.value });
   }
 
   handleBuildCalendar() {
-    console.log("user requests to create calendar");
+    l("user requests to create calendar");
+    let { shopId, shopName, shopDescription, shopEmail } = this.state;
+
     axios
       .post(`api/shopdashboard/createCalendar`, {
-        id: this.state.shopId
+        id: shopId,
+        shopName: shopName,
+        shopDescription: shopDescription,
+        shopEmail: shopEmail,
+        hoursOfOperation: { days: [] }
       })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
       // To get the calendar synced you need to use the [PUT] /calendars/:id endpoint to set the provider_sync flag to true.
-      .then(cal => {
-        this.setState(
-          {
-            calendar: true,
-            showCalModal: false,
-            calId: cal.data.calId
-          },
-          () => console.log("received calId from back-end, and updated state")
-        );
+      .then(res => {
+        this.setState({
+          hasCalendar: true,
+          showCalModal: false,
+          calId: res.data.calId
+        });
       })
-      .then(() =>
-        console.log(
-          "received response from axios createCalendar, stored id in database and created timekit calendar"
-        )
-      )
-      .catch(err => console.log("could not create cal", err));
+      .then(() => l("created tk calendar & stored id in db"))
+      .catch(err => l("could not create cal", err));
   }
 
   render() {
@@ -121,7 +149,7 @@ class ShopDashboard extends Component {
                   </Modal.Header>
                   <Modal.Body>
                     <ShopDashboardSettings
-                      handleCalCreation={this.handleCalCreation}
+                      handleAttributeChange={this.handleAttributeChange}
                       handleBuildCalendar={this.handleBuildCalendar}
                     />
                   </Modal.Body>
@@ -130,7 +158,7 @@ class ShopDashboard extends Component {
 
               <Row>
                 <Col>
-                  {!!this.state.calendar ? (
+                  {!!this.state.hasCalendar ? (
                     <AppointmentCalendar {...this.props} {...this.state} />
                   ) : (
                     <Button

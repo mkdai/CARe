@@ -28,16 +28,22 @@ const processShopData = (shop, userId, cb) => {
     }
   })
     .then(response => {
+      console.log(
+        "finding Shop in db shop. has calId: ",
+        !!response.dataValues.calendar_id,
+        response.dataValues.calendar_id
+      );
       shop.isSupported = true;
       shop.dbpk = response.dataValues.id;
       shop.rating = response.dataValues.rating;
+      shop.calId = response.dataValues.calendar_id;
       Review.findAll({
         where: { shopId: response.dataValues.id },
         include: [User]
       }).then(reviews => {
         // if (reviews) {
         shop.reviews = reviews.map(review => {
-          console.log(review);
+          // console.log(review);
           review.dataValues.user = review.user.dataValues;
           return review.dataValues;
         });
@@ -67,6 +73,7 @@ const processShopData = (shop, userId, cb) => {
     })
     .catch(() => {
       console.log("nothing in our database!");
+      shop.calId = null;
       shop.review_count = 0;
       shop.reviews = [];
       shop.favorited = false;
