@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../../containers/navBar/NavBar.jsx";
 import Footer from "../../components/footer/Footer.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar";
 

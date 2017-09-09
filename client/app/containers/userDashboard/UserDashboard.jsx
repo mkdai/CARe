@@ -7,6 +7,7 @@ import AddCar from "../../components/userDashboard/AddCar.jsx";
 import DashboardTabs from "../../components/userDashboard/DashboardTabs.jsx";
 import { connect } from "react-redux";
 import axios from "axios";
+import { Grid, Row, Col } from "react-bootstrap";
 
 function mapStateToProps(state) {
   return {
@@ -27,8 +28,6 @@ class UserDashboard extends React.Component {
   }
 
   handleAddCar(car) {
-    console.log("CAR", car);
-    console.log("CARS", this.state.cars);
     this.setState({ cars: [...this.state.cars, car] });
   }
 
@@ -36,15 +35,9 @@ class UserDashboard extends React.Component {
     axios
       .get(`/api/userProfile/getAllUserCars/${nextProps.currentUser.id}`)
       .then(data => {
-        //console.log("THIS IS USER CARS DATA", data);
-        this.setState(
-          {
-            cars: data.data
-          },
-          () => {
-            console.log("ALL USER CARS", this.state.cars);
-          }
-        );
+        this.setState({ cars: data.data }, () => {
+          console.log("ALL USER CARS", this.state.cars);
+        });
       })
       .catch(err => {
         console.log(err);
@@ -55,15 +48,9 @@ class UserDashboard extends React.Component {
     axios
       .get(`/api/userProfile/getAllUserCars/${this.props.currentUser.id}`)
       .then(data => {
-        //console.log("THIS IS USER CARS DATA", data);
-        this.setState(
-          {
-            cars: data.data
-          },
-          () => {
-            console.log("ALL USER CARS", this.state.cars);
-          }
-        );
+        this.setState({ cars: data.data }, () => {
+          console.log("ALL USER CARS", this.state.cars);
+        });
       })
       .catch(err => {
         console.log(err);
@@ -71,58 +58,48 @@ class UserDashboard extends React.Component {
   }
 
   selectCar(id) {
-    this.setState(
-      {
-        currentCarId: id
-      },
-      () => {
-        console.log("STATE", this.state);
-      }
-    );
+    this.setState({ currentCarId: id });
   }
 
   render() {
     return (
       <div>
         <NavigationBar />
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12 col-xs-12 col-sm-12">
+        <Grid>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
               <h3 className="section-heading-dashboard">User Dashboard</h3>
               <hr
                 className="section-heading-spacer"
                 id="custom-section-spacer"
               />
-            </div>
-            <div className="col-lg-4 col-xs-12 col-sm-12">
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={4}>
               <ProfileHead user={this.props} />
-              <button onClick={() => console.log(this.props.currentUser)}>
-                Test current user
-              </button>
-            </div>
-            <div className="car-container col-lg-4 col-xs-12 col-sm-12">
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={4} className="car-container">
               {this.state.cars.map((car, i) => (
                 <CarHead selectCar={this.selectCar} car={car} key={i} />
               ))}
-            </div>
-            <div className="col-lg-4 col-xs-12 col-sm-12">
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={4}>
               <AddCar
                 user={this.props}
                 currentCarId={this.state.currentCarId}
                 handleAddCar={this.handleAddCar}
               />
-            </div>
-            <div className="col-lg-12 col-xs-12 col-sm-12">
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={12}>
               <hr
                 className="section-heading-spacer"
                 id="custom-section-spacer"
               />
-            </div>
-          </div>
-          <div className="row">
+            </Col>
+          </Row>
+          <Row>
             <DashboardTabs currentCarId={this.state.currentCarId} />
-          </div>
-        </div>
+          </Row>
+        </Grid>
         <Footer />
       </div>
     );

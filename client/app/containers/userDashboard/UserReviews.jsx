@@ -38,7 +38,9 @@ class UserReviews extends Component {
         <br />
         <br />
         {this.state.userReviews.length ? (
-          this.state.userReviews.map(review => <UserReview review={review} />)
+          this.state.userReviews.map(review => (
+            <UserReview review={review} key={review.id} />
+          ))
         ) : (
           <div>Looks like you have no reviews!</div>
         )}
