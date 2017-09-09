@@ -129,7 +129,7 @@ export default class ProfileHead extends React.Component {
               </a>
             </div>
             <Button
-              className="btn-primary"
+              bsStyle="primary"
               id="edit-profile-button"
               onClick={this.open}
             >

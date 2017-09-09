@@ -22,8 +22,6 @@ class LoadingPage extends Component {
     this.state = {
       loggedIn: 0
     };
-
-    // this.getProfile = this.getProfile.bind(this);
   }
 
   componentDidMount() {
@@ -41,11 +39,6 @@ class LoadingPage extends Component {
           this.props.addUser(data);
         })
         .catch(err => console.log(err));
-
-      // this.getProfile((err, profile) => {
-      //   console.log("IN GET PROFILE", profile);
-      //   this.props.addUser(profile);
-      // });
     });
   }
 
