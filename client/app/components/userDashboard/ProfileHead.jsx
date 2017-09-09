@@ -53,9 +53,7 @@ export default class ProfileHead extends React.Component {
   }
 
   onImageDrop(files) {
-    this.setState({
-      uploadedFile: files[0]
-    });
+    this.setState({ uploadedFile: files[0] });
     this.handleImageUpload(files[0]);
   }
 
@@ -81,27 +79,18 @@ export default class ProfileHead extends React.Component {
 
   handleOnChange(event) {
     let temp = event.target.name;
-    this.setState(
-      {
-        [temp]: event.target.value
-      },
-      () => {
-        console.log("STATE IS", this.state);
-      }
-    );
+    this.setState({ [temp]: event.target.value });
   }
 
   handleSubmit() {
-    console.log("Handle Submit is hitting");
     this.close();
     axios
       .put(
         `/api/userProfile/updateProfile/${this.props.user.currentUser.id}`,
         this.state
       )
-      .then(data => {
-        console.log("DATA", data);
-        this.setState({ name: data.data[1][0].name });
+      .then(({ data }) => {
+        this.setState({ name: data[1][0].name });
       })
       .catch(err => {
         console.log(err);
@@ -109,7 +98,6 @@ export default class ProfileHead extends React.Component {
   }
 
   render() {
-    console.log("CURRENT USER ID", this.props.user.currentUser.id);
     return (
       <div>
         <div className="UserPic">

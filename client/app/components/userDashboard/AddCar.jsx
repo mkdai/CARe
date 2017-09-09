@@ -52,9 +52,7 @@ export default class AddCar extends React.Component {
   }
 
   onImageDrop(files) {
-    this.setState({
-      uploadedFile: files[0]
-    });
+    this.setState({ uploadedFile: files[0] });
     this.handleImageUpload(files[0]);
   }
 
@@ -70,9 +68,7 @@ export default class AddCar extends React.Component {
       }
 
       if (response.body.secure_url !== "") {
-        this.setState({
-          uploadedFileCloudinaryUrl: response.body.secure_url
-        });
+        this.setState({ uploadedFileCloudinaryUrl: response.body.secure_url });
       }
     });
   }
@@ -91,20 +87,18 @@ export default class AddCar extends React.Component {
         `/api/userProfile/addCar/${this.props.user.currentUser.id}`,
         this.state
       )
-      .then(data => {
-        this.props.handleAddCar(data.data[0]);
-        console.log("DATA", data.data[0]);
+      .then(({ data }) => {
+        this.props.handleAddCar(data[0]);
         this.setState(
           {
-            license: data.data[0].license,
-            mileage: data.data[0].mileage,
-            make: data.data[0].make,
-            model: data.data[0].model,
-            year: data.data[0].year,
-            currentCar: data.data[0].id
+            license: data[0].license,
+            mileage: data[0].mileage,
+            make: data[0].make,
+            model: data[0].model,
+            year: data[0].year,
+            currentCar: data[0].id
           },
           () => {
-            console.log("THIS IS STATE AFTER CAR ADDED", this.state.currentCar);
             this.wiperCheck();
             this.batteryCheck();
             this.brakeCheck();
@@ -197,7 +191,6 @@ export default class AddCar extends React.Component {
   }
 
   render() {
-    console.log("PROPS IN ADDCAR", this.props);
     return (
       <div>
         <div className="CarPic" onClick={this.open}>
