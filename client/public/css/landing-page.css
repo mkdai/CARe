@@ -142,6 +142,10 @@ a:hover {
   margin-top: 0;
 }
 
+.delete-car-button {
+  padding-bottom: 20px;
+}
+
 @media (max-width: 1199px) {
   ul.banner-social-buttons {
     float: left;
@@ -384,7 +388,7 @@ p.copyright {
     font-size: 18px;
   }
 
-  #summary-tab {
+  #carUpdate-tab {
     width: 25%;
     font-size: 18px;
   }
@@ -412,7 +416,7 @@ p.copyright {
     font-size: 18px;
   }
 
-  #summary-tab {
+  #carUpdate-tab {
     width: 25%;
     font-size: 18px;
   }
@@ -431,6 +435,14 @@ p.copyright {
 
   #add-car-pic {
     padding-top: 100px;
+  }
+
+  .update-mileage-input {
+    width: 30%;
+  }
+
+  .update-mileage {
+    padding-bottom: 20px;
   }
 }
 

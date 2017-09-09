@@ -15,6 +15,7 @@ import SearchResults from "../components/searchResults/searchResults.jsx";
 import UserDashBoard from "./userDashboard/UserDashboard.jsx";
 import InputMaintenanceHistory from "../components/shopDashboard/InputMaintenanceHistory.jsx";
 import UserReviews from "./userDashboard/UserReviews.jsx";
+import UserFavorites from "../components/userDashboard/UserFavorites.jsx";
 import axios from "axios";
 
 function mapStateToProps(state) {
@@ -67,6 +68,7 @@ class App extends Component {
             component={ShopDashboardCalendarForm}
           />
           <Route path="/user-reviews" component={UserReviews} />
+          <Route path="/user-favorites" component={UserFavorites} />
         </Switch>
       </BrowserRouter>
     );
