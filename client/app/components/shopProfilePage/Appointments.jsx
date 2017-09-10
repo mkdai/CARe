@@ -68,8 +68,9 @@ class Appointments extends Component {
       })
       .then(res => {
         l("Appointments: handleFindAppt: ", res.data);
+        let { tk_token, email } = this.props;
+        let { app } = res.data;
 
-        let { app, email, token } = res.data;
         let { time, date } = this.state;
         const widget = new TimekitBooking();
         const ReqDate = new Date(date);
@@ -82,7 +83,7 @@ class Appointments extends Component {
         widget.init({
           app: app,
           email: email,
-          apiToken: token,
+          apiToken: tk_token,
           calendar: this.props.calId,
 
           name: this.state.service + " service with " + this.props.name,

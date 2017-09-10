@@ -29,8 +29,7 @@ class ShopProfilePage extends Component {
       latitude: "",
       longitude: "",
       reviews: [],
-      dbpk: -1,
-      tkToken: ""
+      dbpk: -1
     };
     this.handleFav = _.debounce(this.handleFav, 500).bind(this);
     this.renderValidPage = this.renderValidPage.bind(this);
@@ -88,7 +87,8 @@ class ShopProfilePage extends Component {
           dbpk: res.data.dbpk,
           supported: res.data.isSupported,
           calId: res.data.calId,
-          tk_token: res.data.tkToken
+          tk_token: res.data.tkToken,
+          email: res.data.email
         });
         if (!this.state.favorited)
           this.setState({
