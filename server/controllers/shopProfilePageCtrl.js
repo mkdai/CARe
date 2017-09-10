@@ -82,11 +82,19 @@ module.exports = {
   },
 
   getAppointments: (req, res) => {
-    l("received request for Appointments");
-    let app = timekitApp,
-      email = timekitEmail,
-      token = timekitApiToken;
-    res.status(200).send({ app, email, token });
+    l("received request for Appointments", req.query);
+    let { id } = req.query;
+    let app = timekitApp;
+
+    res.status(200).send({ app });
+
+    // Shop.find({ where: { id: id } })
+    //   .then(shop => {
+    //     let app = timekitApp;
+    //     let { email, token } = shop;
+    //     res.status(200).send({ app, email, token });
+    //   })
+    //   .catch(err => l("could not find shop to getAppointments"));
   },
 
   postHistoryEntry: (req, res) => {

@@ -86,7 +86,9 @@ class ShopProfilePage extends Component {
           reviews: res.data.reviews,
           dbpk: res.data.dbpk,
           supported: res.data.isSupported,
-          calId: res.data.calId
+          calId: res.data.calId,
+          tk_token: res.data.tkToken,
+          email: res.data.email
         });
         if (!this.state.favorited)
           this.setState({
