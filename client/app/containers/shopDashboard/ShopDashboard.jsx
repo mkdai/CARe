@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalendar.jsx";
+import CalendarTab from "../../components/shopDashboard/CalendarTab";
+import SettingsTab from "../../components/shopDashboard/SettingsTab";
 import NavigationBar from "../../containers/navBar/NavigationBar";
-import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
 import axios from "axios";
 import {
   Jumbotron,
@@ -150,42 +150,14 @@ class ShopDashboard extends Component {
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
             <Tab eventKey={1} title="Calander">
-              <Row>
-                <Modal
-                  show={this.state.showCalModal}
-                  onHide={() =>
-                    this.setState({
-                      showCalModal: false
-                    })}
-                >
-                  <Modal.Header closeButton>
-                    <h2>Settings</h2>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ShopDashboardSettings
-                      handleAttributeChange={this.handleAttributeChange}
-                      handleBuildCalendar={this.handleBuildCalendar}
-                    />
-                  </Modal.Body>
-                </Modal>
-              </Row>
-
-              <Row>
-                <Col>
-                  {!!this.state.hasCalendar ? (
-                    <AppointmentCalendar {...this.props} {...this.state} />
-                  ) : (
-                    <Button
-                      onClick={() => this.setState({ showCalModal: true })}
-                    >
-                      Create Booking Calendar
-                    </Button>
-                  )}
-                </Col>
-              </Row>
+              <CalendarTab {...this.props} {...this.state} />
             </Tab>
+
             <Tab eventKey={2} title="Maintenance Jobs">
               <MaintenanceJobs />
+            </Tab>
+            <Tab eventKey={3} title="Settings">
+              <SettingsTab {...this.props} {...this.state} />
             </Tab>
           </Tabs>
         </Grid>
