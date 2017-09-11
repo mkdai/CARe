@@ -4,6 +4,7 @@ import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import { Grid, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Rating from "react-rating";
 
 class SearchResults extends Component {
   constructor(props) {
@@ -43,13 +44,17 @@ class SearchResults extends Component {
           axios
             .get(`/api/search/allshops?latitude=33.976&longitude=-118.387`)
             .then(({ data }) => {
-              this.setState({ shops: data.businesses, loading: false });
+              this.setState({ shops: data.businesses, loading: false }, () =>
+                console.log(this.state.shops)
+              );
             });
         }
       );
     } else {
       axios.get(`/api/search/allshops${searchQueryString}`).then(({ data }) => {
-        this.setState({ shops: data, loading: false });
+        this.setState({ shops: data, loading: false }, () =>
+          console.log(this.state.shops)
+        );
       });
     }
   }
@@ -87,6 +92,22 @@ class SearchResults extends Component {
                         <div>{shop.name}</div>
                         <div>{shop.location.display_address[0]}</div>
                         <div>{shop.location.display_address[1]}</div>
+                        <div>{shop.location.display_address[2]}</div>
+                        {shop.isSupported ? (
+                          <Rating
+                            readonly
+                            initialRate={shop.rating}
+                            empty={
+                              <img
+                                src="img/wrench-empty.png"
+                                className="icon"
+                              />
+                            }
+                            full={
+                              <img src="img/wrench-full.png" className="icon" />
+                            }
+                          />
+                        ) : null}
                       </div>
                       <div className="distance-info">
                         {Math.floor(shop.distance * 0.00621371) / 10 + "mi"}

@@ -32,7 +32,10 @@ a:hover {
 .navbar-brand {
   color: red !important;
 }
-
+.icon {
+  width: 20px;
+  height: 20px;
+}
 .intro-header {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -42,6 +45,12 @@ a:hover {
   background-size: cover;
 }
 
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
 .intro-message {
   position: relative;
   padding-top: 20%;
