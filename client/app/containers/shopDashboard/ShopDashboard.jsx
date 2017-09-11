@@ -48,9 +48,11 @@ class ShopDashboard extends Component {
       shopName: "",
       shopEmail: "",
       shopDescription: "",
-      hoursOfOperation: {}
+      hoursOfOperation: {},
+      week: ["SUN", "TUES", "WED", "THUR", "FRI", "SAT"]
     };
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
+    this.handleDaysOfServiceChange = this.handleDaysOfServiceChange.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
@@ -91,6 +93,10 @@ class ShopDashboard extends Component {
     e.preventDefault();
     l(this.state[attribute], e.target.value);
     this.setState({ [attribute]: e.target.value });
+  }
+
+  handleDaysOfServiceChange(e) {
+    l("i work", e.target.value);
   }
 
   handleBuildCalendar() {
@@ -157,7 +163,13 @@ class ShopDashboard extends Component {
               <MaintenanceJobs />
             </Tab>
             <Tab eventKey={3} title="Settings">
-              <SettingsTab {...this.props} {...this.state} />
+              <SettingsTab
+                {...this.props}
+                {...this.state}
+                handleDaysOfServiceChange={this.handleDaysOfServiceChange}
+                handleAttributeChange={this.handleAttributeChange}
+                handleBuildCalendar={this.handleBuildCalendar}
+              />
             </Tab>
           </Tabs>
         </Grid>

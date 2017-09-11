@@ -5,10 +5,14 @@ import {
   Form,
   FormGroup,
   FormControl,
-  Well
+  Well,
+  ToggleButtonGroup,
+  ToggleButton,
+  Checkbox
 } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import FieldGroup from "./FieldGroup.jsx";
+import HoursSettings from "../../components/shopDashBoard/HoursSettings";
 
 class ShopDashboardSettings extends Component {
   constructor(props) {
@@ -69,7 +73,23 @@ class ShopDashboardSettings extends Component {
           {this.state.value}
         </FieldGroup>
 
-        <Button onClick={this.props.handleBuildCalendar}>Submit</Button>
+        <ControlLabel>Days of Operation</ControlLabel>
+        <FormGroup>
+          {this.props.week.map((day, i) => (
+            <Checkbox
+              inline
+              key={i}
+              value={day}
+              onChange={e => this.props.handleDaysOfServiceChange(e)}
+            >
+              {day}
+            </Checkbox>
+          ))}
+
+          <HoursSettings days={this.props.daysOfService} />
+        </FormGroup>
+
+        <Button onClick={this.props.handleBuildCalendar}>Save</Button>
       </Form>
     );
   }

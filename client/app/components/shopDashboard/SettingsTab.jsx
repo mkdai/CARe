@@ -3,14 +3,22 @@ import { Jumbotron } from "react-bootstrap";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings";
 
 class SettingsTab extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log("SettingsTab Props:", this.props);
     return (
       <div>
         <h1>Settings</h1>
         <Jumbotron>
           <ShopDashboardSettings
+            week={this.props.week}
+            daysOfService={this.props.daysOfService}
             handleAttributeChange={this.props.handleAttributeChange}
             handleBuildCalendar={this.props.handleBuildCalendar}
+            handleDaysOfServiceChange={this.props.handleDaysOfServiceChange}
           />
         </Jumbotron>
       </div>
