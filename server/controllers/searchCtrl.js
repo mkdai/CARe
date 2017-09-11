@@ -50,6 +50,15 @@ const processShopData = (shop, userId, cb) => {
           return review.dataValues;
         });
         shop.review_count = shop.reviews.length;
+        let rating =
+          reviews.reduce((sum, review) => {
+            return sum + review.dataValues.rating;
+          }, 0) / shop.review_count;
+        if (shop.rating !== rating) {
+          console.log("hit update rating block");
+          shop.rating = rating;
+          Shop.update({ rating }, { where: { yelp_id: shop.id } });
+        }
         console.log(
           "looking for favorite [userId, shopid]: ",
           userId,
@@ -76,6 +85,7 @@ const processShopData = (shop, userId, cb) => {
     .catch(() => {
       console.log("nothing in our database!");
       shop.calId = null;
+      shop.rating = 0;
       shop.review_count = 0;
       shop.reviews = [];
       shop.favorited = false;
@@ -99,8 +109,14 @@ const processShopResultData = (shops, cb) => {
     shops.map(shop => {
       if (matchedYelpIds.indexOf(shop.id) !== -1) {
         shop.isSupported = true;
+        shop.review_count =
+          rows[matchedYelpIds.indexOf(shop.id)].dataValues.review_count;
+        shop.rating = rows[matchedYelpIds.indexOf(shop.id)].dataValues.rating;
         shop.dbpk = rows[matchedYelpIds.indexOf(shop.id)].dataValues.id;
+        console.log(shop);
       } else {
+        shop.review_count = 0;
+        shop.rating = 0;
         shop.isSupported = false;
         shop.dbpk = null;
       }

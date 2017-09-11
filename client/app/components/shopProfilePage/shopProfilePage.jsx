@@ -5,9 +5,19 @@ import Map from "../../components/shopProfilePage/Map.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import axios from "axios";
-import { Grid, Row, Col, Tabs, Tab, Button } from "react-bootstrap";
+import Rating from "react-rating";
+import {
+  Grid,
+  Row,
+  Col,
+  Tabs,
+  Tab,
+  Button,
+  ButtonGroup
+} from "react-bootstrap";
 import { connect } from "react-redux";
 import _ from "underscore";
+import { Redirect } from "react-router";
 
 function mapStateToProps(state) {
   return {
@@ -19,11 +29,13 @@ class ShopProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      rating: 0,
       favorited: false,
       supported: false,
       idString: "arglebargle",
       address1: "",
       address2: "",
+      address3: "",
       phone: "",
       name: "",
       latitude: "",
@@ -66,39 +78,43 @@ class ShopProfilePage extends Component {
   }
   getShopData(props) {
     console.log("getShopData request is made");
-    let searchQueryString = this.props.location.search;
-    let parsed = querystring.parse(searchQueryString.substring(1));
-    axios
-      .get(
-        `/api/search/getshop?id=${parsed.idstring}&userId=${props.currentUser
-          .id}`
-      )
-      .then(res => {
-        console.log("shop info received: ", res.data);
-        this.setState({
-          idString: parsed.idstring,
-          name: res.data.name,
-          address1: res.data.location.display_address[0],
-          address2: res.data.location.display_address[1],
-          phone: res.data.display_phone,
-          latitude: res.data.coordinates.latitude,
-          longitude: res.data.coordinates.longitude,
-          reviews: res.data.reviews,
-          dbpk: res.data.dbpk,
-          supported: res.data.isSupported,
-          calId: res.data.calId,
-          tk_token: res.data.tkToken,
-          email: res.data.email
-        });
-        if (!this.state.favorited)
+    if (props.currentUser.id) {
+      let searchQueryString = this.props.location.search;
+      let parsed = querystring.parse(searchQueryString.substring(1));
+      axios
+        .get(
+          `/api/search/getshop?id=${parsed.idstring}&userId=${props.currentUser
+            .id}`
+        )
+        .then(res => {
+          console.log("shop info received: ", res.data);
           this.setState({
-            favorited: res.data.favorited
+            idString: parsed.idstring,
+            name: res.data.name,
+            address1: res.data.location.display_address[0],
+            address2: res.data.location.display_address[1],
+            address2: res.data.location.display_address[2],
+            phone: res.data.display_phone,
+            rating: res.data.rating,
+            latitude: res.data.coordinates.latitude,
+            longitude: res.data.coordinates.longitude,
+            reviews: res.data.reviews,
+            dbpk: res.data.dbpk,
+            supported: res.data.isSupported,
+            calId: res.data.calId,
+            tk_token: res.data.tkToken,
+            email: res.data.email
           });
-      })
-      .catch(response => {
-        console.log("could not get shop data", response);
-        this.setState({ idString: "DOESNTEXIST" });
-      });
+          if (!this.state.favorited)
+            this.setState({
+              favorited: res.data.favorited
+            });
+        })
+        .catch(response => {
+          console.log("could not get shop data", response);
+          this.setState({ idString: "DOESNTEXIST" });
+        });
+    }
   }
   renderValidPage() {
     return (
@@ -114,8 +130,17 @@ class ShopProfilePage extends Component {
                 <div>
                   <div>{this.state.address1}</div>
                   <div>{this.state.address2}</div>
+                  <div>{this.state.address3}</div>
                 </div>
                 <div>{this.state.phone}</div>
+                <div>
+                  <Rating
+                    readonly
+                    initialRate={this.state.rating}
+                    empty={<img src="img/wrench-empty.png" className="icon" />}
+                    full={<img src="img/wrench-full.png" className="icon" />}
+                  />
+                </div>
               </Col>
               <Col>
                 {this.state.supported && !!this.props.currentUser.id ? this
@@ -143,21 +168,37 @@ class ShopProfilePage extends Component {
               />
             </Col>
           </Row>
-          <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
-            <Tab eventKey={1} title={`Reviews(${this.state.reviews.length})`}>
-              <Row>
-                <Reviews
-                  reviews={this.state.reviews}
-                  dbShopId={this.state.dbpk}
-                />
-              </Row>
-            </Tab>
-            <Tab eventKey={2} title="Appointments">
-              <Row>
-                <Appointments {...this.state} {...this.props} />
-              </Row>
-            </Tab>
-          </Tabs>
+          {this.state.supported ? (
+            <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
+              <Tab eventKey={1} title={`Reviews(${this.state.reviews.length})`}>
+                <Row>
+                  <Reviews
+                    getShopData={this.getShopData}
+                    profileProps={this.props}
+                    reviews={this.state.reviews}
+                    dbShopId={this.state.dbpk}
+                  />
+                </Row>
+              </Tab>
+              <Tab eventKey={2} title="Appointments">
+                <Row>
+                  <Appointments {...this.state} {...this.props} />
+                </Row>
+              </Tab>
+            </Tabs>
+          ) : (
+            <Row>
+              <Col className="center bump">
+                <div>This shop is not yet supported by the CARe Network.</div>
+                {this.props.currentUser.id && !this.props.currentUser.shopId ? (
+                  <div>
+                    <div>Is this your business?</div>
+                    <Button> Claim this shop now! </Button>
+                  </div>
+                ) : null}
+              </Col>
+            </Row>
+          )}
         </Grid>
       </div>
     );
@@ -170,10 +211,7 @@ class ShopProfilePage extends Component {
     ) ? (
       this.renderValidPage()
     ) : this.state.idString === "DOESNTEXIST" ? (
-      <div>
-        <NavigationBar />
-        <div className="bump">This Shop Does Not Exist!</div>
-      </div>
+      <Redirect to="/shop-not-found" />
     ) : (
       <div>
         <NavigationBar />

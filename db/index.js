@@ -15,6 +15,8 @@ const Shop = db.define("shop", {
   phone: { type: Sequelize.STRING, allowNull: false },
   pickup: { type: Sequelize.BOOLEAN, allowNull: false },
   picture: { type: Sequelize.TEXT, allowNull: true },
+  rating: { type: Sequelize.FLOAT, allowNull: true },
+  review_count: { type: Sequelize.INTEGER, allowNull: true },
   calendar_id: { type: Sequelize.TEXT, allowNull: true },
   yelp_id: { type: Sequelize.TEXT, allowNull: true },
   tk_api_token: { type: Sequelize.TEXT, allowNull: true }

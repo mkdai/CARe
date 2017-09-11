@@ -60,7 +60,7 @@ class Reviews extends Component {
         rating: this.state.rating,
         review: this.state.review
       })
-      .then(() => console.log("Review Posted!!"));
+      .then(() => this.props.getShopData(this.props.profileProps));
     this.closeModal();
   }
 

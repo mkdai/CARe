@@ -39,12 +39,8 @@ class App extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-<<<<<<< HEAD
-    if (nextProps.currentAuth.isAuthenticated()) {
-=======
     console.log("recieved as prop", nextProps);
     if (nextProps.currentAuth.isAuthenticated() && !nextProps.currentUser.id) {
->>>>>>> four zero four page is open
       nextProps.currentAuth.getProfile((err, profile) => {
         axios
           .post("/api/user/adduser", {

@@ -32,25 +32,31 @@ class UserDashboard extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    axios
-      .get(`/api/userProfile/getAllUserCars/${nextProps.currentUser.id}`)
-      .then(data => {
-        this.setState({ cars: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (nextProps.currentUser.id) {
+      axios
+        .get(`/api/userProfile/getAllUserCars/${nextProps.currentUser.id}`)
+        .then(data => {
+          console.log("got cars");
+          this.setState({ cars: data.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 
   componentDidMount() {
-    axios
-      .get(`/api/userProfile/getAllUserCars/${this.props.currentUser.id}`)
-      .then(data => {
-        this.setState({ cars: data.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (this.props.currentUser.id) {
+      axios
+        .get(`/api/userProfile/getAllUserCars/${this.props.currentUser.id}`)
+        .then(data => {
+          console.log("got cars");
+          this.setState({ cars: data.data });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 
   selectCar(id) {
