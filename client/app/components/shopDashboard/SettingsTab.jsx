@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Jumbotron } from "react-bootstrap";
 import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings";
+import HoursSettings from "../../components/shopDashboard/HoursSettings";
 
 class SettingsTab extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class SettingsTab extends Component {
     return (
       <div>
         <h1>Settings</h1>
+
         <Jumbotron>
           <ShopDashboardSettings
             week={this.props.week}
