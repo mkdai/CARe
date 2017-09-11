@@ -49,7 +49,8 @@ class ShopDashboard extends Component {
       shopEmail: "",
       shopDescription: "",
       hoursOfOperation: {},
-      week: ["SUN", "TUES", "WED", "THUR", "FRI", "SAT"]
+      week: ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"],
+      daysOfService: []
     };
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleDaysOfServiceChange = this.handleDaysOfServiceChange.bind(this);
@@ -96,7 +97,29 @@ class ShopDashboard extends Component {
   }
 
   handleDaysOfServiceChange(e) {
-    l("i work", e.target.value);
+    let day = e.target.value;
+    let dOS = this.state.daysOfService;
+
+    if (dOS.some((x, i) => day === x)) {
+      dOS.splice(dOS.indexOf(day), 1);
+    } else {
+      let { week } = this.state;
+      let idx = week.indexOf(day);
+
+      for (let i = 0; i < dOS.length; i++) {
+        let curr = dOS[i];
+        if (week.indexOf(curr) > idx) {
+          dOS.splice(i, 0, day);
+          console.log("after splice", dOS);
+          this.setState({ daysOfService: dOS });
+          return;
+        }
+      }
+      this.setState({ daysOfService: dOS.push(day) });
+    }
+    this.setState({ daysOfService: dOS }, () =>
+      l("these are the days of service", this.state.daysOfService)
+    );
   }
 
   handleBuildCalendar() {

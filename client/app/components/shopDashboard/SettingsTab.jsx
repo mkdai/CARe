@@ -8,7 +8,6 @@ class SettingsTab extends Component {
   }
 
   render() {
-    console.log("SettingsTab Props:", this.props);
     return (
       <div>
         <h1>Settings</h1>
