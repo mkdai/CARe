@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Parallax, Background } from "react-parallax";
+import { Jumbotron } from "react-bootstrap";
 
 export default class Testing extends Component {
   render() {
@@ -19,28 +20,45 @@ export default class Testing extends Component {
           </div>
         </Parallax>
         <div className="parallax-seperator">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam finibus
-          ut felis in vestibulum. Curabitur gravida ante ut diam mollis
-          ullamcorper. Nam ipsum metus, egestas eu sodales quis, efficitur et
-          lectus. Fusce tristique justo justo, eget dictum mauris imperdiet id.
-          Pellentesque ultricies interdum justo, nec malesuada ligula
-          condimentum vel. Maecenas tincidunt nunc sit amet elit fringilla
-          scelerisque. Vestibulum sagittis, metus tempor malesuada mollis, nunc
-          enim pellentesque purus, et placerat sapien velit eleifend augue.
-          Praesent pharetra tempus rhoncus. Aenean varius enim at neque
-          lobortis, nec ultrices diam sagittis. Vestibulum id urna ut purus
-          cursus congue sit amet vitae dui.
-          <hr />
-          Aliquam id convallis ligula. Sed rutrum quis tortor quis ullamcorper.
-          Donec mauris quam, condimentum ac neque id, rutrum luctus augue.
-          Aenean in purus odio. Pellentesque ut dui posuere, dignissim urna
-          quis, congue felis. Vestibulum ac dolor ac erat porttitor iaculis.
-          Quisque tristique vitae libero quis finibus. Donec sodales vehicula
-          tristique. Donec elementum tristique lectus, vel tincidunt felis
-          volutpat eu. Cras euismod lectus nibh, varius blandit tortor efficitur
-          quis. Aenean odio sem, lobortis ut orci vel, vehicula pellentesque
-          leo. Aliquam nec orci sed elit tincidunt hendrerit id sit amet leo.
-          Integer lacus dui, tempus at hendrerit eget, volutpat sed mi.
+          <h1 className="quotes-header">Customer Testimonials</h1>
+          <hr className="landing-hr" />
+          <blockquote>
+            <h2 className="landing-quotes">
+              <em>
+                As a small business owner of a company with about 20 employees,
+                it made a huge difference from before using this site and after.
+                It makes bookings and appointments so much easier both on us and
+                the customers. Also unlike other some other sites I've used so
+                far like RepairPal, the customer support here is just superb!
+              </em>
+            </h2>
+            <cite className="landing-cite">-Mike Griffen</cite>
+          </blockquote>
+          <hr className="quote-divider" />
+          <blockquote>
+            <h2 className="landing-quotes">
+              <em>
+                I used to think maintaining a car every so often was a pain. And
+                to some degree, it still is. However, instead of calling up
+                individual car shops or just going to some random garage, now I
+                can find all the information I want from here! Plus, the
+                maintenance history makes a world of difference when I want to
+                check specifics.
+              </em>
+            </h2>
+            <cite className="landing-cite">-Anonymous User</cite>
+          </blockquote>
+          <hr className="quote-divider" />
+          <blockquote>
+            <h2 className="landing-quotes">
+              <em>
+                I like it... this site is clean and simple. It does what it
+                advertises to do without all the bloat that's usually associated
+                with other sites.
+              </em>
+            </h2>
+            <cite className="landing-cite">-J6K</cite>
+          </blockquote>
         </div>
         <Parallax strength={300}>
           <Background>
@@ -52,7 +70,7 @@ export default class Testing extends Component {
           <div className="parallax">
             {" "}
             <div className="inner">
-              <h1>We care</h1>{" "}
+              <h1>We care more</h1>{" "}
             </div>{" "}
           </div>
         </Parallax>
