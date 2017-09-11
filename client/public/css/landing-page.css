@@ -60,6 +60,10 @@ a:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.quote-divider {
+  width: 70vw;
+}
+
 .intro-message > h3 {
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
@@ -463,14 +467,51 @@ p.copyright {
   text-align: center;
   top: 50%;
   transform: translate(-50%, -50%);
+  width: 500px;
 }
 
-.inner > h1,
+.inner > h1 {
+  font-size: 60px;
+  text-shadow: 5px 5px 10px black;
+}
+
 .inner > h3 {
+  font-size: 30px;
   text-shadow: 5px 5px 10px black;
 }
 
 .parallax-seperator {
+  background-color: #d3d3d3;
   font-size: 20px;
-  margin: 30px;
+  padding: 30px;
+}
+
+.landing-cite {
+  float: right;
+}
+
+.quotes-header {
+  text-align: center;
+}
+
+.landing-quotes {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+}
+hr.landing-hr {
+  border-top: 1px solid #8c8b8b;
+  text-align: center;
+}
+hr.landing-hr:after {
+  content: "§";
+  display: inline-block;
+  position: relative;
+  top: -14px;
+  padding: 0 10px;
+  background: #d3d3d3;
+  color: red;
+  font-size: 18px;
+  -webkit-transform: rotate(60deg);
+  -moz-transform: rotate(60deg);
+  transform: rotate(60deg);
 }
