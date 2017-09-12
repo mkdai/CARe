@@ -151,6 +151,7 @@ class Appointments extends Component {
       <Col>
         <AppointmentInput
           {...this.state}
+          {...this.props}
           handleCarChange={this.handleCarChange}
           handleServiceChange={this.handleServiceChange}
           handleDateChange={this.handleDateChange}

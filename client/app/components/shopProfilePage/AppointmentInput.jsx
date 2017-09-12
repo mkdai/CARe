@@ -29,11 +29,13 @@ class AppointmentInput extends Component {
             componentClass="select"
             onChange={this.props.handleCarChange}
           >
-            {this.props.cars.map((car, i) => (
-              <option value={car} key={i}>
-                {car}
-              </option>
-            ))}
+            {this.props.currentUser.cars ? (
+              this.props.currentUser.cars.map((car, i) => (
+                <option value={car} key={i}>
+                  {car}
+                </option>
+              ))
+            ) : null}
           </FormControl>
         </FormGroup>
         <FormGroup controlId="service">
