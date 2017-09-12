@@ -1,11 +1,15 @@
 import React from "react";
-import { FormGroup, ControlLabel, FormControl } from "react-bootstrap";
+import { FormGroup, ControlLabel, FormControl, Col } from "react-bootstrap";
 
 const FieldGroup = ({ id, label, help, ...props }) => {
   return (
     <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
+      <Col componentClass={ControlLabel} xs={3}>
+        {label}
+      </Col>
+      <Col xs={9}>
+        <FormControl {...props} />
+      </Col>
     </FormGroup>
   );
 };

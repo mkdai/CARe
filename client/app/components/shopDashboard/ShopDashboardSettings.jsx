@@ -5,10 +5,17 @@ import {
   Form,
   FormGroup,
   FormControl,
-  Well
+  Well,
+  ToggleButtonGroup,
+  ToggleButton,
+  Checkbox,
+  Col
 } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import FieldGroup from "./FieldGroup.jsx";
+import HoursOfDay from "../../components/shopDashboard/HoursOfDay.jsx";
+
+const l = console.log;
 
 class ShopDashboardSettings extends Component {
   constructor(props) {
@@ -16,9 +23,13 @@ class ShopDashboardSettings extends Component {
     this.state = {}; // Do not delete, needed for FieldGroup Component
   }
 
+  componentDidMount() {
+    l("Settings mounted", this.props);
+  }
+
   render() {
     return (
-      <Well>
+      <div>
         <Form>
           <FieldGroup
             id="formControlsText"
@@ -71,9 +82,37 @@ class ShopDashboardSettings extends Component {
             {this.state.value}
           </FieldGroup>
 
-          <Button onClick={this.props.handleBuildCalendar}>Submit</Button>
+          <FormGroup>
+            <Col componentClass={ControlLabel} xs={3}>
+              Days of Operation
+            </Col>
+            <Col xs={9}>
+              <Well>
+                {this.props.week.map((day, i) => (
+                  <Checkbox
+                    inline
+                    key={i}
+                    value={day}
+                    onChange={e => this.props.handleDaysOfServiceChange(e)}
+                  >
+                    {day}
+                  </Checkbox>
+                ))}
+              </Well>
+            </Col>
+          </FormGroup>
+
+          <FormGroup>
+            <Col componentClass={ControlLabel} xs={3}>
+              Hours Of Operation
+            </Col>
+            <Col xs={9}>
+              {this.props.daysOfService.map(day => <HoursOfDay day={day} />)}
+            </Col>
+          </FormGroup>
+          <Button onClick={this.props.handleBuildCalendar}>Save</Button>
         </Form>
-      </Well>
+      </div>
     );
   }
 }

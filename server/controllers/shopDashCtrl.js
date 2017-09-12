@@ -8,7 +8,7 @@ const {
 const { Shop, User } = require("../../db/index.js");
 
 const l = console.log;
-
+//TODO: RENDER AUTHENTICATION FOR SHOP USER(RESOURCE)
 timekit.configure({
   app: timekitApp,
   inputTimestampFormat: "U",
@@ -35,7 +35,6 @@ module.exports = {
     console.log("request has been received for calId", req.query);
     Shop.findOne({ where: { id: req.query.shopId } })
       .then(shop => {
-        console.log("found shopId:", shop.dataValues);
         res.status(200).send({ calId: shop.dataValues.calendar_id });
       })
       .catch(err => console.log("could not find shop", err));

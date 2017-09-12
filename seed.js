@@ -43,8 +43,7 @@ db
         name: "Test-Name-3",
         email: "Email3@test.com",
         phone: "(555) 555-5555",
-        profilePic: "https://goo.gl/images/4StBwJ",
-        shopId: 2
+        profilePic: "https://goo.gl/images/4StBwJ"
       },
       {
         name: "Test-Name-4",
@@ -68,9 +67,10 @@ db
       },
       {
         name: "Michael Dai",
-        email: "mkdai@gmail.com",
+        email: "michaelkdai@gmail.com",
         phone: "(626) 354-8475",
-        profilePic: "https://goo.gl/images/4StBwJ"
+        profilePic: "https://goo.gl/images/4StBwJ",
+        shopId: 2
       }
     ])
   )

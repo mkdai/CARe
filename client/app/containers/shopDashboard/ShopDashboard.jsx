@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import AppointmentCalendar from "../../components/shopDashboard/AppointmentCalendar.jsx";
+import CalendarTab from "../../components/shopDashboard/CalendarTab";
+import SettingsTab from "../../components/shopDashboard/SettingsTab";
 import NavigationBar from "../../containers/navBar/NavigationBar";
-import ShopDashboardSettings from "../../components/shopDashboard/ShopDashboardSettings.jsx";
 import axios from "axios";
 import {
   Jumbotron,
@@ -48,31 +48,27 @@ class ShopDashboard extends Component {
       shopName: "",
       shopEmail: "",
       shopDescription: "",
-      hoursOfOperation: {}
+      hoursOfOperation: {},
+      week: ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"],
+      daysOfService: []
     };
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
+    this.handleDaysOfServiceChange = this.handleDaysOfServiceChange.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
   componentDidMount() {
-    l("shop dashboard mounted & requesting shopId, PROPS:", this.props);
+    l("shop dashboard mounted & requesting calId PROPS:", this.props);
 
-    this.setState({ shopEmail: this.props.currentUser.email });
+    this.setState({
+      shopEmail: this.props.currentUser.email,
+      shopId: this.props.currentUser.shopId
+    });
 
     axios
-      .get(`api/shopdashboard/getShopId`, {
-        params: { userId: this.props.currentUser.id }
+      .get(`api/shopdashboard/getCalId`, {
+        params: { shopId: this.props.currentUser.shopId }
       })
-      .then(res => {
-        l("getShopId response received", res);
-        let { shopId } = res.data;
-        this.setState({ shopId });
-      })
-      .then(() =>
-        axios.get(`api/shopdashboard/getCalId`, {
-          params: { shopId: this.state.shopId }
-        })
-      )
       .then(res => {
         l("getCalId responded", res);
         this.setState({ calId: res.data.calId }, () =>
@@ -91,6 +87,30 @@ class ShopDashboard extends Component {
     e.preventDefault();
     l(this.state[attribute], e.target.value);
     this.setState({ [attribute]: e.target.value });
+  }
+
+  handleDaysOfServiceChange(e) {
+    let day = e.target.value;
+    let dOS = this.state.daysOfService;
+
+    if (dOS.some((x, i) => day === x)) {
+      dOS.splice(dOS.indexOf(day), 1);
+    } else {
+      let { week } = this.state;
+      let idx = week.indexOf(day);
+
+      for (let i = 0; i < dOS.length; i++) {
+        let curr = dOS[i];
+        if (week.indexOf(curr) > idx) {
+          dOS.splice(i, 0, day);
+          console.log("after splice", dOS);
+          this.setState({ daysOfService: dOS });
+          return;
+        }
+      }
+      this.setState({ daysOfService: dOS.push(day) });
+    }
+    this.setState({ daysOfService: dOS });
   }
 
   handleBuildCalendar() {
@@ -150,42 +170,20 @@ class ShopDashboard extends Component {
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
             <Tab eventKey={1} title="Calander">
-              <Row>
-                <Modal
-                  show={this.state.showCalModal}
-                  onHide={() =>
-                    this.setState({
-                      showCalModal: false
-                    })}
-                >
-                  <Modal.Header closeButton>
-                    <h2>Settings</h2>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ShopDashboardSettings
-                      handleAttributeChange={this.handleAttributeChange}
-                      handleBuildCalendar={this.handleBuildCalendar}
-                    />
-                  </Modal.Body>
-                </Modal>
-              </Row>
-
-              <Row>
-                <Col>
-                  {!!this.state.hasCalendar ? (
-                    <AppointmentCalendar {...this.props} {...this.state} />
-                  ) : (
-                    <Button
-                      onClick={() => this.setState({ showCalModal: true })}
-                    >
-                      Create Booking Calendar
-                    </Button>
-                  )}
-                </Col>
-              </Row>
+              <CalendarTab {...this.props} {...this.state} />
             </Tab>
+
             <Tab eventKey={2} title="Maintenance Jobs">
               <MaintenanceJobs />
+            </Tab>
+            <Tab eventKey={3} title="Settings">
+              <SettingsTab
+                {...this.props}
+                {...this.state}
+                handleDaysOfServiceChange={this.handleDaysOfServiceChange}
+                handleAttributeChange={this.handleAttributeChange}
+                handleBuildCalendar={this.handleBuildCalendar}
+              />
             </Tab>
           </Tabs>
         </Grid>

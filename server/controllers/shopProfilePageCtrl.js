@@ -7,9 +7,7 @@ const {
   timekitApiToken
 } = require("../../env/config");
 
-function l(...props) {
-  console.log(...props);
-}
+const l = console.log;
 
 timekit.configure({
   app: timekitApp,
