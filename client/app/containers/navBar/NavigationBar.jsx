@@ -13,7 +13,8 @@ import {
 
 function mapStateToProps(state) {
   return {
-    currentAuth: state.currentAuth.auth
+    currentAuth: state.currentAuth.auth,
+    currentUser: state.currentUser.currentUser
   };
 }
 

@@ -98,7 +98,7 @@ db
       },
       {
         address: "Test3 Blvd. Pasadena, CA 91106",
-        email: "shop@testEmail.com",
+        email: "there@there.com",
         phone: "(626) 795-7018",
         yelp_id: "jiffy-lube-los-angeles-3",
         pickup: false,
@@ -107,7 +107,7 @@ db
       },
       {
         address: "Test4 Ave. Glendale, CA 11111",
-        email: "shop2@testEmail.com",
+        email: "here@here.com",
         phone: "(626) 555-7585",
         yelp_id: "lube-masters-los-angeles",
         pickup: true,
