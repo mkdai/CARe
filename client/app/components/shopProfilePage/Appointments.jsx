@@ -90,7 +90,7 @@ class Appointments extends Component {
         timekit.configure({ app: app });
         widget.init({
           app: app,
-          email: "ethanefung@yahoo.com",
+          email: this.props.email,
           apiToken: tk_token,
           calendar: this.props.calId,
           name: this.state.service + " service with " + this.props.name,
