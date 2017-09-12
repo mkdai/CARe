@@ -33,7 +33,7 @@ export default class InputMaintenanceHistory extends Component {
         service: this.state.formServiceName,
         // carId from redux/state
         // ShopId from redux/state
-        shopId: 1,
+        shopId: this.props.shopId,
         carId: 5
       })
       .then(() => {

@@ -14,7 +14,7 @@ export default class MaintenenceJobs extends Component {
             eventKey="1"
           >
             w/e info here
-            <InputMaintenanceHistory />
+            <InputMaintenanceHistory shopId={this.props.shopId} />
           </Panel>
           <Panel
             header="Tire change for black honda accepted on xx/yy/zz"
