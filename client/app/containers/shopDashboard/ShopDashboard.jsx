@@ -153,16 +153,7 @@ class ShopDashboard extends Component {
     return (
       <div className="container">
         <NavigationBar />
-        <Grid fluid={true}>
-          <Row>
-            <h1 />{" "}
-          </Row>
-          <Row>
-            <h1 />{" "}
-          </Row>
-          <Row>
-            <h1 />{" "}
-          </Row>
+        <Grid fluid={true} className="bump">
           <Row>
             <Col>
               <h1>I am the shopdashboard</h1>
