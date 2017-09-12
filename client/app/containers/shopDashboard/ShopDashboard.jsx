@@ -58,28 +58,17 @@ class ShopDashboard extends Component {
   }
 
   componentDidMount() {
-    l("shop dashboard mounted & requesting shopId, PROPS:", this.props);
+    l("shop dashboard mounted & requesting calId PROPS:", this.props);
 
     this.setState({
       shopEmail: this.props.currentUser.email,
       shopId: this.props.currentUser.shopId
     });
 
-    // axios
-    //   .get(`api/shopdashboard/getShopId`, {
-    //     params: { userId: this.props.currentUser.id }
-    //   })
-    //   .then(res => {
-    //     l("getShopId response received", res);
-    //     let { shopId } = res.data;
-    //     this.setState({ shopId });
-    //   })
-    //   .then(() =>
     axios
       .get(`api/shopdashboard/getCalId`, {
-        params: { shopId: this.state.shopId }
+        params: { shopId: this.props.currentUser.shopId }
       })
-      // )
       .then(res => {
         l("getCalId responded", res);
         this.setState({ calId: res.data.calId }, () =>
@@ -121,9 +110,7 @@ class ShopDashboard extends Component {
       }
       this.setState({ daysOfService: dOS.push(day) });
     }
-    this.setState({ daysOfService: dOS }, () =>
-      l("these are the days of service", this.state.daysOfService)
-    );
+    this.setState({ daysOfService: dOS });
   }
 
   handleBuildCalendar() {

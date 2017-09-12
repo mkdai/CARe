@@ -8,7 +8,9 @@ const l = console.log;
 class CalendarTab extends Component {
   constructor(props) {
     super(props);
+    l("CalendarTab: these are the props", this.props);
   }
+
   render() {
     return (
       <div>

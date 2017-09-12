@@ -4,6 +4,13 @@ import AppointmentInput from "./AppointmentInput";
 import AppointmentsList from "./AppointmentsList";
 import TimekitBooking from "timekit-booking";
 import axios from "axios";
+// import {
+//   timekitApp,
+//   timekitEmail,
+//   timekitPassword,
+//   timekitApiToken
+// } from "../../../../env/config";
+import timekit from "timekit-sdk";
 
 const l = console.log;
 
@@ -70,8 +77,8 @@ class Appointments extends Component {
         l("Appointments: handleFindAppt: ", res.data);
         let { tk_token, email } = this.props;
         let { app } = res.data;
-
         let { time, date } = this.state;
+
         const widget = new TimekitBooking();
         const ReqDate = new Date(date);
         let year = ReqDate.getFullYear();
@@ -80,12 +87,12 @@ class Appointments extends Component {
 
         const ReqBooking = new Date(year, month, date, -1, 0, time);
 
+        timekit.configure({ app: app });
         widget.init({
           app: app,
-          email: email,
+          email: "ethanefung@yahoo.com",
           apiToken: tk_token,
           calendar: this.props.calId,
-
           name: this.state.service + " service with " + this.props.name,
           bookingGraph: "confirm_decline",
           availabilityView: "listing",
@@ -93,10 +100,38 @@ class Appointments extends Component {
             start: ReqBooking,
             future: "4 hours",
             length: "1 hour"
+          },
+          callbacks: {
+            createBookingStarted: response => {
+              console.log("create booking was started", response);
+            },
+            showBookingPage: response => {
+              console.log("showBookingPage", response);
+            },
+            submitBookingForm: response => {
+              console.log("submitBookingForm", response);
+            },
+            createBookingSuccessful: response => {
+              console.log("create booking was successful", response);
+              timekit
+                .auth({ email: "ethanefung@yahoo.com", password: "bull" }) // TODO:// NON HARDCODE
+                .then(() =>
+                  timekit.getBooking({
+                    id: response.data.id
+                  })
+                )
+                .then(res => console.log("this is the specific booking", res))
+                .catch(err => l("tk is a bitch", err));
+            },
+            createBookingFailed: response => {
+              console.log("create booking was FAIL", response);
+            }
           }
         });
       })
-      .catch(err => l("Appointments: handleFindAppt, could not init widget"));
+      .catch(err =>
+        l("Appointments: handleFindAppt, could not init widget", err)
+      );
 
     //send a request to timekit to find time within 3 hours of time,
     //render 5 within 30 minutes of each other
