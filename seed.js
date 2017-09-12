@@ -26,15 +26,15 @@ db
   .then(() =>
     User.bulkCreate([
       {
-        name: "Test-Name",
-        email: "Email@test.com",
+        name: "here",
+        email: "here@here.com",
         phone: "(555) 555-5555",
         profilePic: "https://goo.gl/images/4StBwJ",
         shopId: 4
       },
       {
-        name: "Test-Name-2",
-        email: "Email2@test.com",
+        name: "there",
+        email: "there@there.com",
         phone: "(555) 555-5555",
         profilePic: "https://goo.gl/images/4StBwJ",
         shopId: 3
