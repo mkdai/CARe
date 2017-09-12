@@ -57,7 +57,10 @@ const processShopData = (shop, userId, cb) => {
         if (shop.rating !== rating) {
           console.log("hit update rating block");
           shop.rating = rating;
-          Shop.update({ rating }, { where: { yelp_id: shop.id } });
+          Shop.update(
+            { rating, review_count: shop.reviews.length },
+            { where: { yelp_id: shop.id } }
+          );
         }
         console.log(
           "looking for favorite [userId, shopid]: ",

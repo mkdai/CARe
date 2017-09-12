@@ -76,6 +76,16 @@ class SearchResults extends Component {
           </Grid>
         ) : (
           <Grid className="search-grid">
+            <Row>
+              <Col>
+                Searching for "{this.state.term}" near
+                {this.state.location !== "" ? (
+                  ` "${this.state.location}"`
+                ) : (
+                  " your location"
+                )}.
+              </Col>
+            </Row>
             {this.state.shops.map(shop => {
               return (
                 <Link to={`/shops?idstring=${shop.id}`}>
@@ -94,19 +104,25 @@ class SearchResults extends Component {
                         <div>{shop.location.display_address[1]}</div>
                         <div>{shop.location.display_address[2]}</div>
                         {shop.isSupported ? (
-                          <Rating
-                            readonly
-                            initialRate={shop.rating}
-                            empty={
-                              <img
-                                src="img/wrench-empty.png"
-                                className="icon"
-                              />
-                            }
-                            full={
-                              <img src="img/wrench-full.png" className="icon" />
-                            }
-                          />
+                          <div>
+                            <Rating
+                              readonly
+                              initialRate={shop.rating}
+                              empty={
+                                <img
+                                  src="img/wrench-empty.png"
+                                  className="icon"
+                                />
+                              }
+                              full={
+                                <img
+                                  src="img/wrench-full.png"
+                                  className="icon"
+                                />
+                              }
+                            />{" "}
+                            ({shop.review_count || 0})
+                          </div>
                         ) : null}
                       </div>
                       <div className="distance-info">
