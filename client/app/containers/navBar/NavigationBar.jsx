@@ -73,9 +73,28 @@ class NavigationBar extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         {!this.props.currentAuth.isAuthenticated() && (
-          <Nav pullRight>
-            <NavItem onClick={this.login}>SIGNUP | LOGIN</NavItem>
-          </Nav>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <Navbar.Form onSubmit={this.search} pullLeft>
+                <FormGroup>
+                  <FormControl
+                    type="text"
+                    value={this.state.term}
+                    placeholder="Search"
+                    onChange={this.handleTermChange}
+                  />
+                  <FormControl
+                    type="text"
+                    value={this.state.location}
+                    placeholder="Current Location"
+                    onChange={this.handleLocationChange}
+                  />
+                </FormGroup>
+                <Link to={this.state.searchUrl}> SEARCH </Link>
+              </Navbar.Form>
+              <NavItem onClick={this.login}>SIGNUP | LOGIN</NavItem>
+            </Nav>
+          </Navbar.Collapse>
         )}
         {this.props.currentAuth.isAuthenticated() && (
           <Navbar.Collapse>
@@ -100,9 +119,11 @@ class NavigationBar extends React.Component {
               <NavItem>
                 <Link to="userdash">USER DASHBOARD</Link>
               </NavItem>
-              <NavItem>
-                <Link to="shopdashboard">SHOP DASHBOARD</Link>
-              </NavItem>
+              {this.props.currentUser && this.props.currentUser.shopId ? (
+                <NavItem>
+                  <Link to="shopdashboard">SHOP DASHBOARD</Link>
+                </NavItem>
+              ) : null}
               <NavItem onClick={this.logout}>
                 <Link to="/">LOGOUT</Link>
               </NavItem>
