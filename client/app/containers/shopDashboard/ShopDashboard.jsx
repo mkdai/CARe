@@ -60,22 +60,26 @@ class ShopDashboard extends Component {
   componentDidMount() {
     l("shop dashboard mounted & requesting shopId, PROPS:", this.props);
 
-    this.setState({ shopEmail: this.props.currentUser.email });
+    this.setState({
+      shopEmail: this.props.currentUser.email,
+      shopId: this.props.currentUser.shopId
+    });
 
+    // axios
+    //   .get(`api/shopdashboard/getShopId`, {
+    //     params: { userId: this.props.currentUser.id }
+    //   })
+    //   .then(res => {
+    //     l("getShopId response received", res);
+    //     let { shopId } = res.data;
+    //     this.setState({ shopId });
+    //   })
+    //   .then(() =>
     axios
-      .get(`api/shopdashboard/getShopId`, {
-        params: { userId: this.props.currentUser.id }
+      .get(`api/shopdashboard/getCalId`, {
+        params: { shopId: this.state.shopId }
       })
-      .then(res => {
-        l("getShopId response received", res);
-        let { shopId } = res.data;
-        this.setState({ shopId });
-      })
-      .then(() =>
-        axios.get(`api/shopdashboard/getCalId`, {
-          params: { shopId: this.state.shopId }
-        })
-      )
+      // )
       .then(res => {
         l("getCalId responded", res);
         this.setState({ calId: res.data.calId }, () =>

@@ -8,7 +8,8 @@ import {
   Well,
   ToggleButtonGroup,
   ToggleButton,
-  Checkbox
+  Checkbox,
+  Col
 } from "react-bootstrap";
 import { Redirect, Link } from "react-router-dom";
 import FieldGroup from "./FieldGroup.jsx";
@@ -81,22 +82,33 @@ class ShopDashboardSettings extends Component {
             {this.state.value}
           </FieldGroup>
 
-          <ControlLabel>Days of Operation</ControlLabel>
           <FormGroup>
-            {this.props.week.map((day, i) => (
-              <Checkbox
-                inline
-                key={i}
-                value={day}
-                onChange={e => this.props.handleDaysOfServiceChange(e)}
-              >
-                {day}
-              </Checkbox>
-            ))}
+            <Col componentClass={ControlLabel} xs={3}>
+              Days of Operation
+            </Col>
+            <Col xs={9}>
+              <Well>
+                {this.props.week.map((day, i) => (
+                  <Checkbox
+                    inline
+                    key={i}
+                    value={day}
+                    onChange={e => this.props.handleDaysOfServiceChange(e)}
+                  >
+                    {day}
+                  </Checkbox>
+                ))}
+              </Well>
+            </Col>
           </FormGroup>
+
           <FormGroup>
-            <ControlLabel>Hours Of Operations</ControlLabel>
-            {this.props.daysOfService.map(day => <HoursOfDay day={day} />)}
+            <Col componentClass={ControlLabel} xs={3}>
+              Hours Of Operation
+            </Col>
+            <Col xs={9}>
+              {this.props.daysOfService.map(day => <HoursOfDay day={day} />)}
+            </Col>
           </FormGroup>
           <Button onClick={this.props.handleBuildCalendar}>Save</Button>
         </Form>
