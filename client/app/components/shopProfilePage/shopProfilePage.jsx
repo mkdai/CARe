@@ -70,6 +70,7 @@ class ShopProfilePage extends Component {
   }
   componentWillReceiveProps(nextProps) {
     //handles browser refresh case, since async issues with redux
+    console.log(nextProps);
     this.getShopData(nextProps);
   }
   componentDidMount() {
@@ -77,44 +78,44 @@ class ShopProfilePage extends Component {
     this.getShopData(this.props);
   }
   getShopData(props) {
-    console.log("getShopData request is made");
-    if (props.currentUser.id) {
-      let searchQueryString = this.props.location.search;
-      let parsed = querystring.parse(searchQueryString.substring(1));
-      axios
-        .get(
-          `/api/search/getshop?id=${parsed.idstring}&userId=${props.currentUser
-            .id}`
-        )
-        .then(res => {
-          console.log("shop info received: ", res.data);
-          this.setState({
-            idString: parsed.idstring,
-            name: res.data.name,
-            address1: res.data.location.display_address[0],
-            address2: res.data.location.display_address[1],
-            address2: res.data.location.display_address[2],
-            phone: res.data.display_phone,
-            rating: res.data.rating,
-            latitude: res.data.coordinates.latitude,
-            longitude: res.data.coordinates.longitude,
-            reviews: res.data.reviews,
-            dbpk: res.data.dbpk,
-            supported: res.data.isSupported,
-            calId: res.data.calId,
-            tk_token: res.data.tkToken,
-            email: res.data.email
-          });
-          if (!this.state.favorited)
-            this.setState({
-              favorited: res.data.favorited
-            });
-        })
-        .catch(response => {
-          console.log("could not get shop data", response);
-          this.setState({ idString: "DOESNTEXIST" });
+    console.log("getShopData request is made", props.currentUser.id);
+    // if (props.currentUser.id) {
+    let searchQueryString = this.props.location.search;
+    let parsed = querystring.parse(searchQueryString.substring(1));
+    axios
+      .get(
+        `/api/search/getshop?id=${parsed.idstring}&userId=${props.currentUser
+          .id}`
+      )
+      .then(res => {
+        console.log("shop info received: ", res.data);
+        this.setState({
+          idString: parsed.idstring,
+          name: res.data.name,
+          address1: res.data.location.display_address[0],
+          address2: res.data.location.display_address[1],
+          address2: res.data.location.display_address[2],
+          phone: res.data.display_phone,
+          rating: res.data.rating,
+          latitude: res.data.coordinates.latitude,
+          longitude: res.data.coordinates.longitude,
+          reviews: res.data.reviews,
+          dbpk: res.data.dbpk,
+          supported: res.data.isSupported,
+          calId: res.data.calId,
+          tk_token: res.data.tkToken,
+          email: res.data.email
         });
-    }
+        if (!this.state.favorited)
+          this.setState({
+            favorited: res.data.favorited
+          });
+      })
+      .catch(response => {
+        console.log("could not get shop data", response);
+        this.setState({ idString: "DOESNTEXIST" });
+      });
+    // }
   }
   renderValidPage() {
     return (
@@ -182,7 +183,11 @@ class ShopProfilePage extends Component {
               </Tab>
               <Tab eventKey={2} title="Appointments">
                 <Row>
-                  <Appointments {...this.state} {...this.props} />
+                  {this.props.currentUser.id ? (
+                    <Appointments {...this.state} {...this.props} />
+                  ) : (
+                    <div> Please sign in to make an appointment. </div>
+                  )}
                 </Row>
               </Tab>
             </Tabs>
@@ -195,7 +200,9 @@ class ShopProfilePage extends Component {
                     <div>Is this your business?</div>
                     <Button> Claim this shop now! </Button>
                   </div>
-                ) : null}
+                ) : (
+                  <div> Sign in to claim this business! </div>
+                )}
               </Col>
             </Row>
           )}
