@@ -246,7 +246,7 @@ p.copyright {
 
 #car-pic {
   width: 50%;
-  height: auto;
+  height: 50%;
   border-radius: 50%;
   display: flex;
   margin: auto;
@@ -470,6 +470,7 @@ p.copyright {
 
 .fav-entry {
   text-align: center;
+  padding-top: 20px;
 }
 
 #car-pic-modal {
@@ -514,6 +515,30 @@ p.copyright {
 
 .landing-cite {
   float: right;
+}
+
+#landing-pic-one {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  display: flex;
+  margin: auto;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.company-details {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.company-details-text {
+  padding-top: 20px;
+}
+
+.company-details-header {
+  text-decoration: underline;
 }
 
 .quotes-header {

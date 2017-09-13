@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 import { Parallax, Background } from "react-parallax";
 import { Jumbotron } from "react-bootstrap";
+import {
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Col,
+  Button,
+  Well,
+  Row
+} from "react-bootstrap";
 
 export default class Testing extends Component {
   render() {
@@ -20,26 +30,68 @@ export default class Testing extends Component {
           </div>
         </Parallax>
         <div className="parallax-seperator">
-          Ut malesuada cursus eros, eget viverra ex semper sit amet. Phasellus
-          laoreet imperdiet urna, ac accumsan urna fringilla eget. Nulla tempus
-          est ante, sit amet rutrum nulla ullamcorper a. Phasellus commodo
-          sagittis dolor eu varius. Duis eu lacus ut lectus maximus elementum.
-          Curabitur bibendum porttitor magna non lacinia. Integer pharetra urna
-          lacus, ut convallis libero ultrices id. Maecenas at metus non massa
-          luctus laoreet. Aenean condimentum augue non neque varius, at
-          sollicitudin diam fringilla. Orci varius natoque penatibus et magnis
-          dis parturient montes, nascetur ridiculus mus. Nulla feugiat ligula
-          enim, vitae mattis dui vestibulum eu. Integer pulvinar luctus odio at
-          tempor.
-          <hr />
-          Praesent neque neque, convallis vitae imperdiet sit amet, gravida in
-          risus. Ut elementum pharetra lobortis. In vel semper lacus. Cras
-          dictum sem enim. Nam a interdum nunc, quis semper velit. Pellentesque
-          vehicula cursus felis. Proin at mi eget sapien mollis ullamcorper non
-          a felis. Nulla at mauris condimentum, ultrices tortor eu, tincidunt
-          augue. Vivamus eget tellus nisl. Morbi facilisis, diam id molestie
-          pulvinar, neque mi maximus quam, non venenatis libero lectus et dolor.
-          Duis volutpat massa ac purus tempus ornare.
+          <Row>
+            <Col lg={12} className="company-details">
+              <div>
+                <h2>What We Do</h2>
+              </div>
+              <hr />
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={4} className="company-details">
+              <img
+                src="http://www.huntsland-nutrition.com/wp-content/uploads/2015/05/company.jpg"
+                id="landing-pic-one"
+              />
+              <div className="company-details-text">
+                <div>
+                  <h3 className="company-details-header">
+                    Dedicated Professionals
+                  </h3>
+                </div>
+                Our staff at CARe is comprised off leading professionals in the
+                auto and software industries. With our experience, you can be
+                sure you are getting the best help and everything you need at
+                the click of a button. We work around the clock and care more,
+                so you don't have to.
+              </div>
+            </Col>
+            <Col lg={4} className="company-details">
+              <img
+                src="https://cbsnewyork.files.wordpress.com/2012/05/car-maintenance.jpg"
+                id="landing-pic-one"
+              />
+              <div className="company-details-text">
+                <div>
+                  <h3 className="company-details-header">Quality Service</h3>
+                </div>
+                We only support the best shops that we know will give you the
+                right care your vehicle needs every time. We take care of the
+                vetting so you can be sure your car is in good hands. We are
+                committed to transparency between mechanic and customer, so you
+                know you are getting the best service.
+              </div>
+            </Col>
+            <Col lg={4} className="company-details">
+              <img
+                src="https://blog.retargeting.biz/wp-content/uploads/2015/11/Be-There.gif"
+                id="landing-pic-one"
+              />
+              <div className="company-details-text">
+                <div>
+                  <h3 className="company-details-header">
+                    100% Customer Satisfaction
+                  </h3>
+                </div>
+                Our primary mission is to leave you, the customer, staisfied
+                every time. When using our service, you can be completely
+                confident that the job is done right and without stress. If you
+                are not happy with your service, we will do everything we can to
+                make it right. That is our guarantee.
+              </div>
+            </Col>
+          </Row>
         </div>
         <Parallax strength={300}>
           <Background>
