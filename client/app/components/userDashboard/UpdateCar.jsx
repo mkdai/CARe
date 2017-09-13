@@ -1,6 +1,16 @@
 import React from "react";
 import axios from "axios";
 import ReminderEntry from "./ReminderEntry.jsx";
+import {
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Col,
+  Button,
+  Well,
+  Row
+} from "react-bootstrap";
 
 export default class UpdateCar extends React.Component {
   constructor(props) {
@@ -51,22 +61,27 @@ export default class UpdateCar extends React.Component {
     //console.log("UPDATE CAR PROPS:", this.props.currentCar);
     return (
       <div>
-        <div className="update-mileage">
-          <label>Mileage</label>
-          <form>
-            <input
-              name="mileage"
-              onChange={this.handleOnChange}
-              className="update-mileage-input"
-              type="text"
-              placeholder="Enter the mileage of your car"
-            />
-            <button onClick={this.updateMileage}>Submit</button>
-          </form>
-        </div>
-        <div className="delete-car-button">
-          <button onClick={this.onDelete}>Delete Car</button>
-        </div>
+        <Well>
+          <div className="update-mileage">
+            <label>Mileage</label>
+            <Form>
+              <input
+                name="mileage"
+                onChange={this.handleOnChange}
+                className="update-mileage-input"
+                type="text"
+                placeholder="Enter the mileage of your car"
+              />
+              <button onClick={this.updateMileage}>Update</button>
+            </Form>
+          </div>
+          <hr />
+          <div className="delete-car-button">
+            <button className="btn-danger" onClick={this.onDelete}>
+              Delete Car
+            </button>
+          </div>
+        </Well>
       </div>
     );
   }

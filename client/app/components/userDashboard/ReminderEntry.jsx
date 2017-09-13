@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Accordion, Panel } from "react-bootstrap";
 
 export default class ReminderEntry extends React.Component {
   constructor(props) {
@@ -21,9 +22,19 @@ export default class ReminderEntry extends React.Component {
   render() {
     return (
       <div>
-        <span>Service: {this.props.reminder.service}</span>
-        <button onClick={this.onDelete}>Delete</button>
-        <button onClick={this.onDelete}>Completed</button>
+        <Panel header="Service Reminder">
+          <span>{this.props.reminder.service}</span>
+          <button className="btn-success pull-right" onClick={this.onDelete}>
+            Completed
+          </button>
+          <button
+            className="btn-danger pull-right"
+            style={{ marginRight: "10px" }}
+            onClick={this.onDelete}
+          >
+            Delete
+          </button>
+        </Panel>
       </div>
     );
   }

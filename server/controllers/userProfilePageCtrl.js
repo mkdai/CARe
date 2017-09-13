@@ -199,5 +199,22 @@ module.exports = {
       .catch(err => {
         res.sendStatus(500).send(err);
       });
+  },
+  getShop: (req, res) => {
+    console.log("THIS IS REQ.PARAMS: ", req.params);
+    db.Shop
+      .findAll({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+        console.log(data);
+      })
+      .catch(err => {
+        res.sendStatus(500).send(err);
+        console.log(err);
+      });
   }
 };

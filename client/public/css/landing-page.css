@@ -130,7 +130,8 @@ a:hover {
 }
 
 .section-heading-dashboard {
-  padding-top: 60px;
+  padding-top: 50px;
+  padding-left: 10px;
 }
 
 .banner {
@@ -157,6 +158,7 @@ a:hover {
 
 .delete-car-button {
   padding-bottom: 20px;
+  padding-left: 10px;
 }
 
 @media (max-width: 1199px) {
@@ -275,6 +277,7 @@ p.copyright {
   border: 1px solid black;
   font-size: 16px;
   width: 40%;
+  margin-top: 8px;
 }
 
 #edit-profile-button:hover {
@@ -282,11 +285,16 @@ p.copyright {
 }
 
 .reviews-link {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .favorites-link {
-  font-size: 20px;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.select-statement {
+  padding-left: 10px;
 }
 
 #history-tab {
@@ -456,9 +464,18 @@ p.copyright {
 
   .update-mileage {
     padding-bottom: 20px;
+    padding-left: 10px;
   }
 }
 
+.fav-entry {
+  text-align: center;
+}
+
+#car-pic-modal {
+  width: 100%;
+  height: auto;
+}
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {
 }

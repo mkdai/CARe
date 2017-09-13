@@ -19,7 +19,6 @@ export default class Testing extends Component {
             </div>{" "}
           </div>
         </Parallax>
-
         <div className="parallax-seperator">
           Ut malesuada cursus eros, eget viverra ex semper sit amet. Phasellus
           laoreet imperdiet urna, ac accumsan urna fringilla eget. Nulla tempus
