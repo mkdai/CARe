@@ -94,19 +94,15 @@ class ShopDashboard extends Component {
         daysOfService[i].end = end;
       }
     }
-    l("this is the days of service after the loop", daysOfService);
 
-    this.setState(
-      { daysOfService: daysOfService },
-      l("this is the hours of Op change", this.state.daysOfService)
-    );
+    this.setState({ daysOfService: daysOfService });
   }
 
   handleTestSettings() {}
 
   handleAttributeChange(e, attribute) {
     e.preventDefault();
-    l(this.state[attribute], e.target.value);
+
     this.setState({ [attribute]: e.target.value });
   }
 
