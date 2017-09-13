@@ -71,7 +71,12 @@ class SearchResults extends Component {
         {this.state.loading ? (
           <Grid className="search-grid">
             <Row>
-              <h1>LOADING</h1>
+              <div className="center">
+                <img src="/img/loading.gif" />
+                <div>
+                  <h1>Loading...</h1>
+                </div>
+              </div>
             </Row>
           </Grid>
         ) : (

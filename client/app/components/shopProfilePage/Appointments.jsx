@@ -25,7 +25,7 @@ class Appointments extends Component {
       time: 0,
       shopLocation: "",
       openList: false,
-      car: ""
+      car: {} //needs to be the car object (from the database);
     };
 
     this.handleCarChange = this.handleCarChange.bind(this);
@@ -51,7 +51,7 @@ class Appointments extends Component {
         )
       )
       .catch(err =>
-        l("Appointments: getBookings --> could not get shop appointments")
+        l("Appointments: getBookings --> could not get shop appointments", err)
       );
   }
 
@@ -120,15 +120,18 @@ class Appointments extends Component {
             },
             createBookingSuccessful: response => {
               console.log("create booking was successful", response);
-              timekit
-                .auth({ email: "ethanefung@yahoo.com", password: "bull" }) // TODO:// NON HARDCODE
-                .then(() =>
-                  timekit.getBooking({
-                    id: response.data.id
-                  })
-                )
-                .then(res => console.log("this is the specific booking", res))
-                .catch(err => l("tk is a bitch", err));
+              axios
+                .post("/api/shopProfile/postAppointment", {
+                  service: this.state.service,
+                  userId: this.props.currentUser.id,
+                  shopId: this.props.dbpk,
+                  carId: this.state.car.id,
+                  calendarId: response.data.attributes.event_info.calendar_id,
+                  bookingId: response.data.id,
+                  time: response.data.attributes.event_info.start
+                })
+                .then(resp => console.log("appt posted to database", resp))
+                .catch(err => console.log("appt failed to post on db", err));
             },
             createBookingFailed: response => {
               console.log("create booking was FAIL", response);
