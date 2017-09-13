@@ -48,12 +48,14 @@ class ShopDashboard extends Component {
       shopName: "",
       shopEmail: "",
       shopDescription: "",
-      hoursOfOperation: {},
       week: ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"],
       daysOfService: []
     };
+
+    this.handleHoursOfOpChange = this.handleHoursOfOpChange.bind(this);
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleDaysOfServiceChange = this.handleDaysOfServiceChange.bind(this);
+    this.handleTestSettings = this.handleTestSettings.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
@@ -83,6 +85,25 @@ class ShopDashboard extends Component {
       .catch(err => l("could not get shopId"));
   }
 
+  handleHoursOfOpChange(day, start, end) {
+    let { daysOfService } = this.state;
+
+    for (let i = 0; i < daysOfService.length; i++) {
+      if (day === daysOfService[i].value) {
+        daysOfService[i].start = start;
+        daysOfService[i].end = end;
+      }
+    }
+    l("this is the days of service after the loop", daysOfService);
+
+    this.setState(
+      { daysOfService: daysOfService },
+      l("this is the hours of Op change", this.state.daysOfService)
+    );
+  }
+
+  handleTestSettings() {}
+
   handleAttributeChange(e, attribute) {
     e.preventDefault();
     l(this.state[attribute], e.target.value);
@@ -90,10 +111,12 @@ class ShopDashboard extends Component {
   }
 
   handleDaysOfServiceChange(e) {
-    let day = e.target.value;
+    const day = { start: 0, end: 0 };
+    day.value = e.target.value;
+
     let dOS = this.state.daysOfService;
 
-    if (dOS.some((x, i) => day === x)) {
+    if (dOS.some((x, i) => day.value === x)) {
       dOS.splice(dOS.indexOf(day), 1);
     } else {
       let { week } = this.state;
@@ -104,13 +127,19 @@ class ShopDashboard extends Component {
         if (week.indexOf(curr) > idx) {
           dOS.splice(i, 0, day);
           console.log("after splice", dOS);
-          this.setState({ daysOfService: dOS });
+          this.setState({ daysOfService: dOS }, () =>
+            l("this is the state of daysOfService, ", this.state.daysOfService)
+          );
           return;
         }
       }
-      this.setState({ daysOfService: dOS.push(day) });
+      this.setState({ daysOfService: dOS.push(day) }, () =>
+        l("this is the state of daysOfService, ", this.state.daysOfService)
+      );
     }
-    this.setState({ daysOfService: dOS });
+    this.setState({ daysOfService: dOS }, () =>
+      l("this is the state of daysOfService, ", this.state.daysOfService)
+    );
   }
 
   handleBuildCalendar() {
@@ -167,6 +196,8 @@ class ShopDashboard extends Component {
                 handleDaysOfServiceChange={this.handleDaysOfServiceChange}
                 handleAttributeChange={this.handleAttributeChange}
                 handleBuildCalendar={this.handleBuildCalendar}
+                handleHoursOfOpChange={this.handleHoursOfOpChange}
+                handleTestSettings={this.handleTestSettings}
               />
             </Tab>
           </Tabs>
