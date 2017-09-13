@@ -6,14 +6,12 @@ class HoursOfDay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      start: 0,
-      end: 0
+      start: 32400,
+      end: 64800
     };
   }
 
-  componentDidMount() {
-    l(this.props.day);
-  }
+  componentDidMount() {}
   render() {
     return (
       <div>

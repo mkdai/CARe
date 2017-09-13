@@ -98,7 +98,9 @@ class ShopDashboard extends Component {
     this.setState({ daysOfService: daysOfService });
   }
 
-  handleTestSettings() {}
+  handleTestSettings() {
+    l("this is the state", this.state);
+  }
 
   handleAttributeChange(e, attribute) {
     e.preventDefault();
@@ -107,7 +109,7 @@ class ShopDashboard extends Component {
   }
 
   handleDaysOfServiceChange(e) {
-    const day = { start: 0, end: 0 };
+    const day = { start: 32400, end: 64800 }; //basic 9 to 6 work day
     day.value = e.target.value;
 
     let dOS = this.state.daysOfService;
@@ -140,7 +142,14 @@ class ShopDashboard extends Component {
 
   handleBuildCalendar() {
     l("user requests to create calendar");
-    let { firstName, lastName, shopId, shopName, shopDescription } = this.state;
+    let {
+      firstName,
+      lastName,
+      shopId,
+      shopName,
+      shopDescription,
+      daysOfService
+    } = this.state;
     l("the email is a ", typeof email);
 
     axios
@@ -151,7 +160,7 @@ class ShopDashboard extends Component {
         shopName: shopName,
         shopDescription: shopDescription,
         shopEmail: this.props.currentUser.email,
-        hoursOfOperation: { days: [] }
+        daysOfService: daysOfService
       })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
