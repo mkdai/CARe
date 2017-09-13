@@ -4,7 +4,8 @@ const dbURL = require(path.resolve(__dirname, "../env/config")).dbURL;
 
 const db = new Sequelize(dbURL, {
   dialect: "postgres",
-  pool: { max: 5, min: 0, idle: 20000, aqquire: 20000, evict: 20000 }
+  pool: { max: 5, min: 0, idle: 20000, aqquire: 20000, evict: 20000 },
+  logging: false
 });
 
 db
