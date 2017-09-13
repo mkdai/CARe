@@ -33,8 +33,8 @@ db
         shopId: 4
       },
       {
-        name: "there",
-        email: "there@there.com",
+        name: "James",
+        email: "jhwang137@gmail.com",
         phone: "(555) 555-5555",
         profilePic: "https://goo.gl/images/4StBwJ",
         shopId: 3
@@ -98,8 +98,10 @@ db
       },
       {
         address: "Test3 Blvd. Pasadena, CA 91106",
-        email: "there@there.com",
+        email: "jhwang137@gmail.com",
         phone: "(626) 795-7018",
+        calendar_id: "028c71b7-6ea2-450d-b1d5-4f26b828c4ab",
+        tk_api_token: "6G7Xm3jDg36Km4jDgPR4yhMaQxzmjJgq",
         yelp_id: "jiffy-lube-los-angeles-3",
         pickup: false,
         picture:
@@ -295,5 +297,8 @@ db
   .then(() =>
     Reminder.bulkCreate([{ service: "windshield wipers", userId: 3, carId: 2 }])
   )
-  .then(() => console.log("database seeded, please disconnect"))
+  .then(() => {
+    console.log("Database seeded!");
+    process.exit();
+  })
   .catch(err => console.log("could not connect to db: ", err));
