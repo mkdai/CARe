@@ -23,6 +23,21 @@ class AppointmentInput extends Component {
   render() {
     return (
       <Form inline>
+        <FormGroup controlId="cars">
+          {"  "}
+          <FormControl
+            componentClass="select"
+            onChange={this.props.handleCarChange}
+          >
+            {this.props.currentUser.cars ? (
+              this.props.currentUser.cars.map((car, i) => (
+                <option value={car} key={i}>
+                  {car}
+                </option>
+              ))
+            ) : null}
+          </FormControl>
+        </FormGroup>
         <FormGroup controlId="service">
           {"  "}
           <FormControl

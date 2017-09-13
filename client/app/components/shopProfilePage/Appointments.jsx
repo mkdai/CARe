@@ -24,9 +24,11 @@ class Appointments extends Component {
       times: [],
       time: 0,
       shopLocation: "",
-      openList: false
+      openList: false,
+      car: ""
     };
 
+    this.handleCarChange = this.handleCarChange.bind(this);
     this.handleServiceChange = this.handleServiceChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
@@ -51,6 +53,11 @@ class Appointments extends Component {
       .catch(err =>
         l("Appointments: getBookings --> could not get shop appointments")
       );
+  }
+
+  handleCarChange(e) {
+    e.preventDefault();
+    this.setState({ car: e.target.value });
   }
 
   handleServiceChange(e) {
@@ -144,6 +151,8 @@ class Appointments extends Component {
       <Col>
         <AppointmentInput
           {...this.state}
+          {...this.props}
+          handleCarChange={this.handleCarChange}
           handleServiceChange={this.handleServiceChange}
           handleDateChange={this.handleDateChange}
           handleTimeChange={this.handleTimeChange}

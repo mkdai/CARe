@@ -115,14 +115,7 @@ class ShopDashboard extends Component {
 
   handleBuildCalendar() {
     l("user requests to create calendar");
-    let {
-      firstName,
-      lastName,
-      shopId,
-      shopName,
-      shopDescription,
-      shopEmail
-    } = this.state;
+    let { firstName, lastName, shopId, shopName, shopDescription } = this.state;
     l("the email is a ", typeof email);
 
     axios
@@ -132,7 +125,7 @@ class ShopDashboard extends Component {
         lastName: lastName,
         shopName: shopName,
         shopDescription: shopDescription,
-        shopEmail: shopEmail,
+        shopEmail: this.props.currentUser.email,
         hoursOfOperation: { days: [] }
       })
       //You can create a new calendar for the current user by calling this endpoint.
@@ -153,16 +146,7 @@ class ShopDashboard extends Component {
     return (
       <div className="container">
         <NavigationBar />
-        <Grid fluid={true}>
-          <Row>
-            <h1 />{" "}
-          </Row>
-          <Row>
-            <h1 />{" "}
-          </Row>
-          <Row>
-            <h1 />{" "}
-          </Row>
+        <Grid fluid={true} className="bump">
           <Row>
             <Col>
               <h1>I am the shopdashboard</h1>

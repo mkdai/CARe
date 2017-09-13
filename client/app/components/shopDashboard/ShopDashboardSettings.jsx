@@ -51,16 +51,16 @@ class ShopDashboardSettings extends Component {
           >
             {this.state.value}
           </FieldGroup>
-          <FieldGroup
+          {/* <FieldGroup
             id="formControlsText"
             type="text"
             label="Email"
             placeholder="Email"
             value={this.props.shopEmail}
             onChange={e => this.props.handleAttributeChange(e, "shopEmail")}
-          >
+          > 
             {this.state.value}
-          </FieldGroup>
+          </FieldGroup>*/}
           <FieldGroup
             id="formControlsText"
             type="text"
