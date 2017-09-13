@@ -47,6 +47,25 @@ class ShopProfilePage extends Component {
     this.handleFav = _.debounce(this.handleFav, 500).bind(this);
     this.renderValidPage = this.renderValidPage.bind(this);
     this.getShopData = this.getShopData.bind(this);
+    this.handleShopClaim = this.handleShopClaim.bind(this);
+  }
+  handleShopClaim() {
+    let data = {
+      name: this.state.name,
+      yelp_id: this.state.idString,
+      address: this.state.display_address.join("\n"),
+      email: this.props.currentUser.email,
+      phone: this.state.phone,
+      picture: this.state.image
+    };
+    axios
+      .post("/api/shopProfile/claimShop", data)
+      .then(response => {
+        this.getShopData(this.props);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
   handleFav() {
     if (this.state.favorited) {
@@ -104,7 +123,9 @@ class ShopProfilePage extends Component {
             name: res.data.name,
             address1: res.data.location.display_address[0],
             address2: res.data.location.display_address[1],
-            address2: res.data.location.display_address[2],
+            address3: res.data.location.display_address[2],
+            display_address: res.data.location.display_address,
+            image: res.data.image_url,
             phone: res.data.display_phone,
             rating: res.data.rating,
             latitude: res.data.coordinates.latitude,
@@ -225,7 +246,9 @@ class ShopProfilePage extends Component {
                 {this.props.currentUser.id && !this.props.currentUser.shopId ? (
                   <div>
                     <div>Is this your business?</div>
-                    <Button> Claim this shop now! </Button>
+                    <Button onClick={this.handleShopClaim}>
+                      Claim this shop now!
+                    </Button>
                   </div>
                 ) : !this.props.currentUser.shopId ? (
                   <div>
