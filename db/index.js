@@ -10,15 +10,14 @@ const User = db.define("user", {
 
 const Shop = db.define("shop", {
   address: { type: Sequelize.STRING, allowNull: false },
+  name: { type: Sequelize.STRING, allowNull: false },
   email: { type: Sequelize.TEXT, allowNull: false },
-  mobile: { type: Sequelize.BOOLEAN, allowNull: true },
   phone: { type: Sequelize.STRING, allowNull: false },
-  pickup: { type: Sequelize.BOOLEAN, allowNull: false },
   picture: { type: Sequelize.TEXT, allowNull: true },
   rating: { type: Sequelize.FLOAT, allowNull: true },
   review_count: { type: Sequelize.INTEGER, allowNull: true },
   calendar_id: { type: Sequelize.TEXT, allowNull: true },
-  yelp_id: { type: Sequelize.TEXT, allowNull: true },
+  yelp_id: { type: Sequelize.TEXT, allowNull: false },
   tk_api_token: { type: Sequelize.TEXT, allowNull: true }
 });
 

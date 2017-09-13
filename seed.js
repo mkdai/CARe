@@ -79,42 +79,42 @@ db
   .then(() =>
     Shop.bulkCreate([
       {
-        address: "Test1 St Pasadena, CA 91106",
+        name: "Valvoline Instant Oil Change",
+        address: "9014 National Blvd\nLos Angeles, CA 90034",
         email: "ethanefung@gmail.com",
-        phone: "(626) 795-7018",
+        phone: "(310) 202-0198",
         yelp_id: "valvoline-instant-oil-change-los-angeles",
-        pickup: false,
         picture:
-          "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"
+          "https://s3-media2.fl.yelpcdn.com/bphoto/9WsN0FM0tUcagxFjsOVWgQ/o.jpg"
       },
       {
-        address: "Test2 Address Ave. Glendale, CA 11111",
+        name: "Valvoline Instant Oil Change",
+        address: "2029 S Sepulveda Blvd\nLos Angeles, CA 90025",
         email: "shop2@testEmail.com",
-        phone: "(626) 555-7585",
+        phone: "(310) 696-0160",
         yelp_id: "valvoline-instant-oil-change-los-angeles-19",
-        pickup: true,
         picture:
-          "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"
+          "https://s3-media2.fl.yelpcdn.com/bphoto/7wDXPk1DdQ5sqeXEBFSCmw/o.jpg"
       },
       {
-        address: "Test3 Blvd. Pasadena, CA 91106",
+        name: "Jiffy Lube",
+        address: "700 North La Brea Ave\nLos Angeles, CA 90038",
         email: "jhwang137@gmail.com",
-        phone: "(626) 795-7018",
         calendar_id: "028c71b7-6ea2-450d-b1d5-4f26b828c4ab",
         tk_api_token: "6G7Xm3jDg36Km4jDgPR4yhMaQxzmjJgq",
+        phone: "(323) 937-7179",
         yelp_id: "jiffy-lube-los-angeles-3",
-        pickup: false,
         picture:
-          "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"
+          "https://s3-media4.fl.yelpcdn.com/bphoto/G1xsqiELdx5FoY3nSB2g3g/o.jpg"
       },
       {
-        address: "Test4 Ave. Glendale, CA 11111",
+        name: "Lube Masters",
+        address: "2805 Colorado Blvd\nLos Angeles, CA 90041",
         email: "here@here.com",
-        phone: "(626) 555-7585",
+        phone: "(323) 254-0741",
         yelp_id: "lube-masters-los-angeles",
-        pickup: true,
         picture:
-          "https://s3-media4.fl.yelpcdn.com/bphoto/WrtUFUssbokGmNW6BG-BMQ/o.jpg"
+          "https://s3-media1.fl.yelpcdn.com/bphoto/TxuG4aomU4nE675CMRrnCA/o.jpg"
       }
     ])
   )

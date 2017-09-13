@@ -3,7 +3,8 @@ const {
   Review,
   Car,
   Favorite,
-  Appointment
+  Appointment,
+  Shop
 } = require("../../db/index");
 const timekit = require("timekit-sdk");
 const {
@@ -27,6 +28,15 @@ timekit
   .catch(() => console.log("SProfilePageCtrl: un-authorized tk credentials"));
 
 module.exports = {
+  claimShop: (req, res) => {
+    Shop.create(req.body)
+      .then(resp => {
+        res.status(201).send(resp);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
+  },
   postFavorite: (req, res) => {
     console.log("adding fav", req.query.userId, req.query.shopId);
     Favorite.findOrCreate({
