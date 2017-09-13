@@ -123,15 +123,14 @@ module.exports = {
       // timekit.updateCalendar({id: calId}) //Update calendar is not possible for timekit
       timekit
         .deleteCalendar({ id: calId })
-        .then(() => {
-          l("calendar has been deleted, creating calendar");
+        .then(() =>
           timekit.createCalendar({
             name: shopName,
             description: shopDescription
-          });
-        })
-        .then(() => {
-          l("created new calendar for shop ", tk.data);
+          })
+        )
+        .then(tk => {
+          l("created new calendar for shop ");
           cal.calId = tk.data.id;
           Shop.update({ calendar_id: tk.data.id }, { where: { id } });
         })
@@ -142,8 +141,8 @@ module.exports = {
         })
         .then(() => l("sent shop calendar_id to front end"))
         .catch(err => {
-          l("error creating calendar for existing tk user", err.data);
-          res.status(400).send(err.data);
+          l("error creating calendar for existing tk user", err);
+          res.status(400).send(err);
         });
     }
   },
