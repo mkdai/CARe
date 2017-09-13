@@ -183,6 +183,7 @@ class ShopProfilePage extends Component {
               </Tab>
               <Tab eventKey={2} title="Appointments">
                 <Row>
+                  {console.log(this.props.currentUser.id)}
                   {this.props.currentUser.id ? (
                     <Appointments {...this.state} {...this.props} />
                   ) : (
@@ -200,8 +201,13 @@ class ShopProfilePage extends Component {
                     <div>Is this your business?</div>
                     <Button> Claim this shop now! </Button>
                   </div>
-                ) : (
+                ) : !this.props.currentUser.shopId ? (
                   <div> Sign in to claim this business! </div>
+                ) : (
+                  <div>
+                    You already manage another business, so you cannot claim
+                    another one!
+                  </div>
                 )}
               </Col>
             </Row>
