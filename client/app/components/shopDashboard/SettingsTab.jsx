@@ -20,6 +20,8 @@ class SettingsTab extends Component {
             handleAttributeChange={this.props.handleAttributeChange}
             handleBuildCalendar={this.props.handleBuildCalendar}
             handleDaysOfServiceChange={this.props.handleDaysOfServiceChange}
+            handleHoursOfOpChange={this.props.handleHoursOfOpChange}
+            handleTestSettings={this.props.handleTestSettings}
           />
         </Jumbotron>
       </div>
