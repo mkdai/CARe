@@ -109,11 +109,7 @@ class ShopDashboard extends Component {
   }
 
   handleDaysOfServiceChange(e) {
-<<<<<<< HEAD
     const day = { start: 32400, end: 64800 }; //basic 9 to 6 work day
-=======
-    const day = { start: 0, end: 0 };
->>>>>>> 2d57860aeea85c5a08c8029bfa8b44a86a9e83e9
     day.value = e.target.value;
 
     let dOS = this.state.daysOfService;
