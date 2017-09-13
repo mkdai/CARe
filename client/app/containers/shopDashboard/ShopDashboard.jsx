@@ -48,12 +48,14 @@ class ShopDashboard extends Component {
       shopName: "",
       shopEmail: "",
       shopDescription: "",
-      hoursOfOperation: {},
       week: ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"],
       daysOfService: []
     };
+
+    this.handleHoursOfOpChange = this.handleHoursOfOpChange.bind(this);
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleDaysOfServiceChange = this.handleDaysOfServiceChange.bind(this);
+    this.handleTestSettings = this.handleTestSettings.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
   }
 
@@ -83,17 +85,40 @@ class ShopDashboard extends Component {
       .catch(err => l("could not get shopId"));
   }
 
+  handleHoursOfOpChange(day, start, end) {
+    let { daysOfService } = this.state;
+
+    for (let i = 0; i < daysOfService.length; i++) {
+      if (day === daysOfService[i].value) {
+        daysOfService[i].start = start;
+        daysOfService[i].end = end;
+      }
+    }
+
+    this.setState({ daysOfService: daysOfService });
+  }
+
+  handleTestSettings() {
+    l("this is the state", this.state);
+  }
+
   handleAttributeChange(e, attribute) {
     e.preventDefault();
-    l(this.state[attribute], e.target.value);
+
     this.setState({ [attribute]: e.target.value });
   }
 
   handleDaysOfServiceChange(e) {
-    let day = e.target.value;
+<<<<<<< HEAD
+    const day = { start: 32400, end: 64800 }; //basic 9 to 6 work day
+=======
+    const day = { start: 0, end: 0 };
+>>>>>>> 2d57860aeea85c5a08c8029bfa8b44a86a9e83e9
+    day.value = e.target.value;
+
     let dOS = this.state.daysOfService;
 
-    if (dOS.some((x, i) => day === x)) {
+    if (dOS.some((x, i) => day.value === x)) {
       dOS.splice(dOS.indexOf(day), 1);
     } else {
       let { week } = this.state;
@@ -104,19 +129,32 @@ class ShopDashboard extends Component {
         if (week.indexOf(curr) > idx) {
           dOS.splice(i, 0, day);
           console.log("after splice", dOS);
-          this.setState({ daysOfService: dOS });
+          this.setState({ daysOfService: dOS }, () =>
+            l("this is the state of daysOfService, ", this.state.daysOfService)
+          );
           return;
         }
       }
-      this.setState({ daysOfService: dOS.push(day) });
+      this.setState({ daysOfService: dOS.push(day) }, () =>
+        l("this is the state of daysOfService, ", this.state.daysOfService)
+      );
     }
-    this.setState({ daysOfService: dOS });
+    this.setState({ daysOfService: dOS }, () =>
+      l("this is the state of daysOfService, ", this.state.daysOfService)
+    );
   }
 
   handleBuildCalendar() {
-    l("user requests to create calendar");
-    let { firstName, lastName, shopId, shopName, shopDescription } = this.state;
-    l("the email is a ", typeof email);
+    l("user requests to create calendar. STATE:", this.state);
+    let {
+      firstName,
+      lastName,
+      shopId,
+      shopName,
+      shopDescription,
+      daysOfService,
+      calId
+    } = this.state;
 
     axios
       .post(`api/shopdashboard/createCalendar`, {
@@ -126,7 +164,8 @@ class ShopDashboard extends Component {
         shopName: shopName,
         shopDescription: shopDescription,
         shopEmail: this.props.currentUser.email,
-        hoursOfOperation: { days: [] }
+        daysOfService: daysOfService,
+        calId: calId
       })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
@@ -167,6 +206,8 @@ class ShopDashboard extends Component {
                 handleDaysOfServiceChange={this.handleDaysOfServiceChange}
                 handleAttributeChange={this.handleAttributeChange}
                 handleBuildCalendar={this.handleBuildCalendar}
+                handleHoursOfOpChange={this.handleHoursOfOpChange}
+                handleTestSettings={this.handleTestSettings}
               />
             </Tab>
           </Tabs>
