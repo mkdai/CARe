@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
+import Rating from "react-rating";
+
 class ReviewEntry extends Component {
   render() {
     return (
@@ -8,9 +10,20 @@ class ReviewEntry extends Component {
           {this.props.review.user.name}
         </Col>
         <Col lg={9} md={9} xs={9} sm={9}>
-          <div>Rating: {this.props.review.rating}</div>
+          <div>
+            <Rating
+              readonly
+              initialRate={this.props.review.rating}
+              empty={<img src="img/wrench-empty.png" className="icon" />}
+              full={<img src="img/wrench-full.png" className="icon" />}
+            />
+          </div>
           <div>Review: {this.props.review.review}</div>
-          <div>Shop Response: {this.props.review.response}</div>
+          <div>
+            {this.props.review.response !== "" ? (
+              `Shop Response: ${this.props.review.response}`
+            ) : null}
+          </div>
         </Col>
       </Row>
     );

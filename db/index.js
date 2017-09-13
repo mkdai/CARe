@@ -49,9 +49,10 @@ const Review = db.define("review", {
 });
 
 const Appointment = db.define("appointment", {
-  date: { type: Sequelize.DATE, allowNull: false },
   service: { type: Sequelize.STRING, allowNull: false },
-  time: { type: Sequelize.STRING, allowNull: false }
+  time: { type: Sequelize.STRING, allowNull: false },
+  calendarId: { type: Sequelize.STRING, allowNull: true },
+  bookingId: { type: Sequelize.STRING, allowNull: true }
 });
 
 const Favorite = db.define("favorite", {});
@@ -111,6 +112,10 @@ Review.belongsTo(Shop, {
 Appointment.belongsTo(User, {
   through: Appointment,
   foreignKey: { name: "userId", unique: false }
+});
+Appointment.belongsTo(Car, {
+  through: Appointment,
+  foreignKey: { name: "carId", unique: false }
 });
 Appointment.belongsTo(Shop, {
   through: Appointment,

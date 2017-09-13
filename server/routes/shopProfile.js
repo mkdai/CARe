@@ -7,4 +7,6 @@ router.post("/postHistoryEntry", controller.postHistoryEntry);
 router.post("/postReviewEntry", controller.postReview);
 router.post("/favorite", controller.postFavorite);
 router.delete("/favorite", controller.deleteFavorite);
+router.post("/postAppointment", controller.postAppointment);
+
 module.exports = router;

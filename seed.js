@@ -236,21 +236,18 @@ db
   .then(() =>
     Appointment.bulkCreate([
       {
-        date: new Date(2017, 8, 30),
         service: "service test 1",
         time: "time test 1.  I am a string",
         userId: 2,
         shopId: 1
       },
       {
-        date: new Date(2017, 8, 24),
         service: "service test 2",
         time: "time test 2",
         userId: 1,
         shopId: 3
       },
       {
-        date: new Date(),
         service: "service test 3",
         time: "time test 3",
         userId: 4,

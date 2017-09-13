@@ -67,12 +67,32 @@ class Reviews extends Component {
   render() {
     return (
       <Col>
-        {this.props.currentAuth.isAuthenticated() ? (
-          <Button onClick={this.openModal}>Post a Review</Button>
-        ) : null}
-        {this.props.reviews.map(review => {
-          return <ReviewEntry review={review} />;
-        })}
+        {this.props.currentAuth.isAuthenticated() &&
+        !!this.props.currentUser.id ? (
+          <Button
+            onClick={this.openModal}
+            disabled={this.props.currentUser.shopId === this.props.dbShopId}
+          >
+            {this.props.currentUser.shopId === this.props.dbShopId ? (
+              `You own this shop!`
+            ) : (
+              `Post a Review`
+            )}
+          </Button>
+        ) : (
+          <Button onClick={this.props.currentAuth.login}>
+            Sign in to post a review!
+          </Button>
+        )}
+        {this.props.reviews.length === 0 ? (
+          <div>
+            There are no reviews for this shop yet!<div>Be the first to review it!</div>
+          </div>
+        ) : (
+          this.props.reviews.map(review => {
+            return <ReviewEntry review={review} />;
+          })
+        )}
         <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <h2>Post a Review!</h2>

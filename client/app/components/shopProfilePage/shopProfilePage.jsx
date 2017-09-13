@@ -21,7 +21,8 @@ import { Redirect } from "react-router";
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser.currentUser
+    currentUser: state.currentUser.currentUser,
+    currentAuth: state.currentAuth.auth
   };
 }
 
@@ -69,53 +70,62 @@ class ShopProfilePage extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    //handles browser refresh case, since async issues with redux
-    console.log(nextProps);
-    this.getShopData(nextProps);
+    //handles browser refresh case when signed in, since async issues with redux
+    if (nextProps.currentUser.id) {
+      this.getShopData(nextProps);
+    }
   }
   componentDidMount() {
-    console.log(`shopProfilePage mounted for user:`, this.props.currentUser);
+    console.log(
+      `shopProfilePage mounted for user:`,
+      this.props.currentUser,
+      this.props.currentAuth
+    );
     this.getShopData(this.props);
   }
   getShopData(props) {
-    console.log("getShopData request is made", props.currentUser.id);
-    // if (props.currentUser.id) {
-    let searchQueryString = this.props.location.search;
-    let parsed = querystring.parse(searchQueryString.substring(1));
-    axios
-      .get(
-        `/api/search/getshop?id=${parsed.idstring}&userId=${props.currentUser
-          .id}`
-      )
-      .then(res => {
-        console.log("shop info received: ", res.data);
-        this.setState({
-          idString: parsed.idstring,
-          name: res.data.name,
-          address1: res.data.location.display_address[0],
-          address2: res.data.location.display_address[1],
-          address2: res.data.location.display_address[2],
-          phone: res.data.display_phone,
-          rating: res.data.rating,
-          latitude: res.data.coordinates.latitude,
-          longitude: res.data.coordinates.longitude,
-          reviews: res.data.reviews,
-          dbpk: res.data.dbpk,
-          supported: res.data.isSupported,
-          calId: res.data.calId,
-          tk_token: res.data.tkToken,
-          email: res.data.email
-        });
-        if (!this.state.favorited)
+    console.log(
+      "getShopData request is made",
+      props.currentUser.id,
+      props.currentAuth
+    );
+    if (props.currentAuth.auth0) {
+      let searchQueryString = this.props.location.search;
+      let parsed = querystring.parse(searchQueryString.substring(1));
+      axios
+        .get(
+          `/api/search/getshop?id=${parsed.idstring}&userId=${props.currentUser
+            .id}`
+        )
+        .then(res => {
+          console.log("shop info received: ", res.data);
           this.setState({
-            favorited: res.data.favorited
+            idString: parsed.idstring,
+            name: res.data.name,
+            address1: res.data.location.display_address[0],
+            address2: res.data.location.display_address[1],
+            address2: res.data.location.display_address[2],
+            phone: res.data.display_phone,
+            rating: res.data.rating,
+            latitude: res.data.coordinates.latitude,
+            longitude: res.data.coordinates.longitude,
+            reviews: res.data.reviews,
+            dbpk: res.data.dbpk,
+            supported: res.data.isSupported,
+            calId: res.data.calId,
+            tk_token: res.data.tkToken,
+            email: res.data.email
           });
-      })
-      .catch(response => {
-        console.log("could not get shop data", response);
-        this.setState({ idString: "DOESNTEXIST" });
-      });
-    // }
+          if (!this.state.favorited)
+            this.setState({
+              favorited: res.data.favorited
+            });
+        })
+        .catch(response => {
+          console.log("could not get shop data", response);
+          this.setState({ idString: "DOESNTEXIST" });
+        });
+    }
   }
   renderValidPage() {
     return (
@@ -183,10 +193,27 @@ class ShopProfilePage extends Component {
               </Tab>
               <Tab eventKey={2} title="Appointments">
                 <Row>
-                  {this.props.currentUser.id ? (
+                  {this.props.currentUser.id ? this.state.calId ? (
                     <Appointments {...this.state} {...this.props} />
                   ) : (
-                    <div> Please sign in to make an appointment. </div>
+                    <div className="center">
+                      Sorry, this shop does not book appointments through our
+                      site.
+                    </div>
+                  ) : this.state.calId ? (
+                    <div className="center">
+                      <div>Please sign in to make an appointment.</div>
+                      <div>
+                        <Button onClick={this.props.currentAuth.login}>
+                          Sign in
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="center">
+                      Sorry, this shop does not book appointments through our
+                      site.
+                    </div>
                   )}
                 </Row>
               </Tab>
@@ -200,8 +227,18 @@ class ShopProfilePage extends Component {
                     <div>Is this your business?</div>
                     <Button> Claim this shop now! </Button>
                   </div>
+                ) : !this.props.currentUser.shopId ? (
+                  <div>
+                    <div> Sign in to claim this business! </div>
+                    <Button onClick={this.props.currentAuth.login}>
+                      Sign in
+                    </Button>
+                  </div>
                 ) : (
-                  <div> Sign in to claim this business! </div>
+                  <div>
+                    You already manage another business, so you cannot claim
+                    another one!
+                  </div>
                 )}
               </Col>
             </Row>
@@ -222,7 +259,12 @@ class ShopProfilePage extends Component {
     ) : (
       <div>
         <NavigationBar />
-        <div className="bump">Loading</div>
+        <div className="center bump">
+          <img src="/img/loading.gif" />
+          <div>
+            <h1>Loading...</h1>
+          </div>
+        </div>
       </div>
     );
     return page;

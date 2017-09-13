@@ -1,4 +1,10 @@
-const { HistoryEntry, Review, Car, Favorite } = require("../../db/index");
+const {
+  HistoryEntry,
+  Review,
+  Car,
+  Favorite,
+  Appointment
+} = require("../../db/index");
 const timekit = require("timekit-sdk");
 const {
   timekitApp,
@@ -76,7 +82,10 @@ module.exports = {
         // );
         res.status(200).send(response.data);
       })
-      .catch(err => res.status(400).send({ error: err }));
+      .catch(err => {
+        console.log(err.data);
+        res.status(400).send({ error: err.data });
+      });
   },
 
   getAppointments: (req, res) => {
@@ -134,5 +143,17 @@ module.exports = {
         res.status(201).send("Successfully created maintenance history!")
       )
       .catch(err => res.status(500).send("could not post to reviews"));
+  },
+  postAppointment: (req, res) => {
+    //req.body.service, userid, shopid, carid, calendarId, bookingid, time
+    Appointment.create(req.body)
+      .then(resp => {
+        console.log("appointment posted in db", resp);
+        res.status(201).send(resp);
+      })
+      .catch(err => {
+        console.log("error creating appointment in db", err);
+        res.status(500).send(err);
+      });
   }
 };

@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
+import { addUser } from "../../actions/currentUserAction.js";
+import { bindActionCreators } from "redux";
 import {
   Nav,
   Navbar,
@@ -16,6 +18,9 @@ function mapStateToProps(state) {
     currentAuth: state.currentAuth.auth,
     currentUser: state.currentUser.currentUser
   };
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addUser }, dispatch);
 }
 
 class NavigationBar extends React.Component {
@@ -59,6 +64,7 @@ class NavigationBar extends React.Component {
 
   logout() {
     this.props.currentAuth.logout();
+    this.props.addUser({});
     this.setState({ isAuthed: false });
   }
 
@@ -139,4 +145,4 @@ class NavigationBar extends React.Component {
 NavigationBar.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
-export default connect(mapStateToProps)(NavigationBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

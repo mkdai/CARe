@@ -42,7 +42,14 @@ class LoadingPage extends Component {
 
   handleRedirect() {
     if (this.state.loggedIn === 0) {
-      return <div>YOU'RE ON THIS SHITTY LOADING PAGE~</div>;
+      return (
+        <div className="center">
+          <img src="/img/loading.gif" />
+          <div>
+            <h1>Loading...</h1>
+          </div>
+        </div>
+      );
     } else if (this.state.loggedIn) {
       return <Redirect to="/" />;
     } else {
