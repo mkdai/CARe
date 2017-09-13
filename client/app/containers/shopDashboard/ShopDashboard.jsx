@@ -141,16 +141,16 @@ class ShopDashboard extends Component {
   }
 
   handleBuildCalendar() {
-    l("user requests to create calendar");
+    l("user requests to create calendar. STATE:", this.state);
     let {
       firstName,
       lastName,
       shopId,
       shopName,
       shopDescription,
-      daysOfService
+      daysOfService,
+      calId
     } = this.state;
-    l("the email is a ", typeof email);
 
     axios
       .post(`api/shopdashboard/createCalendar`, {
@@ -160,7 +160,8 @@ class ShopDashboard extends Component {
         shopName: shopName,
         shopDescription: shopDescription,
         shopEmail: this.props.currentUser.email,
-        daysOfService: daysOfService
+        daysOfService: daysOfService,
+        calId: calId
       })
       //You can create a new calendar for the current user by calling this endpoint.
       // If the user/resource has a connected Google account, then we will save the new calendar to Google.
