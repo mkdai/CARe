@@ -25,7 +25,7 @@ export default class CarHead extends React.Component {
               <span className="span-spacer">{this.props.car.make}</span>
               <span className="span-spacer">{this.props.car.model}</span>
             </div>
-            <div>Next Service Date: Nov 2017</div>
+            <div>Last Logged Mileage: {this.props.car.mileage}</div>
           </div>
         </div>
       </div>

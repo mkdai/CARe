@@ -21,7 +21,8 @@ class UserDashboard extends React.Component {
 
     this.state = {
       cars: [],
-      currentCarId: null
+      currentCarId: null,
+      favShops: []
     };
     this.selectCar = this.selectCar.bind(this);
     this.handleAddCar = this.handleAddCar.bind(this);

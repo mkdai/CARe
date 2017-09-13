@@ -1,8 +1,18 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 import axios from "axios";
+import {
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Col,
+  Button,
+  Well,
+  Row
+} from "react-bootstrap";
 
 const CLOUDINARY_UPLOAD_PRESET = "griffPreset";
 const CLOUDINARY_UPLOAD_URL =
@@ -208,75 +218,80 @@ export default class AddCar extends React.Component {
             <Modal.Title>Add Car</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <label>Make</label>
-            <form>
-              <input
-                name="make"
-                onChange={this.handleOnChange}
-                className="edit-profile-input"
-                type="text"
-                placeholder="Enter the make of your car"
-              />
-            </form>
-            <label>Model</label>
-            <form>
-              <input
-                name="model"
-                onChange={this.handleOnChange}
-                className="edit-profile-input"
-                type="text"
-                placeholder="Enter the model of your car"
-              />
-            </form>
-            <label>Year</label>
-            <form>
-              <input
-                name="year"
-                onChange={this.handleOnChange}
-                className="edit-profile-input"
-                type="text"
-                placeholder="Enter the year of your car"
-              />
-            </form>
-            <label>Mileage</label>
-            <form>
-              <input
-                name="mileage"
-                onChange={this.handleOnChange}
-                className="edit-profile-input"
-                type="text"
-                placeholder="Enter the mileage of your car"
-              />
-            </form>
-            <label>License Plate Number</label>
-            <form>
-              <input
-                name="license"
-                onChange={this.handleOnChange}
-                className="edit-profile-input"
-                type="text"
-                placeholder="Enter the license plate number of your car"
-              />
-            </form>
-            <hr />
-            <label>Car Picture</label>
-            <Dropzone
-              multiple={false}
-              accept="image/*"
-              onDrop={this.onImageDrop.bind(this)}
-            >
-              <p>Drop an image or click to select a file to upload.</p>
-            </Dropzone>
-            <div className="FileUpload">...</div>
+            <Well>
+              <label>Make</label>
+              <Form>
+                <input
+                  name="make"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="Enter the make of your car"
+                />
+              </Form>
+              <label>Model</label>
+              <Form>
+                <input
+                  name="model"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="Enter the model of your car"
+                />
+              </Form>
+              <label>Year</label>
+              <Form>
+                <input
+                  name="year"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="Enter the year of your car"
+                />
+              </Form>
+              <label>Mileage</label>
+              <Form>
+                <input
+                  name="mileage"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="Enter the mileage of your car"
+                />
+              </Form>
+              <label>License Plate Number</label>
+              <Form>
+                <input
+                  name="license"
+                  onChange={this.handleOnChange}
+                  className="edit-profile-input"
+                  type="text"
+                  placeholder="Enter the license plate number of your car"
+                />
+              </Form>
+              <hr />
+              <label>Car Picture</label>
+              <Dropzone
+                multiple={false}
+                accept="image/*"
+                onDrop={this.onImageDrop.bind(this)}
+              >
+                <p>Drop an image or click to select a file to upload.</p>
+              </Dropzone>
+              <div className="FileUpload">...</div>
 
-            <div>
-              {this.state.uploadedFileCloudinaryUrl === "" ? null : (
-                <div>
-                  <p>{this.state.uploadedFile.name}</p>
-                  <img src={this.state.uploadedFileCloudinaryUrl} />
-                </div>
-              )}
-            </div>
+              <div>
+                {this.state.uploadedFileCloudinaryUrl === "" ? null : (
+                  <div>
+                    <p>{this.state.uploadedFile.name}</p>
+                    <img
+                      id="car-pic-modal"
+                      src={this.state.uploadedFileCloudinaryUrl}
+                    />
+                  </div>
+                )}
+              </div>
+            </Well>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close}>Cancel</Button>

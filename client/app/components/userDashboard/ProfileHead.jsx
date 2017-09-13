@@ -1,9 +1,19 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {
+  Form,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Col,
+  Button,
+  Well,
+  Row
+} from "react-bootstrap";
 
 const CLOUDINARY_UPLOAD_PRESET = "griffPreset";
 const CLOUDINARY_UPLOAD_URL =
@@ -118,7 +128,11 @@ export default class ProfileHead extends React.Component {
           <div className="profile-info">
             <div>{this.state.name}</div>
             <div>
-              <Link to="/user-reviews">Reviews</Link>
+              <Link to="/user-reviews">
+                <a href="#" className="reviews-link">
+                  Reviews
+                </a>
+              </Link>
             </div>
             <div>
               <Link to="/user-favorites">
@@ -140,45 +154,47 @@ export default class ProfileHead extends React.Component {
               <Modal.Title>Edit Profile</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <label>Name</label>
-              <form>
-                <input
-                  name="name"
-                  onChange={this.handleOnChange}
-                  className="edit-profile-input"
-                  type="text"
-                  placeholder="Enter your name"
-                />
-              </form>
-              <label>Phone</label>
-              <form>
-                <input
-                  name="phone"
-                  onChange={this.handleOnChange}
-                  className="edit-profile-input"
-                  type="text"
-                  placeholder="E.g. 5553214578"
-                />
-              </form>
-              <hr />
-              <label>Profile Picture</label>
-              <Dropzone
-                multiple={false}
-                accept="image/*"
-                onDrop={this.onImageDrop.bind(this)}
-              >
-                <p>Drop an image or click to select a file to upload.</p>
-              </Dropzone>
-              <div className="FileUpload">...</div>
+              <Well>
+                <label>Name</label>
+                <Form>
+                  <input
+                    name="name"
+                    onChange={this.handleOnChange}
+                    className="edit-profile-input"
+                    type="text"
+                    placeholder="Enter your name"
+                  />
+                </Form>
+                <label>Phone</label>
+                <Form>
+                  <input
+                    name="phone"
+                    onChange={this.handleOnChange}
+                    className="edit-profile-input"
+                    type="text"
+                    placeholder="E.g. 5553214578"
+                  />
+                </Form>
+                <hr />
+                <label>Profile Picture</label>
+                <Dropzone
+                  multiple={false}
+                  accept="image/*"
+                  onDrop={this.onImageDrop.bind(this)}
+                >
+                  <p>Drop an image or click to select a file to upload.</p>
+                </Dropzone>
+                <div className="FileUpload">...</div>
 
-              <div>
-                {this.state.uploadedFileCloudinaryUrl === "" ? null : (
-                  <div>
-                    <p>{this.state.uploadedFile.name}</p>
-                    <img src={this.state.uploadedFileCloudinaryUrl} />
-                  </div>
-                )}
-              </div>
+                <div>
+                  {this.state.uploadedFileCloudinaryUrl === "" ? null : (
+                    <div>
+                      <p>{this.state.uploadedFile.name}</p>
+                      <img src={this.state.uploadedFileCloudinaryUrl} />
+                    </div>
+                  )}
+                </div>
+              </Well>
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.close}>Cancel</Button>

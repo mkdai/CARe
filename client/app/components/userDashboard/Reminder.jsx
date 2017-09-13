@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ReminderEntry from "./ReminderEntry.jsx";
+import { Accordion, Panel } from "react-bootstrap";
 
 export default class Reminder extends React.Component {
   constructor(props) {
@@ -24,9 +25,11 @@ export default class Reminder extends React.Component {
   render() {
     return (
       <div>
-        {this.state.reminders.map((reminder, i) => (
-          <ReminderEntry reminder={reminder} key={i} />
-        ))}
+        <Accordion>
+          {this.state.reminders.map((reminder, i) => (
+            <ReminderEntry reminder={reminder} key={i} />
+          ))}
+        </Accordion>
       </div>
     );
   }
