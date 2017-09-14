@@ -47,6 +47,7 @@ class ShopProfilePage extends Component {
       latitude: "",
       longitude: "",
       reviews: [],
+      daysOfService: [],
       dbpk: -1
     };
     this.handleFav = _.debounce(this.handleFav, 500).bind(this);
@@ -147,7 +148,8 @@ class ShopProfilePage extends Component {
             supported: res.data.isSupported,
             calId: res.data.calId,
             tk_token: res.data.tkToken,
-            email: res.data.email
+            email: res.data.email,
+            daysOfService: res.data.daysOfService
           });
           if (!this.state.favorited)
             this.setState({
