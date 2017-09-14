@@ -3,6 +3,7 @@ import Appointments from "../../components/shopProfilePage/Appointments.jsx";
 import Reviews from "../../components/shopProfilePage/Reviews.jsx";
 import Map from "../../components/shopProfilePage/Map.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
+import Hours from "../../components/shopProfilePage/Hours.jsx";
 import querystring from "querystring";
 import axios from "axios";
 import { bindActionCreators } from "redux";
@@ -194,6 +195,11 @@ class ShopProfilePage extends Component {
                   <Button onClick={this.handleFav}> Unfavorite </Button>
                 ) : (
                   <Button onClick={this.handleFav}> Favorite </Button>
+                ) : null}
+              </Col>
+              <Col>
+                {this.state.daysOfService ? (
+                  <Hours daysOfService={this.state.daysOfService} />
                 ) : null}
               </Col>
             </Col>
