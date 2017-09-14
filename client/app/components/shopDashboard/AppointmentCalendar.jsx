@@ -4,9 +4,7 @@ import $ from "jquery";
 import axios from "axios";
 import fullCalendar from "fullcalendar";
 
-function l(...props) {
-  console.log(...props);
-}
+const l = console.log;
 
 class AppointmentCalendar extends Component {
   /* ShopDashboard Appointment Calendar should
