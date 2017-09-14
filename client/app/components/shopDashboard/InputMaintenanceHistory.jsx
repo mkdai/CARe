@@ -19,6 +19,15 @@ export default class InputMaintenanceHistory extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    axios
+      .get(`/api/shopdashboard/getCar/${this.props.bookingId}`)
+      .then(({ data }) => {
+        console.log("appointment info here", data);
+        this.setState({ carId: data[0].carId });
+      });
+  }
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -31,10 +40,8 @@ export default class InputMaintenanceHistory extends Component {
         mileage: this.state.formCarMileage,
         notes: this.state.formAdditionalNotes,
         service: this.state.formServiceName,
-        // carId from redux/state
-        // ShopId from redux/state
-        shopId: this.props.shopId,
-        carId: 5
+        carId: this.state.carId,
+        shopId: this.props.shopId
       })
       .then(() => {
         console.log("Successfully posted maintenance history!");

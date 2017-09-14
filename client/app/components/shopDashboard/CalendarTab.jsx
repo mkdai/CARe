@@ -17,7 +17,10 @@ class CalendarTab extends Component {
         <Row>
           <Col>
             {!!this.props.hasCalendar ? (
-              <AppointmentCalendar {...this.props} />
+              <AppointmentCalendar
+                {...this.props}
+                handleGetCarInfo={this.props.handleGetCarInfo}
+              />
             ) : (
               <Jumbotron>
                 <p>
