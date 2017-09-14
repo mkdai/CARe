@@ -4,7 +4,8 @@ const {
   Car,
   Favorite,
   Appointment,
-  Shop
+  Shop,
+  User
 } = require("../../db/index");
 const timekit = require("timekit-sdk");
 const {
@@ -29,9 +30,20 @@ timekit
 
 module.exports = {
   claimShop: (req, res) => {
-    Shop.create(req.body)
+    let { name, yelp_id, address, email, phone, picture, userId } = req.body;
+    Shop.create({ name, yelp_id, address, email, phone, picture })
       .then(resp => {
-        res.status(201).send(resp);
+        console.log(
+          "Shop created with id: ",
+          resp.id,
+          "assigning to user: ",
+          userId
+        );
+        User.update({ shopId: resp.id }, { where: { id: userId } }).then(() => {
+          User.find({ where: { id: userId } }).then(row => {
+            res.status(201).send(row);
+          });
+        });
       })
       .catch(err => {
         res.status(500).send(err);
