@@ -59,19 +59,39 @@ class ShopDashboard extends Component {
     this.handleTestSettings = this.handleTestSettings.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
     this.handleGetCarInfo = this.handleGetCarInfo.bind(this);
+    this.grabCalendarInfo = this.grabCalendarInfo.bind(this);
   }
-
+  componentWillReceiveProps(nextprops) {
+    l(
+      "shop dashboard mounted & requesting calId with recieved PROPS:",
+      nextprops
+    );
+    if (nextprops.currentUser.id) {
+      this.setState(
+        {
+          shopEmail: nextprops.currentUser.email,
+          shopId: nextprops.currentUser.shopId
+        },
+        () => this.grabCalendarInfo(nextprops)
+      );
+    }
+  }
   componentDidMount() {
     l("shop dashboard mounted & requesting calId PROPS:", this.props);
-
-    this.setState({
-      shopEmail: this.props.currentUser.email,
-      shopId: this.props.currentUser.shopId
-    });
-
+    if (this.props.currentUser.id) {
+      this.setState(
+        {
+          shopEmail: this.props.currentUser.email,
+          shopId: this.props.currentUser.shopId
+        },
+        () => this.grabCalendarInfo(this.props)
+      );
+    }
+  }
+  grabCalendarInfo(props) {
     axios
       .get(`api/shopdashboard/getCalId`, {
-        params: { shopId: this.props.currentUser.shopId }
+        params: { shopId: props.currentUser.shopId }
       })
       .then(res => {
         l("getCalId responded", res);

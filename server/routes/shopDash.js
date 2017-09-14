@@ -7,5 +7,6 @@ router.get("/getCalendar", controller.getCalendar);
 router.post("/createCalendar", controller.createCalendar);
 router.delete("/deleteCalendar", controller.deleteCalendar);
 router.get("/getCar/:id", controller.getCar);
+router.put("/setServices/:id/:services", controller.setServices);
 
 module.exports = router;
