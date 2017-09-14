@@ -5,6 +5,7 @@ import Map from "../../components/shopProfilePage/Map.jsx";
 import NavigationBar from "../../containers/navBar/NavigationBar.jsx";
 import querystring from "querystring";
 import axios from "axios";
+import { bindActionCreators } from "redux";
 import Rating from "react-rating";
 import {
   Grid,
@@ -18,12 +19,16 @@ import {
 import { connect } from "react-redux";
 import _ from "underscore";
 import { Redirect } from "react-router";
+import { addUser } from "../../actions/currentUserAction.js";
 
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser.currentUser,
     currentAuth: state.currentAuth.auth
   };
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addUser }, dispatch);
 }
 
 class ShopProfilePage extends Component {
@@ -56,12 +61,19 @@ class ShopProfilePage extends Component {
       address: this.state.display_address.join("\n"),
       email: this.props.currentUser.email,
       phone: this.state.phone,
-      picture: this.state.image
+      picture: this.state.image,
+      userId: this.props.currentUser.id
     };
     axios
       .post("/api/shopProfile/claimShop", data)
       .then(response => {
-        this.getShopData(this.props);
+        console.log(
+          "shop has been claimed, user data updated: ",
+          response.data
+        );
+        //sending new user data with shopId to store, triggers getting shop data
+        this.props.addUser(response.data);
+        // this.getShopData(this.props);
       })
       .catch(err => {
         console.log(err);
@@ -294,4 +306,4 @@ class ShopProfilePage extends Component {
   }
 }
 
-export default connect(mapStateToProps)(ShopProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopProfilePage);
