@@ -33,7 +33,7 @@ class AppointmentInput extends Component {
         return endTime < time.end ? time.end : endTime;
       }, days[0].end);
 
-      let startTimeHours = startTime / 3600;
+      let startTimeHours = Math.floor(startTime / 3600);
       let startTimeMinutes = (startTime % 3600) / 60;
       if (startTimeMinutes < 10) {
         startTimeMinutes = "0" + startTimeMinutes;
@@ -41,7 +41,7 @@ class AppointmentInput extends Component {
       startTime = `${startTimeHours}:${startTimeMinutes}`;
       l("this is the start time", startTime);
 
-      let endTimeHours = endTime / 3600;
+      let endTimeHours = Math.floor(endTime / 3600);
       let endTimeMinutes = (endTime % 3600) / 60;
       if (endTimeMinutes < 10) {
         endTimeMinutes = "0" + endTimeMinutes;
