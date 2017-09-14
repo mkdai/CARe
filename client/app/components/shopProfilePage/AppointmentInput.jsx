@@ -23,7 +23,7 @@ class AppointmentInput extends Component {
   }
 
   componentDidMount() {
-    l("AppointmentInput Mounted, received props: ", this.props);
+    // l("AppointmentInput Mounted, received props: ", this.props);
     if (this.props.daysOfService.length > 0) {
       let days = this.props.daysOfService;
       let startTime = days.reduce((startTime, day) => {
@@ -39,7 +39,7 @@ class AppointmentInput extends Component {
         startTimeMinutes = "0" + startTimeMinutes;
       }
       startTime = `${startTimeHours}:${startTimeMinutes}`;
-      l("this is the start time", startTime);
+      // l("this is the start time", startTime);
 
       let endTimeHours = Math.floor(endTime / 3600);
       let endTimeMinutes = (endTime % 3600) / 60;
