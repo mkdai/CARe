@@ -36,7 +36,7 @@ class Appointments extends Component {
   }
 
   componentDidMount() {
-    l("Appointments component mounted, getting bookings, props:", this.props);
+    // l("Appointments component mounted, getting bookings, props:", this.props);
     axios
       .get(`api/shopProfile/getBookings`, {
         params: { calId: this.props.calId }

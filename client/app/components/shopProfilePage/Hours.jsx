@@ -9,7 +9,14 @@ class Hours extends Component {
   componentDidMount() {
     for (let day of this.props.daysOfService) {
       let { start, end, value } = day;
-      console.log("this is the start of day", value, start);
+      // console.log("this is the start of day", value, start);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    for (let day of this.props.daysOfService) {
+      let { start, end, value } = day;
+      // console.log("this is the start of day", value, start);
     }
   }
 

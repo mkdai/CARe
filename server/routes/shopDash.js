@@ -8,5 +8,5 @@ router.post("/createCalendar", controller.createCalendar);
 router.delete("/deleteCalendar", controller.deleteCalendar);
 router.get("/getCar/:id", controller.getCar);
 router.put("/setServices/:id/:services", controller.setServices);
-
+router.put("/updateHours", controller.updateHours);
 module.exports = router;

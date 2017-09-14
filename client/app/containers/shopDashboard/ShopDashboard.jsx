@@ -56,7 +56,7 @@ class ShopDashboard extends Component {
     this.handleHoursOfOpChange = this.handleHoursOfOpChange.bind(this);
     this.handleAttributeChange = this.handleAttributeChange.bind(this);
     this.handleDaysOfServiceChange = this.handleDaysOfServiceChange.bind(this);
-    this.handleTestSettings = this.handleTestSettings.bind(this);
+    this.handleSetHours = this.handleSetHours.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
     this.handleGetCarInfo = this.handleGetCarInfo.bind(this);
     this.grabCalendarInfo = this.grabCalendarInfo.bind(this);
@@ -126,8 +126,15 @@ class ShopDashboard extends Component {
     this.setState({ daysOfService: daysOfService });
   }
 
-  handleTestSettings() {
-    l("this is the state", this.state);
+  handleSetHours() {
+    l("handling setting hours");
+    axios
+      .put("api/shopdashboard/updateHours", {
+        id: this.props.currentUser.shopId,
+        daysOfService: this.state.daysOfService
+      })
+      .then(() => alert("hours have been set"))
+      .catch(err => alert("could not set hours"));
   }
 
   handleAttributeChange(e, attribute) {
@@ -176,7 +183,6 @@ class ShopDashboard extends Component {
       shopId,
       shopName,
       shopDescription,
-      daysOfService,
       calId
     } = this.state;
 
@@ -188,7 +194,6 @@ class ShopDashboard extends Component {
         shopName: shopName,
         shopDescription: shopDescription,
         shopEmail: this.props.currentUser.email,
-        daysOfService: daysOfService,
         calId: calId
       })
       //You can create a new calendar for the current user by calling this endpoint.
@@ -238,7 +243,7 @@ class ShopDashboard extends Component {
                 handleAttributeChange={this.handleAttributeChange}
                 handleBuildCalendar={this.handleBuildCalendar}
                 handleHoursOfOpChange={this.handleHoursOfOpChange}
-                handleTestSettings={this.handleTestSettings}
+                handleSetHours={this.handleSetHours}
               />
             </Tab>
           </Tabs>

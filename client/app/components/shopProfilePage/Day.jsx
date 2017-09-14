@@ -11,7 +11,7 @@ class Day extends Component {
 
   componentDidMount() {
     let { start, end } = this.props;
-    console.log("here are the day props:", this.props);
+    // console.log("here are the day props:", this.props);
 
     let startTime = "";
     let startTimeHours = Math.floor(start / 3600);
@@ -27,7 +27,7 @@ class Day extends Component {
     }
     startTime = `${startTimeHours}:${startTimeMinutes}` + startTime;
 
-    console.log("this is the startTime", startTime);
+    // console.log("this is the startTime", startTime);
 
     let endTime = "";
     let endTimeHours = Math.floor(end / 3600);
@@ -43,7 +43,7 @@ class Day extends Component {
     }
     endTime = `${endTimeHours}:${endTimeMinutes}` + endTime;
 
-    console.log("this is the endTime", endTime);
+    // console.log("this is the endTime", endTime);
 
     this.setState({ start: startTime, end: endTime });
   }
