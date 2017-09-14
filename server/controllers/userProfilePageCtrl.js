@@ -86,7 +86,8 @@ module.exports = {
       .findAll({
         where: {
           userId: req.params.id
-        }
+        },
+        include: [db.Shop]
       })
       .then(data => {
         // console.log("successfully fetched all favorites");
