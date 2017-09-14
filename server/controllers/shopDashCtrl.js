@@ -160,5 +160,24 @@ module.exports = {
 
   deleteCalendar: () => {},
 
-  getCar: () => {}
+  getCar: (req, res) => {
+    Appointment.findAll({
+      where: {
+        bookingId: req.params.id
+      }
+    })
+      .then(appointment => res.status(200).send(appointment))
+      .catch(err => res.status(404).send(err));
+  },
+
+  setServices: (req, res) => {
+    Shop.update(
+      { services: req.params.services },
+      { where: { id: req.params.id } }
+    )
+      .then(item => res.status(201).send("Success"))
+      .catch(err =>
+        res.status(500).send(`Error updating shop services! ${err}`)
+      );
+  }
 };
