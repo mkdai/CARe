@@ -52,9 +52,14 @@ export default class ServiceSettings extends Component {
     return (
       <form>
         <FormGroup>
-          {this.state.services.map(service => {
+          {this.state.services.map((service, i) => {
             return (
-              <Checkbox inline onClick={this.handleToggle} data-tag={service}>
+              <Checkbox
+                inline
+                onClick={this.handleToggle}
+                data-tag={service}
+                key={i}
+              >
                 {service}
               </Checkbox>
             );

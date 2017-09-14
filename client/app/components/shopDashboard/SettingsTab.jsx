@@ -15,6 +15,7 @@ class SettingsTab extends Component {
         <h1>Settings</h1>
         {!this.props.calId ? (
           <Jumbotron>
+            <h3>Create Calendar</h3>
             <ShopDashboardSettings
               week={this.props.week}
               daysOfService={this.props.daysOfService}
@@ -27,6 +28,7 @@ class SettingsTab extends Component {
           </Jumbotron>
         ) : null}
         <Jumbotron>
+          <h3>Services</h3>
           <ServiceSettings shopId={this.props.currentUser.shopId} />
         </Jumbotron>
       </div>
