@@ -15,4 +15,5 @@ router.delete("/deleteReminder/:id", controller.deleteReminder);
 router.put("/updateMileage/:id", controller.updateMileage);
 router.delete("/deleteCar/:id", controller.deleteCar);
 router.get("/getShop/:id", controller.getShop);
+router.get("/getSingleCar/:id", controller.getSingleCar);
 module.exports = router;

@@ -94,6 +94,7 @@ class SearchResults extends Component {
             {this.state.shops.map(shop => {
               return (
                 <Link to={`/shops?idstring=${shop.id}`}>
+                  <hr />
                   <Row className="search-result-entry test">
                     <Col xs={12} sm={12} md={3} lg={3}>
                       <Image
@@ -102,14 +103,20 @@ class SearchResults extends Component {
                         className="shop-profile-pic"
                       />
                     </Col>
-                    <Col xs={12} sm={12} md={7} lg={7}>
+                    <Col xs={12} sm={12} md={4} lg={4}>
                       <div className="shop-info">
-                        <div>{shop.name}</div>
-                        <div>{shop.location.display_address[0]}</div>
-                        <div>{shop.location.display_address[1]}</div>
-                        <div>{shop.location.display_address[2]}</div>
+                        <div id="shop-name">{shop.name}</div>
+                        <div id="shop-address">
+                          {shop.location.display_address[0]}
+                        </div>
+                        <div id="shop-city">
+                          {shop.location.display_address[1]}
+                        </div>
+                        <div id="shop-name">
+                          {shop.location.display_address[2]}
+                        </div>
                         {shop.isSupported ? (
-                          <div>
+                          <div id="result-rating">
                             <Rating
                               readonly
                               initialRate={shop.rating}
@@ -130,6 +137,8 @@ class SearchResults extends Component {
                           </div>
                         ) : null}
                       </div>
+                    </Col>
+                    <Col xs={12} sm={12} md={2} lg={2}>
                       <div className="distance-info">
                         {Math.floor(shop.distance * 0.00621371) / 10 + "mi"}
                         <div>

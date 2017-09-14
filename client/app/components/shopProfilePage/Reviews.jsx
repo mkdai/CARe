@@ -12,7 +12,8 @@ import {
   Form,
   FormGroup,
   ControlLabel,
-  FormControl
+  FormControl,
+  Well
 } from "react-bootstrap";
 
 function mapStateToProps(state) {
@@ -70,6 +71,7 @@ class Reviews extends Component {
         {this.props.currentAuth.isAuthenticated() &&
         !!this.props.currentUser.id ? (
           <Button
+            id="post-review-button"
             onClick={this.openModal}
             disabled={this.props.currentUser.shopId === this.props.dbShopId}
           >
@@ -95,40 +97,53 @@ class Reviews extends Component {
         )}
         <Modal show={this.state.showModal} onHide={this.closeModal}>
           <Modal.Header closeButton>
-            <h2>Post a Review!</h2>
+            <h4>Post a Review!</h4>
           </Modal.Header>
-          <Form>
-            Rating:
-            <ButtonToolbar>
-              <ToggleButtonGroup type="radio" name="options" defaultValue={5}>
-                <ToggleButton onClick={this.handleRating} data-name={1}>
-                  1
-                </ToggleButton>
-                <ToggleButton onClick={this.handleRating} data-name={2}>
-                  2
-                </ToggleButton>
-                <ToggleButton onClick={this.handleRating} data-name={3}>
-                  3
-                </ToggleButton>
-                <ToggleButton onClick={this.handleRating} data-name={4}>
-                  4
-                </ToggleButton>
-                <ToggleButton onClick={this.handleRating} data-name={5}>
-                  5
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </ButtonToolbar>
-            <FormGroup>
-              <ControlLabel> Review:</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                type="text"
-                onChange={this.handleReview}
-              />
-            </FormGroup>
-          </Form>
+          <Well>
+            <Form>
+              <div id="rating-header">Rating:</div>
+              <div id="rating-button">
+                <ButtonToolbar>
+                  <ToggleButtonGroup
+                    type="radio"
+                    name="options"
+                    defaultValue={5}
+                  >
+                    <ToggleButton onClick={this.handleRating} data-name={1}>
+                      1
+                    </ToggleButton>
+                    <ToggleButton onClick={this.handleRating} data-name={2}>
+                      2
+                    </ToggleButton>
+                    <ToggleButton onClick={this.handleRating} data-name={3}>
+                      3
+                    </ToggleButton>
+                    <ToggleButton onClick={this.handleRating} data-name={4}>
+                      4
+                    </ToggleButton>
+                    <ToggleButton onClick={this.handleRating} data-name={5}>
+                      5
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </ButtonToolbar>
+              </div>
+              <FormGroup>
+                <div id="rating-review-header">
+                  <ControlLabel> Review:</ControlLabel>
+                </div>
+                <div id="review-text-box">
+                  <FormControl
+                    id="text-box"
+                    componentClass="textarea"
+                    type="text"
+                    onChange={this.handleReview}
+                  />
+                </div>
+              </FormGroup>
+            </Form>
+          </Well>
           <Modal.Footer>
-            <Button onClick={this.handleSubmit}>Click</Button>
+            <Button onClick={this.handleSubmit}>Submit</Button>
           </Modal.Footer>
         </Modal>
       </Col>

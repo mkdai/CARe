@@ -12,7 +12,7 @@ export default class ReminderEntry extends React.Component {
     axios
       .delete(`/api/userProfile/deleteReminder/${this.props.reminder.id}`)
       .then(data => {
-        console.log("ONDELETE DATA: ", data);
+        //console.log("ONDELETE DATA: ", data);
       })
       .catch(err => {
         console.log(err);
