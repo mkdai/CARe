@@ -8,6 +8,7 @@ import querystring from "querystring";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import Rating from "react-rating";
+import Footer from "../../components/footer/Footer.jsx";
 import {
   Grid,
   Row,
@@ -287,6 +288,7 @@ class ShopProfilePage extends Component {
             </Row>
           )}
         </Grid>
+        <Footer />
       </div>
     );
   }

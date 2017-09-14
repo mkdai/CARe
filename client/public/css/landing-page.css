@@ -85,7 +85,75 @@ a:hover {
   padding-left: 240px;
 }
 
-@media (max-width: 767px) {
+#car-selected {
+  padding-bottom: 20px;
+}
+
+.single-review {
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+.review-name {
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+#review-pic {
+  width: 100px;
+  height: auto;
+}
+
+.review-rating {
+  padding-bottom: 10px;
+}
+
+.review-review {
+  padding-bottom: 10px;
+}
+
+#rating-header {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+#rating-review-header {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+#text-box {
+  height: 200px;
+}
+
+.search-grid-container {
+  max-height: 50px;
+}
+
+#search-button {
+  padding-left: 10px;
+}
+
+#location-search {
+  margin-left: 5px;
+}
+
+#post-review-button {
+  margin-left: 20px;
+}
+
+#review-text-box {
+  padding-left: 20px;
+  margin-right: 20px;
+}
+
+#rating-button {
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+@media (max-width: 768px) {
   .intro-message {
     padding-bottom: 15%;
   }
@@ -102,6 +170,16 @@ a:hover {
   }
   .intro-divider {
     width: 100%;
+  }
+  #care-less {
+    font-size: 34px;
+  }
+  #care-more {
+    font-size: 34px;
+  }
+  .review-rating {
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 }
 
@@ -346,6 +424,24 @@ p.copyright {
   margin-right: 4px;
 }
 
+@media only screen and (max-width: 425px) {
+  #location-search {
+    width: 100px;
+    display: inline;
+  }
+
+  #search-field {
+    margin-left: 0px;
+    width: 100px;
+    display: inline;
+  }
+
+  #search-button {
+    padding-left: 0px;
+    text-align: center;
+  }
+}
+
 /* Phones */
 @media only screen and (max-width: 480px) {
   #user-pic {
@@ -422,6 +518,11 @@ p.copyright {
     height: 300px;
     overflow-y: scroll;
   }
+
+  #search-bar {
+    margin-left: 0px;
+    display: inline-flex;
+  }
 }
 
 /* Medium Devices, Desktops */
@@ -482,6 +583,12 @@ p.copyright {
 }
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {
+}
+
+@media only screen and (min-width: 1024px) {
+  #search-bar {
+    margin-left: 130px;
+  }
 }
 
 .parallax {

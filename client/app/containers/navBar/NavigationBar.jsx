@@ -77,28 +77,33 @@ class NavigationBar extends React.Component {
               CAR<span id="e-span">E</span>
             </Link>
           </Navbar.Brand>
+          <Navbar.Form onSubmit={this.search} pullLeft className="search-form">
+            <FormGroup id="search-bar">
+              <FormControl
+                type="text"
+                value={this.state.term}
+                placeholder="Search"
+                onChange={this.handleTermChange}
+                id="search-field"
+              />
+              <FormControl
+                type="text"
+                value={this.state.location}
+                placeholder="Current Location"
+                onChange={this.handleLocationChange}
+                id="location-search"
+              />
+            </FormGroup>
+            <Link to={this.state.searchUrl} id="search-button">
+              {" "}
+              SEARCH{" "}
+            </Link>
+          </Navbar.Form>
           <Navbar.Toggle />
         </Navbar.Header>
         {!this.props.currentAuth.isAuthenticated() && (
           <Navbar.Collapse>
             <Nav pullRight>
-              <Navbar.Form onSubmit={this.search} pullLeft>
-                <FormGroup>
-                  <FormControl
-                    type="text"
-                    value={this.state.term}
-                    placeholder="Search"
-                    onChange={this.handleTermChange}
-                  />
-                  <FormControl
-                    type="text"
-                    value={this.state.location}
-                    placeholder="Current Location"
-                    onChange={this.handleLocationChange}
-                  />
-                </FormGroup>
-                <Link to={this.state.searchUrl}> SEARCH </Link>
-              </Navbar.Form>
               <NavItem onClick={this.login}>SIGNUP | LOGIN</NavItem>
             </Nav>
           </Navbar.Collapse>
@@ -106,23 +111,6 @@ class NavigationBar extends React.Component {
         {this.props.currentAuth.isAuthenticated() && (
           <Navbar.Collapse>
             <Nav pullRight>
-              <Navbar.Form onSubmit={this.search} pullLeft>
-                <FormGroup>
-                  <FormControl
-                    type="text"
-                    value={this.state.term}
-                    placeholder="Search"
-                    onChange={this.handleTermChange}
-                  />
-                  <FormControl
-                    type="text"
-                    value={this.state.location}
-                    placeholder="Current Location"
-                    onChange={this.handleLocationChange}
-                  />
-                </FormGroup>
-                <Link to={this.state.searchUrl}> SEARCH </Link>
-              </Navbar.Form>
               <NavItem>
                 <Link to="userdash">USER DASHBOARD</Link>
               </NavItem>

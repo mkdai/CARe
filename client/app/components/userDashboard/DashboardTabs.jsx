@@ -27,7 +27,7 @@ export default class DashboardTabs extends React.Component {
                 <UserHistory currentCar={this.props.currentCarId} />
               </Tab.Pane>
               <Tab.Pane eventKey="2">
-                Select your car for service reminders.
+                Select your car above for service reminders.
                 <hr />
                 <Reminder currentCar={this.props.currentCarId} />
               </Tab.Pane>

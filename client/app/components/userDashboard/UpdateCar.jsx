@@ -15,6 +15,12 @@ import {
 export default class UpdateCar extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentCarMake: null,
+      currentCarYear: null,
+      currentCarModel: null
+    };
     this.handleOnChange = this.handleOnChange.bind(this);
     this.updateMileage = this.updateMileage.bind(this);
     this.onDelete = this.onDelete.bind(this);
@@ -22,6 +28,19 @@ export default class UpdateCar extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     console.log("COMPONENT RECIEVED PROPS", nextProps.currentCar);
+    axios
+      .get(`/api/userProfile/getSingleCar/${nextProps.currentCar}`)
+      .then(data => {
+        console.log("CAR DATA: ", data.data[0]);
+        this.setState({
+          currentCarYear: data.data[0].year,
+          currentCarMake: data.data[0].make,
+          currentCarModel: data.data[0].model
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   handleOnChange(event) {
@@ -61,6 +80,10 @@ export default class UpdateCar extends React.Component {
     //console.log("UPDATE CAR PROPS:", this.props.currentCar);
     return (
       <div>
+        <div id="car-selected">
+          Current Car Selected: {this.state.currentCarYear}{" "}
+          {this.state.currentCarMake} {this.state.currentCarModel}
+        </div>
         <Well>
           <div className="update-mileage">
             <label>Mileage</label>

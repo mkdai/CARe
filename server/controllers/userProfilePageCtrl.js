@@ -217,5 +217,20 @@ module.exports = {
         res.sendStatus(500).send(err);
         console.log(err);
       });
+  },
+  getSingleCar: (req, res) => {
+    console.log("SINGLE CAR REQ.PARAMS: ", req.params);
+    db.Car
+      .findAll({
+        where: {
+          id: req.params.id
+        }
+      })
+      .then(data => {
+        res.status(200).send(data);
+      })
+      .catch(err => {
+        res.status(500).send(err);
+      });
   }
 };

@@ -103,7 +103,7 @@ export default class Testing extends Component {
           <div className="parallax">
             {" "}
             <div className="inner">
-              <h1>We care more</h1>{" "}
+              <h1 id="care-more">We care more</h1>{" "}
             </div>{" "}
           </div>
         </Parallax>
@@ -158,7 +158,7 @@ export default class Testing extends Component {
           <div className="parallax">
             {" "}
             <div className="inner">
-              <h1>So you can care less</h1>{" "}
+              <h1 id="care-less">So you can care less</h1>{" "}
             </div>
           </div>
         </Parallax>
