@@ -17,12 +17,8 @@ class SettingsTab extends Component {
           <Jumbotron>
             <h3>Create Calendar</h3>
             <ShopDashboardSettings
-              week={this.props.week}
-              daysOfService={this.props.daysOfService}
               handleAttributeChange={this.props.handleAttributeChange}
               handleBuildCalendar={this.props.handleBuildCalendar}
-              handleDaysOfServiceChange={this.props.handleDaysOfServiceChange}
-              handleHoursOfOpChange={this.props.handleHoursOfOpChange}
               handleTestSettings={this.props.handleTestSettings}
             />
           </Jumbotron>
@@ -30,6 +26,16 @@ class SettingsTab extends Component {
         <Jumbotron>
           <h3>Services</h3>
           <ServiceSettings shopId={this.props.currentUser.shopId} />
+        </Jumbotron>
+        <Jumbotron>
+          <HoursSettings
+            {...this.props}
+            week={this.props.week}
+            daysOfService={this.props.daysOfService}
+            shopId={this.props.currentUser.shopId}
+            handleDaysOfServiceChange={this.props.handleDaysOfServiceChange}
+            handleHoursOfOpChange={this.props.handleHoursOfOpChange}
+          />
         </Jumbotron>
       </div>
     );

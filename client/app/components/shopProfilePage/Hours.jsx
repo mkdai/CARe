@@ -13,6 +13,13 @@ class Hours extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    for (let day of this.props.daysOfService) {
+      let { start, end, value } = day;
+      console.log("this is the start of day", value, start);
+    }
+  }
+
   render() {
     return (
       <Grid>

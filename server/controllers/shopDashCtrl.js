@@ -73,7 +73,6 @@ module.exports = {
       shopName,
       shopDescription,
       shopEmail,
-      daysOfService,
       id,
       calId
     } = req.body;
@@ -94,10 +93,7 @@ module.exports = {
         .then(tk => {
           l("created user saving api_token", tk.data.api_token);
           tk_api_token = tk.data.api_token;
-          Shop.update(
-            { tk_api_token: tk.data.api_token, days_of_service: daysOfService },
-            { where: { id } }
-          );
+          Shop.update({ tk_api_token: tk.data.api_token }, { where: { id } });
         })
         .then(() => {
           l("updated shop with tk api token, setting user");
@@ -140,10 +136,7 @@ module.exports = {
         .then(tk => {
           l("created new calendar for shop ");
           cal.calId = tk.data.id;
-          Shop.update(
-            { calendar_id: tk.data.id, days_of_service: daysOfService },
-            { where: { id } }
-          );
+          Shop.update({ calendar_id: tk.data.id }, { where: { id } });
         })
         .then(() => {
           cal.action =
@@ -179,5 +172,13 @@ module.exports = {
       .catch(err =>
         res.status(500).send(`Error updating shop services! ${err}`)
       );
+  },
+  updateHours: (req, res) => {
+    Shop.update(
+      { days_of_service: req.body.daysOfService },
+      { where: { id: req.body.id } }
+    )
+      .then(item => res.status(201).send("Success"))
+      .catch(err => res.status(500).send(`Error updating shop times!` + err));
   }
 };
