@@ -81,6 +81,10 @@ a:hover {
   font-size: 80%;
 }
 
+.fav-info {
+  padding-left: 240px;
+}
+
 @media (max-width: 767px) {
   .intro-message {
     padding-bottom: 15%;
@@ -469,7 +473,6 @@ p.copyright {
 }
 
 .fav-entry {
-  text-align: center;
   padding-top: 20px;
 }
 
@@ -539,6 +542,29 @@ p.copyright {
 
 .company-details-header {
   text-decoration: underline;
+}
+
+.fav-pic {
+  position: relative;
+  float: left;
+  width: 200px;
+  height: 200px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fav-address {
+  font-size: 16px;
+  padding-top: 10px;
+}
+
+.fav-phone {
+  font-size: 16px;
+}
+
+.fav-text {
+  padding-top: 20px;
 }
 
 .quotes-header {
