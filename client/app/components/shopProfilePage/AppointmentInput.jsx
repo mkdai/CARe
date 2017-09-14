@@ -10,14 +10,54 @@ import {
 import DatePicker from "react-bootstrap-date-picker";
 import TimePicker from "react-bootstrap-time-picker";
 
-function log(...props) {
-  console.log(...props);
-}
+const l = console.log;
 
 class AppointmentInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { time: 0 };
+    this.state = {
+      time: 0,
+      start: "9:00",
+      end: "23:00"
+    };
+  }
+
+  componentDidMount() {
+    l("AppointmentInput Mounted, received props: ", this.props);
+    if (this.props.daysOfService.length > 0) {
+      let days = this.props.daysOfService;
+      let startTime = days.reduce((startTime, day) => {
+        return startTime > day.start ? day.start : startTime;
+      }, days[0].start);
+      let endTime = days.reduce((endTime, time) => {
+        return endTime < time.end ? time.end : endTime;
+      }, days[0].end);
+
+      let startTimeHours = Math.floor(startTime / 3600);
+      let startTimeMinutes = (startTime % 3600) / 60;
+      if (startTimeMinutes < 10) {
+        startTimeMinutes = "0" + startTimeMinutes;
+      }
+      startTime = `${startTimeHours}:${startTimeMinutes}`;
+      l("this is the start time", startTime);
+
+      let endTimeHours = Math.floor(endTime / 3600);
+      let endTimeMinutes = (endTime % 3600) / 60;
+      if (endTimeMinutes < 10) {
+        endTimeMinutes = "0" + endTimeMinutes;
+      }
+      endTime = `${endTimeHours}:${endTimeMinutes}`;
+
+      this.setState({ start: startTime, end: endTime });
+
+      // this.setState(
+      //   {
+      //     start: `${startTimeHours.toString()}:${startTimeMinutes.toString()}`,
+      //     end: endTime
+      //   },
+      //   () => l("this is the state after setting start", this.state)
+      // );
+    }
   }
 
   render() {
@@ -55,6 +95,8 @@ class AppointmentInput extends Component {
         <FormGroup controlId="time">
           {"  "}
           <TimePicker
+            start={this.state.start}
+            end={this.state.end}
             onChange={this.props.handleTimeChange}
             value={this.props.time}
           />

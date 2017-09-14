@@ -5,7 +5,7 @@ const {
   timekitEmail,
   timekitPassword
 } = require("../../env/config");
-const { Shop, User, Appointment } = require("../../db/index.js");
+const { Shop, User } = require("../../db/index.js");
 
 const l = console.log;
 //TODO: RENDER AUTHENTICATION FOR SHOP USER(RESOURCE)
@@ -14,6 +14,11 @@ timekit.configure({
   inputTimestampFormat: "U",
   outputTimestampFormat: "U"
 }); // Timestamps coming and going to timekit sdk must be unicode
+
+timekit
+  .auth({ email: timekitEmail, password: timekitPassword })
+  .then(() => l("ShopDashCtrl: authorized tk credentials"))
+  .catch(err => l("ShopDashCtrl: unauthorized tk credentials"));
 
 module.exports = {
   getShopId: (req, res) => {
@@ -38,27 +43,26 @@ module.exports = {
   getCalendar: (req, res) => {
     console.log("received request to get calendar", req.query);
     timekit
-      .auth({ email: "jhwang137@gmail.com", password: "xGmK3S7Pv5c7mAir" })
-      .then(() => l("ShopDashCtrl: authorized tk credentials"))
-      .then(() => {
-        timekit
-          .include("attributes", "calendar")
-          .getBookings()
-          .then(books => {
-            let bookings = [];
-            bookings.action = "bookings request for ShopDashboard";
-            books.data.forEach(booking => {
-              if (true) {
-                let { start, end, what } = booking.attributes.event;
-                let title = what;
-                let { id } = booking;
-                bookings.push({ start, end, title, id });
-              }
-            });
-            res.status(200).send(bookings);
-          })
-          .catch(err => res.status(400).send("could not get calendar" + err));
-      });
+      .include("attributes", "calendar")
+      .getBookings()
+      .then(books => {
+        let bookings = [];
+        bookings.action = "bookings request for ShopDashboard";
+        books.data.forEach(booking => {
+          if (
+            !booking.completed &&
+            !!booking.calendar &&
+            booking.calendar.id === req.query.id &&
+            booking.state === "confirmed"
+          ) {
+            let { start, end, what } = booking.attributes.event;
+            let title = what;
+            bookings.push({ start, end, title });
+          }
+        });
+        res.status(200).send(bookings);
+      })
+      .catch(err => res.status(400).send("could not get calendar" + err));
   },
 
   createCalendar: (req, res) => {
@@ -69,6 +73,7 @@ module.exports = {
       shopName,
       shopDescription,
       shopEmail,
+      daysOfService,
       id,
       calId
     } = req.body;
@@ -89,7 +94,10 @@ module.exports = {
         .then(tk => {
           l("created user saving api_token", tk.data.api_token);
           tk_api_token = tk.data.api_token;
-          Shop.update({ tk_api_token: tk.data.api_token }, { where: { id } });
+          Shop.update(
+            { tk_api_token: tk.data.api_token, days_of_service: daysOfService },
+            { where: { id } }
+          );
         })
         .then(() => {
           l("updated shop with tk api token, setting user");
@@ -123,17 +131,19 @@ module.exports = {
       // timekit.updateCalendar({id: calId}) //Update calendar is not possible for timekit
       timekit
         .deleteCalendar({ id: calId })
-        .then(() => {
-          l("calendar has been deleted, creating calendar");
+        .then(() =>
           timekit.createCalendar({
             name: shopName,
             description: shopDescription
-          });
-        })
-        .then(() => {
-          l("created new calendar for shop ", tk.data);
+          })
+        )
+        .then(tk => {
+          l("created new calendar for shop ");
           cal.calId = tk.data.id;
-          Shop.update({ calendar_id: tk.data.id }, { where: { id } });
+          Shop.update(
+            { calendar_id: tk.data.id, days_of_service: daysOfService },
+            { where: { id } }
+          );
         })
         .then(() => {
           cal.action =
@@ -142,21 +152,13 @@ module.exports = {
         })
         .then(() => l("sent shop calendar_id to front end"))
         .catch(err => {
-          l("error creating calendar for existing tk user", err.data);
-          res.status(400).send(err.data);
+          l("error creating calendar for existing tk user", err);
+          res.status(400).send(err);
         });
     }
   },
 
   deleteCalendar: () => {},
 
-  getCar: (req, res) => {
-    Appointment.findAll({
-      where: {
-        bookingId: req.params.id
-      }
-    })
-      .then(appointment => res.status(200).send(appointment))
-      .catch(err => res.status(404).send(err));
-  }
+  getCar: () => {}
 };

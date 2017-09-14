@@ -18,7 +18,8 @@ const Shop = db.define("shop", {
   review_count: { type: Sequelize.INTEGER, allowNull: true },
   calendar_id: { type: Sequelize.TEXT, allowNull: true },
   yelp_id: { type: Sequelize.TEXT, allowNull: false },
-  tk_api_token: { type: Sequelize.TEXT, allowNull: true }
+  tk_api_token: { type: Sequelize.TEXT, allowNull: true },
+  days_of_service: { type: Sequelize.ARRAY(Sequelize.JSON), allowNull: true }
 });
 
 const Car = db.define("car", {
