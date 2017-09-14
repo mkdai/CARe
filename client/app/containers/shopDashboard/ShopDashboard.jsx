@@ -49,7 +49,8 @@ class ShopDashboard extends Component {
       shopEmail: "",
       shopDescription: "",
       week: ["SUN", "MON", "TUES", "WED", "THUR", "FRI", "SAT"],
-      daysOfService: []
+      daysOfService: [],
+      currentAppointments: []
     };
 
     this.handleHoursOfOpChange = this.handleHoursOfOpChange.bind(this);
@@ -57,6 +58,7 @@ class ShopDashboard extends Component {
     this.handleDaysOfServiceChange = this.handleDaysOfServiceChange.bind(this);
     this.handleTestSettings = this.handleTestSettings.bind(this);
     this.handleBuildCalendar = this.handleBuildCalendar.bind(this);
+    this.handleGetCarInfo = this.handleGetCarInfo.bind(this);
   }
 
   componentDidMount() {
@@ -83,6 +85,12 @@ class ShopDashboard extends Component {
         }
       })
       .catch(err => l("could not get shopId"));
+  }
+
+  handleGetCarInfo(appointments) {
+    this.setState({ currentAppointments: appointments }, () => {
+      console.log("WIOEGHWOIHGWIOEHGIWGH", this.state);
+    });
   }
 
   handleHoursOfOpChange(day, start, end) {
@@ -189,11 +197,18 @@ class ShopDashboard extends Component {
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
             <Tab eventKey={1} title="Calander">
-              <CalendarTab {...this.props} {...this.state} />
+              <CalendarTab
+                {...this.props}
+                {...this.state}
+                handleGetCarInfo={this.handleGetCarInfo}
+              />
             </Tab>
 
             <Tab eventKey={2} title="Maintenance Jobs">
-              <MaintenanceJobs shopId={this.props.currentUser.shopId} />
+              <MaintenanceJobs
+                shopId={this.props.currentUser.shopId}
+                currentAppointments={this.state.currentAppointments}
+              />
             </Tab>
             <Tab eventKey={3} title="Settings">
               <SettingsTab

@@ -30,6 +30,7 @@ class AppointmentCalendar extends Component {
       })
       .then(res => {
         l("AppointmentCalendar: getCalendar: ", res.data);
+        this.props.handleGetCarInfo(res.data);
         $("#calendar").fullCalendar({
           header: {
             left: "prev,next today",
