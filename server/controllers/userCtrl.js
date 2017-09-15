@@ -1,4 +1,4 @@
-const { User, Car } = require("../../db/index");
+const { User, Car, Shop } = require("../../db/index");
 
 module.exports = {
   addUser: (req, res) => {
@@ -12,7 +12,7 @@ module.exports = {
           req.body.picture ||
           "https://www.hoursproject.com/images/cache/square_thumb/images/user/default.png"
       },
-      include: [Car]
+      include: [Car, Shop]
     })
       .spread((user, created) => {
         if (created) {
