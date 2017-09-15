@@ -171,6 +171,17 @@ module.exports = {
         res.status(500).send(`Error updating shop services! ${err}`)
       );
   },
+
+  getServices: (req, res) => {
+    Shop.find({
+      where: { id: req.params.id }
+    })
+      .then(services => res.status(200).send(services))
+      .catch(err =>
+        res.status(404).send(`Error finding shop services! ${err}`)
+      );
+  },
+
   updateHours: (req, res) => {
     Shop.update(
       { days_of_service: req.body.daysOfService },

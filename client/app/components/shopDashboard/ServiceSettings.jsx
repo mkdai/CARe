@@ -7,6 +7,7 @@ export default class ServiceSettings extends Component {
     super();
     this.state = {
       services: [
+        "Oil Change",
         "Tires",
         "Batteries",
         "AC Services",

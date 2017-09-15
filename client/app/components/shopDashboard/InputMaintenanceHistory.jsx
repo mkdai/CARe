@@ -67,6 +67,7 @@ export default class InputMaintenanceHistory extends Component {
   render() {
     return (
       <Well>
+        <button onClick={() => console.log(this.props.services)}>clicky</button>
         <Row>
           <Form>
             <Col lg={3} lgOffset={1}>
