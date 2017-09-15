@@ -1,4 +1,2 @@
-client/Auth/auth0-variables.js
-client/public/bundle.js
 env/
 node_modules
