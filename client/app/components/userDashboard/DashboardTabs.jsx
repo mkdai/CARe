@@ -32,9 +32,6 @@ export default class DashboardTabs extends React.Component {
                 <Reminder currentCar={this.props.currentCarId} />
               </Tab.Pane>
               <Tab.Pane eventKey="3">
-                Select your car to see appointments.
-              </Tab.Pane>
-              <Tab.Pane eventKey="4">
                 Select your car to update.
                 <hr />
                 <UpdateCar currentCar={this.props.currentCarId} />

@@ -23,8 +23,13 @@ class AppointmentInput extends Component {
   }
 
   componentDidMount() {
+<<<<<<< HEAD
     // l("AppointmentInput Mounted, received props: ", this.props);
     if (this.props.daysOfService.length > 0) {
+=======
+    l("AppointmentInput Mounted, received props: ", this.props);
+    if (this.props.daysOfService && this.props.daysOfService.length > 0) {
+>>>>>>> cars and services show up on appointments tab
       let days = this.props.daysOfService;
       let startTime = days.reduce((startTime, day) => {
         return startTime > day.start ? day.start : startTime;
@@ -71,8 +76,8 @@ class AppointmentInput extends Component {
           >
             {this.props.currentUser.cars ? (
               this.props.currentUser.cars.map((car, i) => (
-                <option value={car} key={i}>
-                  {car}
+                <option value={car.id} key={i}>
+                  {car.make + " " + car.model + " " + car.year}
                 </option>
               ))
             ) : null}

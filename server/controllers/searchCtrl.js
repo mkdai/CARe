@@ -40,6 +40,9 @@ const processShopData = (shop, userId, cb) => {
       shop.tkToken = response.dataValues.tk_api_token;
       shop.email = response.dataValues.email;
       shop.daysOfService = response.dataValues.days_of_service;
+      shop.services = response.dataValues.services
+        ? response.dataValues.services.split(",")
+        : [];
       Review.findAll({
         where: { shopId: response.dataValues.id },
         include: [User]
@@ -95,6 +98,8 @@ const processShopData = (shop, userId, cb) => {
       shop.daysOfService = [];
       shop.favorited = false;
       shop.isSupported = false;
+      shop.daysOfService = [];
+      shop.services = [];
       cb(shop);
     });
 };
