@@ -84,11 +84,17 @@ class AppointmentInput extends Component {
             componentClass="select"
             onChange={this.props.handleServiceChange}
           >
-            {this.props.services.map((service, i) => (
-              <option value={service} key={i}>
-                {service}
+            {this.props.services && this.props.services.length > 0 ? (
+              this.props.services.map((service, i) => (
+                <option value={service} key={i}>
+                  {service}
+                </option>
+              ))
+            ) : (
+              <option value="Not specified" key={0}>
+                Not Specified
               </option>
-            ))}
+            )}
           </FormControl>
         </FormGroup>
 
