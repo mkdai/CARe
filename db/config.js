@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const path = require("path");
-const dbURL = require(path.resolve(__dirname, "../env/config")).dbURL;
+const dbURL =
+  process.env.dbURL || require(path.resolve(__dirname, "../env/config")).dbURL;
 
 const db = new Sequelize(dbURL, {
   dialect: "postgres",
