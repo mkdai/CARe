@@ -9,7 +9,7 @@ export default class ServiceSettings extends Component {
       services: [
         "Tires",
         "Batteries",
-        "A/C Services",
+        "AC Services",
         "Transmission",
         "Steering",
         "Suspension",
@@ -35,6 +35,7 @@ export default class ServiceSettings extends Component {
         services.push(item);
       }
     }
+    console.log(services);
 
     axios
       .put(`/api/shopdashboard/setServices/${this.props.shopId}/${services}`)
