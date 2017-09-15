@@ -26,6 +26,7 @@ class UserDashboard extends React.Component {
     };
     this.selectCar = this.selectCar.bind(this);
     this.handleAddCar = this.handleAddCar.bind(this);
+    this.getCars = this.getCars.bind(this);
   }
 
   handleAddCar(car) {
@@ -34,29 +35,24 @@ class UserDashboard extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser.id) {
-      axios
-        .get(`/api/userProfile/getAllUserCars/${nextProps.currentUser.id}`)
-        .then(data => {
-          //console.log("got cars");
-          this.setState({ cars: data.data });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.getProps(nextProps);
     }
+  }
+  getCars(props = this.props) {
+    axios
+      .get(`/api/userProfile/getAllUserCars/${props.currentUser.id}`)
+      .then(data => {
+        //console.log("got cars");
+        this.setState({ cars: data.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   componentDidMount() {
     if (this.props.currentUser.id) {
-      axios
-        .get(`/api/userProfile/getAllUserCars/${this.props.currentUser.id}`)
-        .then(data => {
-          //console.log("got cars");
-          this.setState({ cars: data.data });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.getCars(this.props);
     }
   }
 
@@ -100,7 +96,10 @@ class UserDashboard extends React.Component {
             </Col>
           </Row>
           <Row>
-            <DashboardTabs currentCarId={this.state.currentCarId} />
+            <DashboardTabs
+              getCars={this.getCars}
+              currentCarId={this.state.currentCarId}
+            />
           </Row>
         </Grid>
       </div>

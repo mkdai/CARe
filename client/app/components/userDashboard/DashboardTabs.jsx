@@ -33,7 +33,10 @@ export default class DashboardTabs extends React.Component {
               <Tab.Pane eventKey="3">
                 Select your car to update.
                 <hr />
-                <UpdateCar currentCar={this.props.currentCarId} />
+                <UpdateCar
+                  getCars={this.props.getCars}
+                  currentCar={this.props.currentCarId}
+                />
               </Tab.Pane>
             </Tab.Content>
           </Col>
