@@ -99,7 +99,7 @@ export default class InputMaintenanceHistory extends Component {
                 <FormControl
                   disabled
                   type="text"
-                  value="Shop name from redux here"
+                  value={this.props.currentUser.shop.name}
                 />
               </FormGroup>
             </Col>

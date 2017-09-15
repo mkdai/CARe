@@ -235,6 +235,7 @@ class ShopDashboard extends Component {
               <MaintenanceJobs
                 shopId={this.props.currentUser.shopId}
                 currentAppointments={this.state.currentAppointments}
+                currentUser={this.props.currentUser}
               />
             </Tab>
             <Tab eventKey={3} title="Settings">

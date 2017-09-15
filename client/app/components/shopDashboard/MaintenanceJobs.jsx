@@ -15,6 +15,7 @@ export default class MaintenenceJobs extends Component {
                   <InputMaintenanceHistory
                     bookingId={appointment.id}
                     shopId={this.props.shopId}
+                    currentUser={this.props.currentUser}
                   />
                 </Panel>
               );
