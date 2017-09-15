@@ -9,4 +9,5 @@ router.delete("/deleteCalendar", controller.deleteCalendar);
 router.get("/getCar/:id", controller.getCar);
 router.put("/setServices/:id/:services", controller.setServices);
 router.put("/updateHours", controller.updateHours);
+router.delete("/removeAppointment", controller.removeAppointment);
 module.exports = router;

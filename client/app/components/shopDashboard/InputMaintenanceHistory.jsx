@@ -45,8 +45,22 @@ export default class InputMaintenanceHistory extends Component {
       })
       .then(() => {
         console.log("Successfully posted maintenance history!");
-        // logic to remove listing after successful post
+        axios
+          .put(`/api/userProfile/updateMileage/${this.state.carId}`, {
+            mileage: this.state.formCarMileage
+          })
+          .then(res => console.log(res))
+          .catch(err => console.log(`Error updating mileage! ${err}`));
       })
+      .then(() => {
+        axios
+          .delete("/api/shopdashboard/removeAppointment", {
+            data: { bookingId: this.props.bookingId }
+          })
+          .then(() => console.log("Successfully deleted appointment!"))
+          .catch(err => console.log(`Error deleting appointment! ${err}`));
+      })
+      .then(alert("Successfully posted maintenance history!"))
       .catch(err => console.log(err));
   }
 
