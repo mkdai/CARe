@@ -290,7 +290,6 @@ class ShopProfilePage extends Component {
             </Row>
           )}
         </Grid>
-        <Footer />
       </div>
     );
   }

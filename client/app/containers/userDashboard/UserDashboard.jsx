@@ -103,7 +103,6 @@ class UserDashboard extends React.Component {
             <DashboardTabs currentCarId={this.state.currentCarId} />
           </Row>
         </Grid>
-        <Footer />
       </div>
     );
   }

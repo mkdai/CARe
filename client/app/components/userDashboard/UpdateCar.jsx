@@ -24,12 +24,15 @@ export default class UpdateCar extends React.Component {
     this.handleOnChange = this.handleOnChange.bind(this);
     this.updateMileage = this.updateMileage.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.getCarInfo = this.getCarInfo.bind(this);
   }
-
   componentWillReceiveProps(nextProps) {
-    console.log("COMPONENT RECIEVED PROPS", nextProps.currentCar);
+    this.getCarInfo(nextProps);
+  }
+  getCarInfo(props) {
+    console.log("COMPONENT RECIEVED PROPS", props.currentCar);
     axios
-      .get(`/api/userProfile/getSingleCar/${nextProps.currentCar}`)
+      .get(`/api/userProfile/getSingleCar/${props.currentCar}`)
       .then(data => {
         console.log("CAR DATA: ", data.data[0]);
         this.setState({
@@ -59,6 +62,7 @@ export default class UpdateCar extends React.Component {
       )
       .then(data => {
         console.log(data);
+        this.getCarInfo(this.props);
       })
       .catch(err => {
         console.log(err);
@@ -70,6 +74,7 @@ export default class UpdateCar extends React.Component {
       .delete(`/api/userProfile/deleteCar/${this.props.currentCar}`)
       .then(data => {
         console.log(data);
+        this.getCarInfo(this.props);
       })
       .catch(err => {
         console.log(err);

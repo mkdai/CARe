@@ -17,8 +17,7 @@ export default class DashboardTabs extends React.Component {
             <Nav bsStyle="tabs" justified>
               <NavItem eventKey="1">History</NavItem>
               <NavItem eventKey="2">Reminders</NavItem>
-              <NavItem eventKey="3">Appointments</NavItem>
-              <NavItem eventKey="4">Update Car</NavItem>
+              <NavItem eventKey="3">Update Car</NavItem>
             </Nav>
           </Col>
           <Col xs={12} sm={12} md={12} lg={12}>

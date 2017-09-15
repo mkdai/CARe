@@ -26,7 +26,8 @@ class ReviewEntry extends Component {
             </div>
             <div className="review-review">{this.props.review.review}</div>
             <div className="review-response">
-              {this.props.review.response !== "" ? (
+              {this.props.review.response !== null &&
+              this.props.review.response !== "" ? (
                 `Shop Response: ${this.props.review.response}`
               ) : null}
             </div>

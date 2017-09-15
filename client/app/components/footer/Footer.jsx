@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
 
   render() {
     return (
-      <footer className="my-footer">
+      <footer className="my-footer fixed-bottom">
         <div className="container">
           <ul className="list-inline">
             <li className="list-inline-item">

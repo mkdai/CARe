@@ -12,11 +12,14 @@ export default class Reminder extends React.Component {
       currentCarYear: null,
       currentCarModel: null
     };
+    this.getReminders = this.getReminders.bind(this);
   }
-
   componentWillReceiveProps(nextProps) {
+    this.getReminders(nextProps);
+  }
+  getReminders(props = this.props) {
     axios
-      .get(`/api/userProfile/getUserReminders/${nextProps.currentCar}`)
+      .get(`/api/userProfile/getUserReminders/${props.currentCar}`)
       .then(data => {
         this.setState({ reminders: data.data });
       })
@@ -24,7 +27,7 @@ export default class Reminder extends React.Component {
         console.log(err);
       });
     axios
-      .get(`/api/userProfile/getSingleCar/${nextProps.currentCar}`)
+      .get(`/api/userProfile/getSingleCar/${props.currentCar}`)
       .then(data => {
         console.log("CAR DATA: ", data.data[0]);
         this.setState({
@@ -48,7 +51,11 @@ export default class Reminder extends React.Component {
         </div>
         <Accordion>
           {this.state.reminders.map((reminder, i) => (
-            <ReminderEntry reminder={reminder} key={i} />
+            <ReminderEntry
+              getReminders={this.getReminders}
+              reminder={reminder}
+              key={i}
+            />
           ))}
         </Accordion>
       </div>
