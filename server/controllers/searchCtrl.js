@@ -47,7 +47,8 @@ const processShopData = (shop, userId, cb) => {
         : [];
       Review.findAll({
         where: { shopId: response.dataValues.id },
-        include: [User]
+        include: [User],
+        order: ["createdAt", "ASC"]
       }).then(reviews => {
         // if (reviews) {
         shop.reviews = reviews.map(review => {

@@ -27,7 +27,7 @@ class Appointments extends Component {
       openList: false,
       // cars: this.props.currentUser.cars,
       carId:
-        this.props.currentUser.cars.length > 0
+        this.props.currentUser.cars && this.props.currentUser.cars.length > 0
           ? this.props.currentUser.cars[0].id
           : null
     };
