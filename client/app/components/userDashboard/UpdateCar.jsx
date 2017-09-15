@@ -74,7 +74,7 @@ export default class UpdateCar extends React.Component {
       .delete(`/api/userProfile/deleteCar/${this.props.currentCar}`)
       .then(data => {
         console.log(data);
-        this.getCars();
+        this.props.getCars();
       })
       .catch(err => {
         console.log(err);
