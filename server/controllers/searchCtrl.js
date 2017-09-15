@@ -1,6 +1,8 @@
 const { Shop, Review, User, Favorite } = require("../../db/index.js");
 const axios = require("axios");
-const { yelpId, yelpSecret } = require("../../env/config.js");
+// const yelpId = process.env.yelpId;
+// const yelpSecret = process.env.yelpSecret;
+const { yelpId, yelpSecret } = process.env || require("../../env/config.js");
 const qs = require("querystring");
 const Sequelize = require("sequelize");
 

@@ -1,10 +1,7 @@
 const axios = require("axios");
 const timekit = require("timekit-sdk");
-const {
-  timekitApp,
-  timekitEmail,
-  timekitPassword
-} = require("../../env/config");
+const { timekitApp, timekitEmail, timekitPassword } =
+  process.env || require("../../env/config");
 const { Shop, User, Appointment } = require("../../db/index.js");
 
 const l = console.log;

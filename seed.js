@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const path = require("path");
-const { dbURL } = require(path.resolve(__dirname, "./env/config"));
+const dbURL =
+  process.env.dbURL || require(path.resolve(__dirname, "./env/config")).dbURL;
 const {
   User,
   Shop,

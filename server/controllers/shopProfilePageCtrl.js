@@ -8,12 +8,8 @@ const {
   User
 } = require("../../db/index");
 const timekit = require("timekit-sdk");
-const {
-  timekitApp,
-  timekitEmail,
-  timekitPassword,
-  timekitApiToken
-} = require("../../env/config");
+const { timekitApp, timekitEmail, timekitPassword, timekitApiToken } =
+  process.env || require("../../env/config");
 
 const l = console.log;
 
