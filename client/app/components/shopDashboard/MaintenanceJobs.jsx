@@ -12,7 +12,10 @@ export default class MaintenenceJobs extends Component {
             this.props.currentAppointments.map((appointment, i) => {
               return (
                 <Panel header={appointment.title} eventKey={i} key={i}>
-                  <InputMaintenanceHistory bookingId={appointment.id} />
+                  <InputMaintenanceHistory
+                    bookingId={appointment.id}
+                    shopId={this.props.shopId}
+                  />
                 </Panel>
               );
             })

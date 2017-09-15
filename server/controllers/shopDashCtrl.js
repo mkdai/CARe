@@ -48,7 +48,12 @@ module.exports = {
             let bookings = [];
             bookings.action = "bookings request for ShopDashboard";
             books.data.forEach(booking => {
-              if (true) {
+              if (
+                !booking.completed &&
+                !!booking.calendar &&
+                booking.calendar.id === req.query.id &&
+                booking.state === "confirmed"
+              ) {
                 let { start, end, what } = booking.attributes.event;
                 let title = what;
                 let { id } = booking;
@@ -176,5 +181,14 @@ module.exports = {
     )
       .then(item => res.status(201).send("Success"))
       .catch(err => res.status(500).send(`Error updating shop times!` + err));
+  },
+
+  removeAppointment: (req, res) => {
+    console.log(req.body, "here");
+    Appointment.destroy({
+      where: { bookingId: req.body.bookingId }
+    })
+      .then(num => res.status(200).send(`Appointment deleted!`))
+      .catch(err => res.status(500).send(`Error deleting friend! ${err}`));
   }
 };
