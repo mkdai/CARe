@@ -25,7 +25,11 @@ class Appointments extends Component {
       time: 0,
       shopLocation: "",
       openList: false,
-      car: {} //needs to be the car object (from the database);
+      // cars: this.props.currentUser.cars,
+      carId:
+        this.props.currentUser.cars.length > 0
+          ? this.props.currentUser.cars[0].id
+          : null
     };
 
     this.handleCarChange = this.handleCarChange.bind(this);
@@ -45,9 +49,12 @@ class Appointments extends Component {
         this.setState(
           {
             times: res.data,
-            services: ["Oil Change", "Detailing"]
+            services: this.props.services,
+            service: this.props.services > 0 ? this.props.services[0] : ""
           },
-          () => l("Appointments: getBookings responds. State: ", this.state)
+          () => {
+            l("Appointments: getBookings responds. State: ", this.state);
+          }
         )
       )
       .catch(err =>
@@ -57,6 +64,7 @@ class Appointments extends Component {
 
   handleCarChange(e) {
     e.preventDefault();
+    console.log(e.target.value);
     this.setState({ car: e.target.value });
   }
 
@@ -125,7 +133,7 @@ class Appointments extends Component {
                   service: this.state.service,
                   userId: this.props.currentUser.id,
                   shopId: this.props.dbpk,
-                  carId: this.state.car.id,
+                  carId: this.state.carId,
                   calendarId: response.data.attributes.event_info.calendar_id,
                   bookingId: response.data.id,
                   time: response.data.attributes.event_info.start

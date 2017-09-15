@@ -50,6 +50,7 @@ class ShopProfilePage extends Component {
       longitude: "",
       reviews: [],
       daysOfService: [],
+      services: [],
       dbpk: -1
     };
     this.handleFav = _.debounce(this.handleFav, 500).bind(this);
@@ -148,6 +149,7 @@ class ShopProfilePage extends Component {
             reviews: res.data.reviews,
             dbpk: res.data.dbpk,
             supported: res.data.isSupported,
+            services: res.data.services,
             calId: res.data.calId,
             tk_token: res.data.tkToken,
             email: res.data.email,
