@@ -74,13 +74,23 @@ export default class InputMaintenanceHistory extends Component {
               <FormGroup>
                 <ControlLabel>Service</ControlLabel>
                 {/* Maybe change service to dropdown selection */}
-                <FormControl
+                {/* <FormControl
                   required
                   name="formServiceName"
                   type="text"
                   placeholder="Enter name of service"
                   onChange={this.handleChange}
-                />
+                /> */}
+                <FormControl
+                  componentClass="select"
+                  placeholder="select"
+                  name="formServiceName"
+                  onChange={this.handleChange}
+                >
+                  {this.props.services.map(service => {
+                    return <option value={service}>{service}</option>;
+                  })}
+                </FormControl>
               </FormGroup>
             </Col>
             <Col lg={6} lgOffset={1} sm={12}>

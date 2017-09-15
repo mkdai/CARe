@@ -12,7 +12,7 @@ export default class MaintenenceJobs extends Component {
   componentDidMount() {
     axios
       .get(`/api/shopdashboard/getServices/${this.props.currentUser.shopId}`)
-      .then(({ data }) => this.setState({ services: data }))
+      .then(({ data }) => this.setState({ services: data.services.split(",") }))
       .catch(err => console.log(`Error getting shop services! ${err}`));
   }
 
