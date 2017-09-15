@@ -70,7 +70,8 @@ class ShopDashboard extends Component {
       this.setState(
         {
           shopEmail: nextprops.currentUser.email,
-          shopId: nextprops.currentUser.shopId
+          shopId: nextprops.currentUser.shopId,
+          shopName: this.props.currentUser.shop.name
         },
         () => this.grabCalendarInfo(nextprops)
       );
@@ -82,7 +83,8 @@ class ShopDashboard extends Component {
       this.setState(
         {
           shopEmail: this.props.currentUser.email,
-          shopId: this.props.currentUser.shopId
+          shopId: this.props.currentUser.shopId,
+          shopName: this.props.currentUser.shop.name
         },
         () => this.grabCalendarInfo(this.props)
       );
@@ -217,7 +219,7 @@ class ShopDashboard extends Component {
         <Grid fluid={true} className="bump">
           <Row>
             <Col>
-              <h1>I am the shopdashboard</h1>
+              <h1>{this.state.shopName} Dashboard</h1>
             </Col>
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">

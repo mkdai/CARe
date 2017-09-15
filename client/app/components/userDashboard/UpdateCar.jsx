@@ -62,7 +62,7 @@ export default class UpdateCar extends React.Component {
       )
       .then(data => {
         console.log(data);
-        this.getCarInfo(this.props);
+        this.props.getCars();
       })
       .catch(err => {
         console.log(err);
