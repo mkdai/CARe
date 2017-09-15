@@ -223,7 +223,7 @@ class ShopDashboard extends Component {
             </Col>
           </Row>
           <Tabs defaultActiveKey={1} id="shop-dashboard-tab">
-            <Tab eventKey={1} title="Calander">
+            <Tab eventKey={1} title="Calendar">
               <CalendarTab
                 {...this.props}
                 {...this.state}

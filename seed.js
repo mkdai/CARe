@@ -101,7 +101,6 @@ db
         name: "Jiffy Lube",
         address: "700 North La Brea Ave\nLos Angeles, CA 90038",
         email: "jhwang137@gmail.com",
-        calendar_id: "028c71b7-6ea2-450d-b1d5-4f26b828c4ab",
         tk_api_token: "6G7Xm3jDg36Km4jDgPR4yhMaQxzmjJgq",
         phone: "(323) 937-7179",
         yelp_id: "jiffy-lube-los-angeles-3",
