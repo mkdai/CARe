@@ -14,6 +14,11 @@ class ReviewEntry extends Component {
             <div>
               <img id="review-pic" src={this.props.review.user.profilePic} />
             </div>
+            {this.props.review.verified ? (
+              <div>
+                ( Verified <img src="img/wrench-full.png" className="icon" />)
+              </div>
+            ) : null}
           </Col>
           <Col lg={6} md={6} xs={9} sm={9}>
             <div className="review-rating">
